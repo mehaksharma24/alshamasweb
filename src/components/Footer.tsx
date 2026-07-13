@@ -1,6 +1,6 @@
+import { Facebook, Instagram, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useState } from 'react';
-import { Instagram, Facebook, Mail, Phone, MapPin, Send } from 'lucide-react';
-import { BRAND } from '../assets';
+import logo from '../logo.png'; // ✅ your real logo
 
 interface FooterProps {
   navigate: (path: string) => void;
@@ -25,23 +25,22 @@ export default function Footer({ navigate }: FooterProps) {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-full bg-white/15 border border-white/25 flex items-center justify-center overflow-hidden">
-                {BRAND.logoUrl
-                  ? <img src={BRAND.logoUrl} alt="Al Shamas" className="w-full h-full object-contain p-1" />
-                  : <span className="text-white font-serif font-bold text-lg">A</span>
-                }
-              </div>
-              <div>
-                <div className="text-white font-serif font-bold text-lg leading-tight">Al Shamas</div>
-                <div className="text-brand-orange-light text-xs tracking-wider uppercase opacity-90">Food Products</div>
-              </div>
+              {/* 🔥 Replaced circle + text with full logo */}
+              <img
+                src={logo}
+                alt="Al Shamas"
+                className="w-32 h-auto object-contain"  // adjust size if needed
+              />
             </div>
+
             <p className="text-white/60 text-sm leading-relaxed mb-5">
               Canada's trusted halal frozen food brand since 1993. Premium quality, authentic flavours, 31+ years of excellence.
             </p>
+
             <div className="flex gap-3">
               <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-orange flex items-center justify-center text-white/70 hover:text-white transition-all">
                 <Instagram size={15} />
@@ -148,7 +147,7 @@ export default function Footer({ navigate }: FooterProps) {
             &copy; {new Date().getFullYear()} Al Shamas Food Products Inc. All rights reserved.
           </p>
           <p className="text-white/40 text-xs">
-            Proudly Canadian &bull; Since 1993 &bull; Halal Certified
+            Proudly Canadian • Since 1993 • Halal Certified
           </p>
         </div>
       </div>
