@@ -1,16 +1,48 @@
 import { ArrowRight, Award, Clock, Leaf, Star } from 'lucide-react';
-import { HERO_IMAGE, RETAILER_LOGOS as RETAILER_LOGO_MAP } from '../assets';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCTS, RECIPES } from '../data';
+
+// ONLY CHANGE: Hero banner now uses homebanner.png from images/products
+const HERO_IMAGE = new URL(
+  '../../images/products/homebanner.png',
+  import.meta.url
+).href;
 
 interface HomePageProps {
   navigate: (path: string) => void;
 }
 
+// Retailer logos are loaded directly from /images/products.
+// These files should be in the project's root images/products folder.
+const RETAILER_LOGO_MAP: Record<string, string> = {
+  'Freshco': new URL('../../images/products/Freshco.png', import.meta.url).href,
+  'Nation Fresh Foods': new URL('../../images/products/Nation Fresh Foods.png', import.meta.url).href,
+  'Nations Fresh Foods': new URL('../../images/products/Nation Fresh Foods.png', import.meta.url).href,
+  'T&T Supermarket': new URL('../../images/products/TT supermarket.png', import.meta.url).href,
+  'Adonis': new URL('../../images/products/adonis.png', import.meta.url).href,
+  'Food Basics': new URL('../../images/products/Food Basics.png', import.meta.url).href,
+  'Metro': new URL('../../images/products/metro.png', import.meta.url).href,
+  'Bulk Barn': new URL('../../images/products/Bulk Barn.png', import.meta.url).href,
+  'Costco': new URL('../../images/products/Costco.png', import.meta.url).href,
+  'Walmart': new URL('../../images/products/walmart.png', import.meta.url).href,
+  'Sobeys': new URL('../../images/products/sobeys.png', import.meta.url).href,
+  'Loblaws': new URL('../../images/products/loblaws.png', import.meta.url).href,
+  'Iqbal Foods': new URL('../../images/products/Iqbal foods.png', import.meta.url).href,
+};
+
 const RETAILER_NAMES = [
-  'Freshco', 'Iqbal Foods', 'Nations Fresh Foods', 'T&T Supermarket',
-  'Adonis', 'Food Basics', 'Metro', 'Bulk Barn', 'Costco', 'Walmart',
-  'Sobeys', 'Loblaws',
+  'Freshco',
+  'Iqbal Foods',
+  'Nations Fresh Foods',
+  'T&T Supermarket',
+  'Adonis',
+  'Food Basics',
+  'Metro',
+  'Bulk Barn',
+  'Costco',
+  'Walmart',
+  'Sobeys',
+  'Loblaws',
 ];
 
 const FEATURED_IDS = ['1', '4', '5', '6', '11', '12'];
@@ -27,6 +59,7 @@ export default function HomePage({ navigate }: HomePageProps) {
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
         />
+
         <div className="absolute inset-0 bg-white/80"></div>
 
         {/* Decorative circles */}
@@ -37,16 +70,24 @@ export default function HomePage({ navigate }: HomePageProps) {
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
-              <Star size={12} fill="currentColor" /> Canada's #1 Halal Frozen Foods
+              <Star size={12} fill="currentColor" />
+              Canada's #1 Halal Frozen Foods
             </div>
+
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-              Canada's Premium<br />
-              <span className="text-brand-red">Halal</span> Frozen<br />
+              Canada's Premium
+              <br />
+              <span className="text-brand-red">Halal</span> Frozen
+              <br />
               <span className="text-brand-green">Foods</span>
             </h1>
+
             <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
-              Authentic flavours crafted with the finest halal ingredients — no MSG, no preservatives, no artificial additives. Trusted by Canadian families for 31+ years.
+              Authentic flavours crafted with the finest halal ingredients — no
+              MSG, no preservatives, no artificial additives. Trusted by
+              Canadian families for 31+ years.
             </p>
+
             <div className="flex flex-wrap gap-3">
               <button
                 onClick={() => navigate('/products')}
@@ -54,6 +95,7 @@ export default function HomePage({ navigate }: HomePageProps) {
               >
                 Shop Products <ArrowRight size={16} />
               </button>
+
               <button
                 onClick={() => navigate('/our-story')}
                 className="flex items-center gap-2 px-7 py-3.5 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all border border-gray-200 text-sm"
@@ -70,13 +112,21 @@ export default function HomePage({ navigate }: HomePageProps) {
                 { icon: Star, label: 'No MSG', sub: 'or preservatives' },
                 { icon: Clock, label: 'Ready', sub: 'in minutes' },
               ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-2xl px-3 py-2 shadow-sm">
+                <div
+                  key={label}
+                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-2xl px-3 py-2 shadow-sm"
+                >
                   <div className="w-7 h-7 rounded-full bg-brand-green-pale flex items-center justify-center">
                     <Icon size={14} className="text-brand-green" />
                   </div>
+
                   <div>
-                    <div className="text-xs font-bold text-gray-800 leading-tight">{label}</div>
-                    <div className="text-xs text-gray-400 leading-tight">{sub}</div>
+                    <div className="text-xs font-bold text-gray-800 leading-tight">
+                      {label}
+                    </div>
+                    <div className="text-xs text-gray-400 leading-tight">
+                      {sub}
+                    </div>
                   </div>
                 </div>
               ))}
@@ -89,17 +139,33 @@ export default function HomePage({ navigate }: HomePageProps) {
       <section className="py-10 bg-gray-50 relative overflow-hidden">
         <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
         <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
+
         <div className="text-center mb-6">
-          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase">Available At</p>
+          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase">
+            Available At
+          </p>
         </div>
+
         <div className="overflow-hidden">
-          <div className="flex animate-scroll-left gap-8" style={{ width: 'max-content' }}>
+          <div
+            className="flex animate-scroll-left gap-8"
+            style={{ width: 'max-content' }}
+          >
             {[...RETAILER_NAMES, ...RETAILER_NAMES].map((name, i) => (
-              <div key={i} className="flex items-center justify-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-sm min-w-[140px] border border-gray-100">
+              <div
+                key={i}
+                className="flex items-center justify-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-sm min-w-[140px] border border-gray-100"
+              >
                 {RETAILER_LOGO_MAP[name] ? (
-                  <img src={RETAILER_LOGO_MAP[name]} alt={name} className="h-6 w-auto object-contain" />
+                  <img
+                    src={RETAILER_LOGO_MAP[name]}
+                    alt={name}
+                    className="h-6 w-auto object-contain"
+                  />
                 ) : (
-                  <span className="text-gray-500 text-sm font-medium whitespace-nowrap">{name}</span>
+                  <span className="text-gray-500 text-sm font-medium whitespace-nowrap">
+                    {name}
+                  </span>
                 )}
               </div>
             ))}
@@ -117,8 +183,15 @@ export default function HomePage({ navigate }: HomePageProps) {
             <div className="inline-block bg-brand-orange-pale text-brand-orange text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
               Top Picks
             </div>
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">Featured Products</h2>
-            <p className="text-gray-500 max-w-md mx-auto text-sm">Our best-selling frozen favourites — made with halal ingredients and zero compromises.</p>
+
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
+              Featured Products
+            </h2>
+
+            <p className="text-gray-500 max-w-md mx-auto text-sm">
+              Our best-selling frozen favourites — made with halal ingredients
+              and zero compromises.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
@@ -136,16 +209,27 @@ export default function HomePage({ navigate }: HomePageProps) {
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
+
                   {product.tags.includes('Bestseller') && (
                     <div className="absolute top-2 left-2 bg-brand-red text-white text-xs font-semibold px-2 py-0.5 rounded-full">
                       Bestseller
                     </div>
                   )}
                 </div>
+
                 <div>
-                  <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">{product.category}</p>
-                  <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight mb-1">{product.name}</h3>
-                  <p className="text-xs text-gray-400">{product.weight}{product.pieces ? ` · ${product.pieces}` : ''}</p>
+                  <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
+                    {product.category}
+                  </p>
+
+                  <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight mb-1">
+                    {product.name}
+                  </h3>
+
+                  <p className="text-xs text-gray-400">
+                    {product.weight}
+                    {product.pieces ? ` · ${product.pieces}` : ''}
+                  </p>
                 </div>
               </button>
             ))}
@@ -167,12 +251,18 @@ export default function HomePage({ navigate }: HomePageProps) {
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-brand-green-pale rounded-full opacity-30"></div>
         </div>
+
         <div className="max-w-3xl mx-auto px-4 text-center relative">
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-gray-800 leading-snug mb-4">
-            "From our kitchen to yours — <span className="text-brand-red italic">authenticity</span> in every bite."
+            "From our kitchen to yours —{' '}
+            <span className="text-brand-red italic">authenticity</span> in every
+            bite."
           </h2>
+
           <p className="text-gray-500 text-sm leading-relaxed">
-            Every Al Shamas product is crafted with the same care and spice blends perfected over three decades — real ingredients, real flavour, real heritage.
+            Every Al Shamas product is crafted with the same care and spice
+            blends perfected over three decades — real ingredients, real
+            flavour, real heritage.
           </p>
         </div>
       </section>
@@ -186,8 +276,14 @@ export default function HomePage({ navigate }: HomePageProps) {
             <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
               Inspiration
             </div>
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">Recipe Ideas</h2>
-            <p className="text-gray-500 text-sm">Creative ways to use Al Shamas products at home.</p>
+
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
+              Recipe Ideas
+            </h2>
+
+            <p className="text-gray-500 text-sm">
+              Creative ways to use Al Shamas products at home.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -204,14 +300,27 @@ export default function HomePage({ navigate }: HomePageProps) {
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
+
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs text-brand-orange font-semibold">{recipe.time}</span>
+                    <span className="text-xs text-brand-orange font-semibold">
+                      {recipe.time}
+                    </span>
+
                     <span className="text-gray-300">·</span>
-                    <span className="text-xs text-gray-400">{recipe.difficulty}</span>
+
+                    <span className="text-xs text-gray-400">
+                      {recipe.difficulty}
+                    </span>
                   </div>
-                  <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight">{recipe.title}</h3>
-                  <p className="text-xs text-gray-400 mt-1">Uses: {recipe.product}</p>
+
+                  <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight">
+                    {recipe.title}
+                  </h3>
+
+                  <p className="text-xs text-gray-400 mt-1">
+                    Uses: {recipe.product}
+                  </p>
                 </div>
               </button>
             ))}

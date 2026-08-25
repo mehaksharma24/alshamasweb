@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { Search, SlidersHorizontal, X } from 'lucide-react';
-import { PRODUCTS, CATEGORIES } from '../data';
+import { useState } from 'react';
 import NewsletterBanner from '../components/NewsletterBanner';
+import { CATEGORIES, PRODUCTS } from '../data';
 
 interface ProductsPageProps {
   navigate: (path: string) => void;
@@ -127,7 +127,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
                         <img
                           src={product.image}
                           alt={product.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                         />
                       </div>
                       {product.tags.includes('Bestseller') && (

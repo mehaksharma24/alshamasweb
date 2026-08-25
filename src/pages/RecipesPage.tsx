@@ -1,7 +1,7 @@
+import { Clock, Search, SlidersHorizontal, Users, X } from 'lucide-react';
 import { useState } from 'react';
-import { Search, SlidersHorizontal, X, Clock, Users } from 'lucide-react';
-import { RECIPES } from '../data';
 import NewsletterBanner from '../components/NewsletterBanner';
+import { RECIPES } from '../data';
 
 interface RecipesPageProps {
   navigate: (path: string) => void;
@@ -111,7 +111,7 @@ export default function RecipesPage({ navigate }: RecipesPageProps) {
                     className="group text-left bg-white rounded-3xl overflow-hidden border border-gray-100 shadow-sm hover:shadow-2xl hover:-translate-y-2 hover:border-brand-orange/30 transition-all duration-300"
                   >
                     <div className="relative aspect-video overflow-hidden">
-                      <img src={recipe.image} alt={recipe.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <img src={recipe.image} alt={recipe.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                       <div className="absolute top-3 left-3 flex gap-2">
                         <span className="bg-white/90 backdrop-blur-sm text-brand-orange text-xs font-semibold px-2 py-1 rounded-full">{recipe.difficulty}</span>
                       </div>

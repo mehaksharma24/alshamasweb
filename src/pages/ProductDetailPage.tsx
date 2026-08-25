@@ -1,6 +1,6 @@
 import { ArrowLeft, ArrowRight, Leaf } from 'lucide-react';
-import { PRODUCTS } from '../data';
 import NewsletterBanner from '../components/NewsletterBanner';
+import { PRODUCTS } from '../data';
 
 interface ProductDetailPageProps {
   slug: string;
@@ -53,7 +53,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
             {/* Image */}
             <div className="relative">
               <div className="rounded-3xl overflow-hidden shadow-xl bg-gray-50 aspect-square">
-                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                <img src={product.image} alt={product.name} className="w-full h-full object-contain" />
               </div>
               {product.tags.includes('Bestseller') && (
                 <div className="absolute top-4 left-4 bg-brand-red text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
@@ -124,7 +124,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
                   className="group text-left bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg hover:border-brand-red/20 transition-all duration-300"
                 >
                   <div className="aspect-square overflow-hidden bg-gray-50">
-                    <img src={p.image} alt={p.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={p.image} alt={p.name} className="w-full h-full object-coNTAIN group-hover:scale-105 transition-transform duration-500" />
                   </div>
                   <div className="p-3">
                     <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-0.5">{p.category}</p>
