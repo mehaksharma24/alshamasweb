@@ -3,10 +3,7 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCTS, RECIPES } from '../data';
 
 // ONLY CHANGE: Hero banner now uses homebanner.png from images/products
-const HERO_IMAGE = new URL(
-  '../../images/products/homebanner.png',
-  import.meta.url
-).href;
+const HERO_IMAGE = '/images/products/homebanner.png';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -15,19 +12,19 @@ interface HomePageProps {
 // Retailer logos are loaded directly from /images/products.
 // These files should be in the project's root images/products folder.
 const RETAILER_LOGO_MAP: Record<string, string> = {
-  'Freshco': new URL('../../images/products/Freshco.png', import.meta.url).href,
-  'Nation Fresh Foods': new URL('../../images/products/Nation Fresh Foods.png', import.meta.url).href,
-  'Nations Fresh Foods': new URL('../../images/products/Nation Fresh Foods.png', import.meta.url).href,
-  'T&T Supermarket': new URL('../../images/products/TT supermarket.png', import.meta.url).href,
-  'Adonis': new URL('../../images/products/adonis.png', import.meta.url).href,
-  'Food Basics': new URL('../../images/products/Food Basics.png', import.meta.url).href,
-  'Metro': new URL('../../images/products/metro.png', import.meta.url).href,
-  'Bulk Barn': new URL('../../images/products/Bulk Barn.png', import.meta.url).href,
-  'Costco': new URL('../../images/products/Costco.png', import.meta.url).href,
-  'Walmart': new URL('../../images/products/walmart.png', import.meta.url).href,
-  'Sobeys': new URL('../../images/products/sobeys.png', import.meta.url).href,
-  'Loblaws': new URL('../../images/products/loblaws.png', import.meta.url).href,
-  'Iqbal Foods': new URL('../../images/products/Iqbal foods.png', import.meta.url).href,
+  'Freshco': '/images/products/Freshco.png',
+  'Nation Fresh Foods': '/images/products/Nation Fresh Foods.png',
+  'Nations Fresh Foods': '/images/products/Nation Fresh Foods.png',
+  'T&T Supermarket': '/images/products/TT supermarket.png',
+  'Adonis': '/images/products/adonis.png',
+  'Food Basics': '/images/products/Food Basics.png',
+  'Metro': '/images/products/metro.png',
+  'Bulk Barn': '/images/products/Bulk Barn.png',
+  'Costco': '/images/products/Costco.png',
+  'Walmart': '/images/products/walmart.png',
+  'Sobeys': '/images/products/sobeys.png',
+  'Loblaws': '/images/products/loblaws.png',
+  'Iqbal Foods': '/images/products/Iqbal Foods.png',
 };
 
 const RETAILER_NAMES = [
@@ -160,7 +157,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                   <img
                     src={RETAILER_LOGO_MAP[name]}
                     alt={name}
-                    className="h-6 w-auto object-contain"
+                    className="h-11 w-auto object-contain"
                   />
                 ) : (
                   <span className="text-gray-500 text-sm font-medium whitespace-nowrap">
