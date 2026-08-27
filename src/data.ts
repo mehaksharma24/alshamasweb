@@ -1,6 +1,4 @@
 export const PRODUCT_IMAGES: Record<string, string> = {
-  // --- UPDATED WITH NEW IMAGES (matched by name similarity) ---
-
   // Sheekh Kebabs
   'beef-sheekh-kebab-560g':
     '/images/products/3D Box-Alshamas-BeefSheekhKebab_8Pcs.png',
@@ -29,7 +27,7 @@ export const PRODUCT_IMAGES: Record<string, string> = {
   'chicken-kafta-kebab-400g':
     '/images/products/3D Box-Alshamas-ChickenKaftaKebab_10Pcs.png',
 
-  // Tikka & Paratha
+  // Tikka and Paratha
   'tandoori-chicken-tikka':
     '/images/products/tandoori-chicken-tikka.jpg',
   'plain-paratha':
@@ -57,7 +55,7 @@ export const PRODUCT_IMAGES: Record<string, string> = {
   'mutton-spring-roll':
     '/images/products/3D Box-Alshamas-MuttonSpringRoll_40Pcs.png',
 
-  // --- PRODUCTS WITHOUT NEW IMAGES ---
+  // Other products
   'lamb-charcoal-grilled-kebab-2kg':
     '/images/products/lamb-charcoal-grilled-kebab-2kg.jpg',
   'chicken-tandoori-kebab-560g':
@@ -75,16 +73,21 @@ export const PRODUCT_IMAGES: Record<string, string> = {
 export const RECIPE_IMAGES: Record<string, string> = {
   'kebab-wraps-with-mint-chutney':
     '/images/products/Kebab Wraps with Mint Chutney.png',
+
   'charcoal-kebab-rice-bowl':
     '/images/products/Charcoal Kebab Rice Bowl.png',
+
   'samosa-chaat':
     '/images/products/Samosa Chaat.png',
+
   'tikka-naan-pizza':
     '/images/products/Tikka Naan Pizza.png',
-  'paratha-french-toast':
-    '/images/products/Paratha French Toast.png',
+
   'chapli-kebab-burger':
     '/images/products/Chapli Kebab Burger.png',
+
+  'al-shamas-snack-platter':
+    '/images/products/Al Shamas Snack Platter.png',
 };
 
 export interface Product {
@@ -142,7 +145,6 @@ export interface Store {
 }
 
 export const PRODUCTS: Product[] = [
-  // ---------- KABABS ----------
   {
     id: '1',
     slug: 'beef-sheekh-kebab-560g',
@@ -151,7 +153,7 @@ export const PRODUCTS: Product[] = [
     weight: '560 g',
     pieces: '13 pieces',
     description:
-      'Hand-formed beef sheekh kebabs made from premium cuts and time-honoured spice blends, crafted to keep that authentic homemade taste in every bite.',
+      'Hand-formed beef sheekh kebabs made from premium cuts and time-honoured spice blends.',
     ingredients:
       'Beef, onion, cilantro, green chili, ginger, garlic, cumin, coriander, garam masala, salt.',
     image: PRODUCT_IMAGES['beef-sheekh-kebab-560g'],
@@ -174,7 +176,7 @@ export const PRODUCTS: Product[] = [
     weight: '560 g',
     pieces: '13 pieces',
     description:
-      'Tender ground chicken blended with aromatic spices and herbs, hand-formed on skewers to preserve an authentic, homemade taste in every bite.',
+      'Tender ground chicken blended with aromatic spices and herbs.',
     ingredients:
       'Chicken, onion, cilantro, green chili, ginger, garlic, cumin, coriander, garam masala, salt.',
     image: PRODUCT_IMAGES['chicken-sheekh-kebab-560g'],
@@ -197,7 +199,7 @@ export const PRODUCTS: Product[] = [
     weight: '2 kg',
     pieces: '40 pieces',
     description:
-      'Rich, tender lamb kebabs grilled over real charcoal for a deep smoky flavour, packed in a generous catering-size portion.',
+      'Rich and tender lamb kebabs grilled over charcoal for a deep smoky flavour.',
     ingredients:
       'Lamb, charcoal smoked spice blend, onion, garlic, ginger, cumin, salt.',
     image: PRODUCT_IMAGES['lamb-charcoal-grilled-kebab-2kg'],
@@ -220,7 +222,7 @@ export const PRODUCTS: Product[] = [
     weight: '560 g',
     pieces: '13 pieces',
     description:
-      'Fully cooked beef kebabs finished with real charcoal smoke for deep, robust flavour, ready to eat within minutes. Also available in 345 g.',
+      'Fully cooked beef kebabs finished with real charcoal smoke.',
     ingredients:
       'Beef, charcoal smoked spice blend, onion, garlic, ginger, cumin, salt.',
     image: PRODUCT_IMAGES['beef-charcoal-kebab-560g'],
@@ -243,7 +245,7 @@ export const PRODUCTS: Product[] = [
     weight: '560 g',
     pieces: '13 pieces',
     description:
-      'Fully cooked chicken kebabs finished with real charcoal smoke for a mouthwatering flavour, ready to eat within minutes. Also available in 345 g.',
+      'Fully cooked chicken kebabs finished with real charcoal smoke.',
     ingredients:
       'Chicken, charcoal smoked spice blend, onion, garlic, ginger, cumin, salt.',
     image: PRODUCT_IMAGES['chicken-charcoal-kebab-560g'],
@@ -266,7 +268,7 @@ export const PRODUCTS: Product[] = [
     weight: '450 g',
     pieces: '6 pieces',
     description:
-      'Jumbo Peshwari-style chappal kebabs handmade from premium beef and a traditional whole-spice blend for an authentic street-food taste.',
+      'Jumbo Peshwari-style chappal kebabs made from premium beef.',
     ingredients:
       'Beef, onion, tomato, egg, green chili, pomegranate seeds, fresh herbs, salt.',
     image: PRODUCT_IMAGES['beef-chappal-kebab-450g'],
@@ -289,7 +291,7 @@ export const PRODUCTS: Product[] = [
     weight: '450 g',
     pieces: '6 pieces',
     description:
-      'Jumbo Peshwari-style chappal kebabs handmade from premium chicken and a traditional whole-spice blend for an authentic street-food taste.',
+      'Jumbo Peshwari-style chappal kebabs made from premium chicken.',
     ingredients:
       'Chicken, onion, tomato, egg, green chili, pomegranate seeds, fresh herbs, salt.',
     image: PRODUCT_IMAGES['chicken-chappal-kebab-450g'],
@@ -312,7 +314,7 @@ export const PRODUCTS: Product[] = [
     weight: '1 kg',
     pieces: '20 pieces',
     description:
-      'Flat, disc-shaped Peshwari beef kebabs made with a signature spice blend — crispy outside, juicy inside, and perfect for gatherings.',
+      'Flat Peshwari beef kebabs that are crispy outside and juicy inside.',
     ingredients:
       'Beef, tomato, onion, egg, green chili, dried pomegranate seeds, cumin, coriander, salt.',
     image: PRODUCT_IMAGES['beef-chapli-kebab-1kg'],
@@ -335,7 +337,7 @@ export const PRODUCTS: Product[] = [
     weight: '1 kg',
     pieces: '20 pieces',
     description:
-      'Flat, disc-shaped Peshwari chicken kebabs made with a signature spice blend — crispy outside, juicy inside, and perfect for gatherings.',
+      'Flat Peshwari chicken kebabs that are crispy outside and juicy inside.',
     ingredients:
       'Chicken, tomato, onion, egg, green chili, dried pomegranate seeds, cumin, coriander, salt.',
     image: PRODUCT_IMAGES['chicken-chapli-kebab-1kg'],
@@ -358,7 +360,7 @@ export const PRODUCTS: Product[] = [
     weight: '560 g',
     pieces: '13 pieces',
     description:
-      'Chicken kebabs marinated in a rich tandoori spice blend and slow-grilled to deliver bold, smoky, authentic tandoori flavour.',
+      'Chicken kebabs marinated in a rich tandoori spice blend.',
     ingredients:
       'Chicken, yogurt, tandoori spice blend, ginger, garlic, red chili, lemon juice, salt.',
     image: PRODUCT_IMAGES['chicken-tandoori-kebab-560g'],
@@ -381,7 +383,7 @@ export const PRODUCTS: Product[] = [
     weight: '400 g',
     pieces: '10 pieces',
     description:
-      'Middle Eastern-style chicken kafta kebabs, seasoned with warm spices and fresh herbs for a fragrant, juicy bite.',
+      'Middle Eastern-style chicken kafta kebabs seasoned with warm spices.',
     ingredients:
       'Chicken, onion, parsley, garlic, allspice, cumin, coriander, salt.',
     image: PRODUCT_IMAGES['chicken-kafta-kebab-400g'],
@@ -397,13 +399,36 @@ export const PRODUCTS: Product[] = [
   },
 
   {
+    id: '12',
+    slug: 'meat-charcoal-kebab-cooked-560g',
+    name: 'Meat Charcoal Kebab (Cooked)',
+    category: 'Kababs',
+    weight: '560 g',
+    pieces: '13 pieces',
+    description:
+      'Fully cooked charcoal-smoked meat kebabs ready to heat and serve.',
+    ingredients:
+      'Beef, chicken, charcoal smoked spice blend, onion, garlic, ginger, cumin, salt.',
+    image: PRODUCT_IMAGES['meat-charcoal-kebab-cooked-560g'],
+    tags: ['Halal', 'Charcoal Smoked', 'Ready to Eat'],
+    nutrition: {
+      calories: 235,
+      protein: '19g',
+      fat: '14g',
+      carbs: '4g',
+      sodium: '410mg',
+      servingSize: '2 pieces (90g)',
+    },
+  },
+
+  {
     id: '21',
     slug: 'tandoori-chicken-tikka',
     name: 'Tandoori Chicken Tikka',
     category: 'Tikka & Grills',
     weight: '560 g',
     description:
-      'Tender chicken tikka marinated in a rich tandoori spice blend and grilled for bold, smoky flavour.',
+      'Tender chicken tikka marinated in a rich tandoori spice blend.',
     ingredients:
       'Chicken, yogurt, tandoori spice blend, ginger, garlic, red chili, lemon juice, salt.',
     image: PRODUCT_IMAGES['tandoori-chicken-tikka'],
@@ -426,7 +451,7 @@ export const PRODUCTS: Product[] = [
     weight: '1 kg',
     pieces: '20 pieces',
     description:
-      'Flaky, layered frozen parathas that cook golden and crisp in minutes.',
+      'Flaky layered frozen parathas that cook golden and crisp in minutes.',
     ingredients:
       'Wheat flour, vegetable oil, water, salt.',
     image: PRODUCT_IMAGES['plain-paratha'],
@@ -442,31 +467,6 @@ export const PRODUCTS: Product[] = [
   },
 
   {
-    id: '12',
-    slug: 'meat-charcoal-kebab-cooked-560g',
-    name: 'Meat Charcoal Kebab (Cooked)',
-    category: 'Kababs',
-    weight: '560 g',
-    pieces: '13 pieces',
-    description:
-      'A fully cooked, charcoal-smoked meat kebab blend ready to heat and serve within minutes, with deep smoky flavour throughout.',
-    ingredients:
-      'Beef, chicken, charcoal smoked spice blend, onion, garlic, ginger, cumin, salt.',
-    image: PRODUCT_IMAGES['meat-charcoal-kebab-cooked-560g'],
-    tags: ['Halal', 'Charcoal Smoked', 'Ready to Eat'],
-    nutrition: {
-      calories: 235,
-      protein: '19g',
-      fat: '14g',
-      carbs: '4g',
-      sodium: '410mg',
-      servingSize: '2 pieces (90g)',
-    },
-  },
-
-  // ---------- SPRING ROLLS ----------
-
-  {
     id: '23',
     slug: 'chicken-spring-roll',
     name: 'Chicken Spring Rolls',
@@ -474,7 +474,7 @@ export const PRODUCTS: Product[] = [
     weight: '1.2 kg',
     pieces: '40 pieces',
     description:
-      'Crispy golden spring rolls filled with seasoned chicken, vegetables, and aromatic spices. Perfect as a quick snack, appetizer, or party favourite.',
+      'Crispy golden spring rolls filled with seasoned chicken and vegetables.',
     ingredients:
       'Chicken, cabbage, carrot, onion, spring onion, wheat flour, vegetable oil, garlic, ginger, black pepper, soy sauce, salt.',
     image: PRODUCT_IMAGES['chicken-spring-roll'],
@@ -497,7 +497,7 @@ export const PRODUCTS: Product[] = [
     weight: '1.2 kg',
     pieces: '40 pieces',
     description:
-      'Crispy golden spring rolls packed with savoury seasoned beef, vegetables, and aromatic spices for a delicious and satisfying bite.',
+      'Crispy golden spring rolls filled with seasoned beef and vegetables.',
     ingredients:
       'Beef, cabbage, carrot, onion, spring onion, wheat flour, vegetable oil, garlic, ginger, black pepper, soy sauce, salt.',
     image: PRODUCT_IMAGES['beef-spring-roll'],
@@ -520,7 +520,7 @@ export const PRODUCTS: Product[] = [
     weight: '1.2 kg',
     pieces: '40 pieces',
     description:
-      'Golden crispy spring rolls filled with tender seasoned mutton, vegetables, and aromatic spices for a rich and flavourful snack.',
+      'Golden spring rolls filled with seasoned mutton and vegetables.',
     ingredients:
       'Mutton, cabbage, carrot, onion, spring onion, wheat flour, vegetable oil, garlic, ginger, black pepper, coriander, cumin, salt.',
     image: PRODUCT_IMAGES['mutton-spring-roll'],
@@ -534,37 +534,227 @@ export const PRODUCTS: Product[] = [
       servingSize: '2 pieces (60g)',
     },
   },
+
+  {
+    id: '26',
+    slug: 'chicken-samosa-1-5kg',
+    name: 'Chicken Samosas',
+    category: 'Samosas',
+    weight: '1.5 kg',
+    pieces: '40 pieces',
+    description:
+      'Crispy pastry triangles filled with seasoned chicken and vegetables.',
+    ingredients:
+      'Chicken, onion, potato, peas, wheat flour, vegetable oil, ginger, garlic, green chili, cumin, coriander, garam masala, salt.',
+    image: PRODUCT_IMAGES['chicken-samosa-1-5kg'],
+    tags: ['Halal', 'Chicken', '40 Pieces'],
+    nutrition: {
+      calories: 190,
+      protein: '8g',
+      fat: '9g',
+      carbs: '21g',
+      sodium: '370mg',
+      servingSize: '2 pieces (70g)',
+    },
+  },
 ];
 
 export const RECIPES: Recipe[] = [
   {
-    id: '6',
+    id: '1',
+    slug: 'kebab-wraps-with-mint-chutney',
+    title: 'Kebab Wraps with Mint Chutney',
+    product: 'Chicken Sheekh Kebab',
+    productId: '2',
+    time: '25 min',
+    servings: 4,
+    difficulty: 'Easy',
+    image: RECIPE_IMAGES['kebab-wraps-with-mint-chutney'],
+    description:
+      'Wrap juicy Al Shamas Chicken Sheekh Kebabs with crisp vegetables and refreshing mint chutney.',
+    ingredients: [
+      '8 Al Shamas Chicken Sheekh Kebabs',
+      '4 large wraps or flatbreads',
+      '1 cup shredded lettuce',
+      '1 tomato, thinly sliced',
+      '1/2 red onion, thinly sliced',
+      '1/2 cucumber, cut into strips',
+      '1/2 cup mint chutney',
+      '1/2 cup garlic yogurt sauce',
+      'Lemon wedges',
+    ],
+    instructions: [
+      'Cook the Al Shamas Chicken Sheekh Kebabs according to the package instructions until hot and lightly charred.',
+      'Warm the wraps in a dry pan for 20 seconds per side.',
+      'Spread mint chutney and garlic yogurt sauce down the centre of each wrap.',
+      'Add lettuce, tomato, onion, cucumber, and two kebabs.',
+      'Fold in the sides, roll tightly, and slice in half.',
+      'Serve immediately with lemon wedges and extra mint chutney.',
+    ],
+    nutrition: {
+      calories: 430,
+      protein: '27g',
+      fat: '17g',
+      carbs: '43g',
+    },
+    tags: ['Wraps', 'Chicken', 'Lunch'],
+  },
+
+  {
+    id: '2',
+    slug: 'charcoal-kebab-rice-bowl',
+    title: 'Charcoal Kebab Rice Bowl',
+    product: 'Chicken Charcoal Kebab',
+    productId: '5',
+    time: '30 min',
+    servings: 4,
+    difficulty: 'Easy',
+    image: RECIPE_IMAGES['charcoal-kebab-rice-bowl'],
+    description:
+      'A colourful rice bowl topped with smoky Al Shamas Chicken Charcoal Kebabs and fresh vegetables.',
+    ingredients: [
+      '8 Al Shamas Chicken Charcoal Kebabs',
+      '3 cups cooked basmati rice',
+      '1 cucumber, diced',
+      '1 cup cherry tomatoes, halved',
+      '1/2 red onion, thinly sliced',
+      '1 cup shredded lettuce',
+      '1/2 cup garlic yogurt sauce',
+      'Fresh coriander',
+      'Lemon wedges',
+    ],
+    instructions: [
+      'Cook the Al Shamas Chicken Charcoal Kebabs according to the package instructions until hot and lightly charred.',
+      'Divide the warm basmati rice among four bowls.',
+      'Arrange cucumber, tomatoes, onion, and lettuce around the rice.',
+      'Slice the kebabs and place them over each bowl.',
+      'Drizzle with garlic yogurt sauce and garnish with coriander.',
+      'Serve hot with lemon wedges.',
+    ],
+    nutrition: {
+      calories: 510,
+      protein: '31g',
+      fat: '16g',
+      carbs: '59g',
+    },
+    tags: ['Rice Bowl', 'Chicken', 'Dinner'],
+  },
+
+  {
+    id: '3',
+    slug: 'samosa-chaat',
+    title: 'Samosa Chaat',
+    product: 'Chicken Samosas',
+    productId: '26',
+    time: '25 min',
+    servings: 4,
+    difficulty: 'Easy',
+    image: RECIPE_IMAGES['samosa-chaat'],
+    description:
+      'Crispy Al Shamas Chicken Samosas layered with chickpeas, yogurt, chutneys, herbs, and sev.',
+    ingredients: [
+      '8 Al Shamas Chicken Samosas',
+      '1 cup cooked chickpeas',
+      '1 cup plain yogurt, whisked',
+      '1/3 cup tamarind chutney',
+      '1/3 cup mint chutney',
+      '1 small red onion, finely chopped',
+      '1 small tomato, finely chopped',
+      '1/4 cup sev',
+      '1 tsp chaat masala',
+      'Fresh coriander',
+    ],
+    instructions: [
+      'Cook the Al Shamas Chicken Samosas according to the package instructions until crisp and golden.',
+      'Arrange the hot samosas on a serving plate and gently break each one open.',
+      'Spoon the chickpeas and whisked yogurt over the samosas.',
+      'Drizzle with tamarind chutney and mint chutney.',
+      'Top with onion, tomato, sev, chaat masala, and coriander.',
+      'Serve immediately while the samosas remain crisp.',
+    ],
+    nutrition: {
+      calories: 460,
+      protein: '18g',
+      fat: '19g',
+      carbs: '55g',
+    },
+    tags: ['Samosa', 'Chicken', 'Chaat'],
+  },
+
+  {
+    id: '4',
+    slug: 'tikka-naan-pizza',
+    title: 'Tikka Naan Pizza',
+    product: 'Chicken Kafta Kebab',
+    productId: '11',
+    time: '35 min',
+    servings: 4,
+    difficulty: 'Easy',
+    image: RECIPE_IMAGES['tikka-naan-pizza'],
+    description:
+      'Naan pizza topped with Al Shamas Chicken Kafta Kebabs coated in tandoori sauce, peppers, onion, and melted cheese.',
+    ingredients: [
+      '8 Al Shamas Chicken Kafta Kebabs',
+      '1/2 cup tandoori sauce',
+      '4 naan breads',
+      '3/4 cup pizza sauce',
+      '2 cups shredded mozzarella',
+      '1/2 red onion, thinly sliced',
+      '1 bell pepper, thinly sliced',
+      '1/4 cup fresh coriander',
+      'Chili flakes to taste',
+    ],
+    instructions: [
+      'Preheat the oven to 220°C or 425°F and line a baking tray.',
+      'Coat the Al Shamas Chicken Kafta Kebabs evenly with the tandoori sauce.',
+      'Let the coated Chicken Kafta Kebabs marinate for 10 minutes.',
+      'Cook the marinated Chicken Kafta Kebabs according to the package instructions until hot and lightly charred.',
+      'Cut the cooked Chicken Kafta Kebabs into bite-size pieces.',
+      'Place the naan breads on the prepared baking tray.',
+      'Spread each naan with pizza sauce.',
+      'Top with mozzarella, tandoori-coated Chicken Kafta pieces, red onion, and bell pepper.',
+      'Bake for 8–10 minutes until the cheese melts and the naan edges become crisp.',
+      'Garnish with fresh coriander and chili flakes before serving.',
+    ],
+    nutrition: {
+      calories: 550,
+      protein: '36g',
+      fat: '22g',
+      carbs: '52g',
+    },
+    tags: ['Pizza', 'Chicken', 'Dinner'],
+  },
+
+  {
+    id: '5',
     slug: 'chapli-kebab-burger',
     title: 'Chapli Kebab Burger',
-    product: 'Chicken Chapli Kebab',
+    product: 'Chicken Chappal Kebab',
     productId: '7',
     time: '20 min',
     servings: 4,
     difficulty: 'Easy',
     image: RECIPE_IMAGES['chapli-kebab-burger'],
     description:
-      'Stack a juicy Al Shamas Chicken Chapli Kebab in a toasted brioche bun with garlic sauce, pickles, and shredded cabbage.',
+      'A juicy Al Shamas Chicken Chappal Kebab served in a toasted brioche bun with garlic sauce and fresh toppings.',
     ingredients: [
-      '4 Al Shamas Chicken Chapli Kebabs',
+      '4 Al Shamas Chicken Chappal Kebabs',
       '4 brioche burger buns',
-      'Garlic yogurt sauce',
-      'Shredded red cabbage',
-      'Sliced tomato',
-      'Pickled jalapeños',
-      'Lettuce',
+      '1/2 cup garlic yogurt sauce',
+      '1 cup shredded red cabbage',
+      '1 tomato, sliced',
+      '1/2 cup pickled jalapeños',
+      '4 lettuce leaves',
       'Lemon wedges',
     ],
     instructions: [
-      'Cook chapli kebabs from frozen on a hot griddle 5–6 min per side until charred and cooked through.',
-      'Toast buns cut-side down in the same pan.',
-      'Spread garlic sauce on both sides of the bun.',
-      'Layer lettuce, cabbage, tomato, and kebab.',
-      'Top with jalapeños and serve with a lemon wedge.',
+      'Cook the Al Shamas Chicken Chappal Kebabs from frozen on a hot griddle for 5–6 minutes per side.',
+      'Make sure the kebabs are browned and completely cooked through.',
+      'Toast the burger buns cut-side down in the same pan.',
+      'Spread garlic yogurt sauce on both sides of each bun.',
+      'Layer lettuce, shredded cabbage, tomato, and one cooked kebab.',
+      'Top with pickled jalapeños and close the burger.',
+      'Serve immediately with lemon wedges.',
     ],
     nutrition: {
       calories: 490,
@@ -573,6 +763,50 @@ export const RECIPES: Recipe[] = [
       carbs: '48g',
     },
     tags: ['Burger', 'Chicken', 'Dinner'],
+  },
+
+  {
+    id: '6',
+    slug: 'al-shamas-snack-platter',
+    title: 'Al Shamas Snack Platter',
+    product: 'Al Shamas Assorted Snacks',
+    productId: '23',
+    time: '35 min',
+    servings: 6,
+    difficulty: 'Easy',
+    image: RECIPE_IMAGES['al-shamas-snack-platter'],
+    description:
+      'The ultimate party platter featuring four Al Shamas favourites: Chicken Spring Rolls, Chicken Chappal Kebabs, Chicken Sheekh Kebabs, and Tandoori Chicken Tikka.',
+    ingredients: [
+      '8 Al Shamas Chicken Spring Rolls',
+      '3 Al Shamas Chicken Chappal Kebabs',
+      '6 Al Shamas Chicken Sheekh Kebabs',
+      '400 g Al Shamas Tandoori Chicken Tikka',
+      '1 cup mint chutney',
+      '1 cup garlic yogurt dip',
+      '1 cucumber, sliced',
+      '1 small red onion, sliced into rings',
+      '2 lemons, cut into wedges',
+      'Fresh coriander for garnish',
+    ],
+    instructions: [
+      'Cook the Al Shamas Chicken Spring Rolls from frozen according to the package instructions until golden and crispy.',
+      'Pan-fry the Chicken Chappal Kebabs over medium heat until browned and cooked through.',
+      'Cut each cooked Chicken Chappal Kebab into wedges.',
+      'Grill or pan-fry the Chicken Sheekh Kebabs until heated through with light char marks.',
+      'Cook the Tandoori Chicken Tikka until hot, tender, and lightly charred around the edges.',
+      'Arrange all four cooked Al Shamas products in separate sections on a large serving board.',
+      'Add small bowls of mint chutney and garlic yogurt dip.',
+      'Fill the remaining spaces with cucumber, onion rings, lemon wedges, and fresh coriander.',
+      'Serve immediately as a hot party snack platter.',
+    ],
+    nutrition: {
+      calories: 540,
+      protein: '42g',
+      fat: '30g',
+      carbs: '28g',
+    },
+    tags: ['Snack Platter', 'Chicken', 'Party Food'],
   },
 ];
 
