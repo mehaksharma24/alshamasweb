@@ -69,15 +69,19 @@ export default function RecipeDetailPage({
 
           <div className="flex flex-wrap justify-center gap-4 mb-4">
 
-            <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
-              <Clock size={14} className="text-brand-orange" />
-              {recipe.time}
-            </span>
+            {recipe.time && (
+              <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                <Clock size={14} className="text-brand-orange" />
+                {recipe.time}
+              </span>
+            )}
 
-            <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
-              <Users size={14} className="text-brand-green" />
-              {recipe.servings} servings
-            </span>
+            {recipe.servings && (
+              <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                <Users size={14} className="text-brand-green" />
+                {recipe.servings} servings
+              </span>
+            )}
 
             <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
               <ChefHat size={14} className="text-brand-red" />
@@ -108,49 +112,9 @@ export default function RecipeDetailPage({
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            {/* Nutrition */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-
-              <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
-                Nutrition per Serving
-              </h2>
-
-              <div className="space-y-3">
-                {[
-                  {
-                    label: 'Calories',
-                    value: `${recipe.nutrition.calories} kcal`,
-                  },
-                  {
-                    label: 'Protein',
-                    value: recipe.nutrition.protein,
-                  },
-                  {
-                    label: 'Total Fat',
-                    value: recipe.nutrition.fat,
-                  },
-                  {
-                    label: 'Carbohydrates',
-                    value: recipe.nutrition.carbs,
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="flex justify-between items-center py-2 border-b border-gray-50 last:border-0"
-                  >
-                    <span className="text-sm text-gray-500">
-                      {item.label}
-                    </span>
-
-                    <span className="font-semibold text-gray-900 text-sm">
-                      {item.value}
-                    </span>
-                  </div>
-                ))}
-              </div>
-
               {/* Ingredients */}
-              <h3 className="font-serif text-lg font-semibold text-gray-900 mt-6 mb-3">
+              <h3 className="font-serif text-lg font-semibold text-gray-900 mb-3">
                 Ingredients
               </h3>
 

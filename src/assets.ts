@@ -18,8 +18,8 @@ export const BRAND = {
 export const HERO_IMAGE =
   'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=1600';
 
-export const SPLASH_BG_IMAGE =
-  'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=1600';
+// Same product line-up image as the home page banner.
+export const SPLASH_BG_IMAGE = '/images/products/homebanner-lineup.jpg';
 
 // ── Product images ───────────────────────────────────────────
 // Keys match product slugs for easy lookup.
@@ -55,23 +55,6 @@ export const PRODUCT_IMAGES: Record<string, string> = {
     'https://images.pexels.com/photos/1117862/pexels-photo-1117862.jpeg?auto=compress&cs=tinysrgb&w=800',
 };
 
-// ── Recipe images ────────────────────────────────────────────
-
-export const RECIPE_IMAGES: Record<string, string> = {
-  'kebab-wraps-with-mint-chutney':
-    'https://images.pexels.com/photos/6107787/pexels-photo-6107787.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'charcoal-kebab-rice-bowl':
-    'https://images.pexels.com/photos/2338407/pexels-photo-2338407.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'samosa-chaat':
-    'https://images.pexels.com/photos/9609847/pexels-photo-9609847.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'tikka-naan-pizza':
-    'https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'paratha-french-toast':
-    'https://images.pexels.com/photos/1640777/pexels-photo-1640777.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'chapli-kebab-burger':
-    'https://images.pexels.com/photos/1639557/pexels-photo-1639557.jpeg?auto=compress&cs=tinysrgb&w=800',
-};
-
 // ── Retailer / store chain logos ─────────────────────────────
 // These appear in the "Available At" marquee on the home page
 // and on store cards in the Locations page.
@@ -102,22 +85,10 @@ export const RETAILER_LOGOS: Record<string, string> = {
 export const STORY_PRODUCTION_IMAGE =
   'https://images.pexels.com/photos/4252137/pexels-photo-4252137.jpeg?auto=compress&cs=tinysrgb&w=800';
 
-// ── The Difference section images ────────────────────────────
+// ── Our Story: 100% Halal Certified image ────────────────────
 
-export const DIFFERENCE_IMAGES: Record<string, string> = {
-  '100% Halal Certified':
-    'https://images.pexels.com/photos/4252137/pexels-photo-4252137.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'No MSG':
-    'https://images.pexels.com/photos/2802527/pexels-photo-2802527.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'No Preservatives':
-    'https://images.pexels.com/photos/1640774/pexels-photo-1640774.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'No Artificial Nitrates':
-    'https://images.pexels.com/photos/616401/pexels-photo-616401.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'No Trans Fats':
-    'https://images.pexels.com/photos/1640775/pexels-photo-1640775.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'Natural & Sustainable Sourcing':
-    'https://images.pexels.com/photos/1300972/pexels-photo-1300972.jpeg?auto=compress&cs=tinysrgb&w=800',
-};
+export const HALAL_CERTIFIED_IMAGE =
+  'https://images.pexels.com/photos/4252137/pexels-photo-4252137.jpeg?auto=compress&cs=tinysrgb&w=800';
 
 // ── Newsletter popup image ────────────────────────────────────
 

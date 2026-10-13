@@ -1,6 +1,16 @@
-import { ArrowLeft, ArrowRight, Leaf } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Leaf, MapPin, Package, Scale, Store, Tag } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { PRODUCTS } from '../data';
+import NutritionLabel from '../components/NutritionLabel';
+import {
+  PRODUCT_CATEGORIES,
+  PRODUCTS,
+  RECIPES,
+  type StoreAvailability,
+} from '../data';
+
+const STORE_LOGOS: Partial<Record<StoreAvailability['store'], string>> = {
+  'Costco Canada': '/images/products/Costco.png',
+};
 
 interface ProductDetailPageProps {
   slug: string;
@@ -33,6 +43,12 @@ export default function ProductDetailPage({
     );
   }
 
+  const category = PRODUCT_CATEGORIES.find(c => c.name === product.category);
+  const recipes = RECIPES.filter(r => r.productId === product.id);
+  // Products without listed stores still get the store locator.
+  const availability: StoreAvailability[] = product.availability ?? [
+    { store: 'Retail Stores', packs: [] },
+  ];
   const prev = PRODUCTS[idx - 1];
   const next = PRODUCTS[idx + 1];
 
@@ -65,9 +81,18 @@ export default function ProductDetailPage({
 
           <span>/</span>
 
-          <span className="text-gray-600">
-            {product.category}
-          </span>
+          {category ? (
+            <button
+              onClick={() => navigate(`/products/category/${category.slug}`)}
+              className="text-gray-600 hover:text-brand-red transition-colors"
+            >
+              {product.category}
+            </button>
+          ) : (
+            <span className="text-gray-600">
+              {product.category}
+            </span>
+          )}
 
           <span>/</span>
 
@@ -77,130 +102,237 @@ export default function ProductDetailPage({
         </div>
       </div>
 
-      <section className="py-10 bg-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-80 h-80 bg-brand-orange-pale rounded-full translate-x-1/3 -translate-y-1/3 opacity-30 pointer-events-none"></div>
+      {/* Hero image */}
+      <section className="relative">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="relative w-full h-[350px] sm:h-[450px] lg:h-[580px] rounded-3xl overflow-hidden shadow-2xl bg-gray-50">
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-contain object-center"
+            />
 
-        <div className="absolute bottom-0 left-0 w-56 h-56 bg-brand-red-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-30 pointer-events-none"></div>
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid lg:grid-cols-2 gap-10 items-start">
-
-            {/* Image */}
-            <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-xl bg-gray-50 aspect-square">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-contain"
-                />
+            {product.tags.includes('Bestseller') && (
+              <div className="absolute top-4 left-4 bg-brand-red text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
+                Bestseller
               </div>
+            )}
+          </div>
+        </div>
+      </section>
 
-              {product.tags.includes('Bestseller') && (
-                <div className="absolute top-4 left-4 bg-brand-red text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
-                  Bestseller
+      {/* Meta */}
+      <section className="py-10 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex flex-wrap justify-center gap-4 mb-4">
+            <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+              <Scale size={14} className="text-brand-orange" />
+              {product.weight}
+            </span>
+
+            {product.pieces && (
+              <span className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100">
+                <Package size={14} className="text-brand-green" />
+                {product.pieces}
+              </span>
+            )}
+
+            {product.tags.map(tag => (
+              <span
+                key={tag}
+                className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50 px-3 py-1.5 rounded-full border border-gray-100"
+              >
+                <Tag size={14} className="text-brand-red" />
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <p className="text-brand-green text-xs font-semibold uppercase tracking-widest mb-2">
+            {product.category}
+          </p>
+
+          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+            {product.name}
+          </h1>
+
+          <p className="text-gray-500 leading-relaxed max-w-xl mx-auto">
+            {product.description}
+          </p>
+        </div>
+      </section>
+
+      {/* Two-column layout */}
+      <section className="py-12 bg-gray-50 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none" />
+
+        <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-red-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-30 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+
+            {/* Nutrition */}
+            <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+              <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+                Nutrition
+              </h2>
+
+                {product.nutritionFacts ? (
+                  <NutritionLabel facts={product.nutritionFacts} />
+                ) : (
+                <div className="border border-gray-200 rounded-2xl overflow-hidden">
+                  <div className="bg-gray-800 text-white px-4 py-3">
+                    <h3 className="font-bold text-sm">
+                      Nutrition Facts
+                    </h3>
+
+                    <p className="text-gray-300 text-xs">
+                      Serving size: {product.nutrition.servingSize}
+                    </p>
+                  </div>
+
+                  <div className="divide-y divide-gray-100">
+                    {[
+                      {
+                        label: 'Calories',
+                        value: product.nutrition.calories,
+                      },
+                      {
+                        label: 'Protein',
+                        value: product.nutrition.protein,
+                      },
+                      {
+                        label: 'Total Fat',
+                        value: product.nutrition.fat,
+                      },
+                      {
+                        label: 'Total Carbohydrate',
+                        value: product.nutrition.carbs,
+                      },
+                      {
+                        label: 'Sodium',
+                        value: product.nutrition.sodium,
+                      },
+                    ].map(row => (
+                      <div
+                        key={row.label}
+                        className="flex justify-between px-4 py-2.5 text-sm"
+                      >
+                        <span className="text-gray-600">
+                          {row.label}
+                        </span>
+
+                        <span className="font-semibold text-gray-900">
+                          {row.value}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              )}
+                )}
             </div>
 
-            {/* Details */}
-            <div>
-              <p className="text-brand-green text-xs font-semibold uppercase tracking-widest mb-2">
-                {product.category}
-              </p>
-
-              <h1 className="font-serif text-4xl font-bold text-gray-900 mb-2">
-                {product.name}
-              </h1>
-
-              <p className="text-gray-400 text-sm mb-4">
-                {product.weight}
-                {product.pieces ? ` · ${product.pieces}` : ''}
-              </p>
-
-              <div className="flex flex-wrap gap-2 mb-5">
-                {product.tags.map(tag => (
-                  <span
-                    key={tag}
-                    className="text-xs px-3 py-1 rounded-full bg-gray-50 border border-gray-200 text-gray-500"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              <p className="text-gray-600 leading-relaxed mb-6">
-                {product.description}
-              </p>
-
+            <div className="space-y-6">
               {/* Ingredients */}
-              <div className="bg-brand-green-pale rounded-2xl p-4 mb-6">
-                <div className="flex items-center gap-2 mb-2">
-                  <Leaf
-                    size={14}
-                    className="text-brand-green"
-                  />
+              <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+                <h2 className="flex items-center gap-2 font-serif text-xl font-semibold text-gray-900 mb-4">
+                  <Leaf size={16} className="text-brand-green" />
+                  Ingredients
+                </h2>
 
-                  <h3 className="font-semibold text-gray-800 text-sm">
-                    Ingredients
-                  </h3>
-                </div>
-
-                <p className="text-gray-600 text-sm leading-relaxed">
+                <p className="text-sm text-gray-600 leading-relaxed">
                   {product.ingredients}
                 </p>
               </div>
 
-              {/* Nutrition */}
-              <div className="border border-gray-200 rounded-2xl overflow-hidden">
-                <div className="bg-gray-800 text-white px-4 py-3">
-                  <h3 className="font-bold text-sm">
-                    Nutrition Facts
-                  </h3>
+              {/* Recipes using this product */}
+              <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+                <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+                  Recipes With This Product
+                </h2>
 
-                  <p className="text-gray-300 text-xs">
-                    Serving size: {product.nutrition.servingSize}
+                {recipes.length > 0 ? (
+                  <div className="space-y-3">
+                    {recipes.map(recipe => (
+                      <button
+                        key={recipe.id}
+                        onClick={() => navigate(`/recipes/${recipe.slug}`)}
+                        className="group w-full flex items-center gap-3 text-left"
+                      >
+                        <img
+                          src={recipe.image}
+                          alt={recipe.title}
+                          className="w-16 h-16 rounded-xl object-cover shrink-0"
+                        />
+
+                        <span className="text-sm font-medium text-gray-700 group-hover:text-brand-orange transition-colors">
+                          {recipe.title}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-sm text-gray-400 mb-4">
+                    No recipes for this product yet.
                   </p>
-                </div>
+                )}
 
-                <div className="divide-y divide-gray-100">
-                  {[
-                    {
-                      label: 'Calories',
-                      value: product.nutrition.calories,
-                    },
-                    {
-                      label: 'Protein',
-                      value: product.nutrition.protein,
-                    },
-                    {
-                      label: 'Total Fat',
-                      value: product.nutrition.fat,
-                    },
-                    {
-                      label: 'Total Carbohydrate',
-                      value: product.nutrition.carbs,
-                    },
-                    {
-                      label: 'Sodium',
-                      value: product.nutrition.sodium,
-                    },
-                  ].map(row => (
-                    <div
-                      key={row.label}
-                      className="flex justify-between px-4 py-2.5 text-sm"
-                    >
-                      <span className="text-gray-600">
-                        {row.label}
-                      </span>
+                <button
+                  onClick={() => navigate('/recipes')}
+                  className="mt-4 w-full py-2.5 bg-brand-red text-white text-sm font-semibold rounded-xl hover:bg-brand-red-light transition-colors"
+                >
+                  Browse All Recipes
+                </button>
+              </div>
 
-                      <span className="font-semibold text-gray-900">
-                        {row.value}
-                      </span>
+              {/* Where to buy */}
+              <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+                <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+                  Where to Buy
+                </h2>
+
+                <div className="space-y-4">
+                  {availability.map(({ store, packs }) => (
+                    <div key={store} className="flex items-center gap-4">
+                      <div className="w-28 h-12 shrink-0 rounded-xl border border-gray-100 bg-white flex items-center justify-center px-2">
+                        {STORE_LOGOS[store] ? (
+                          <img
+                            src={STORE_LOGOS[store]}
+                            alt={store}
+                            className="max-w-full max-h-full object-contain"
+                          />
+                        ) : (
+                          <Store size={22} className="text-brand-red" />
+                        )}
+                      </div>
+
+                      <div className="flex-1">
+                        <p className="text-sm font-semibold text-gray-900">
+                          {store}
+                        </p>
+
+                        {packs.length > 0 && (
+                          <p className="text-xs text-gray-500">
+                            {packs.join(' · ')}
+                          </p>
+                        )}
+                      </div>
+
+                      {store === 'Retail Stores' && (
+                        <button
+                          onClick={() => navigate('/locations')}
+                          className="flex items-center gap-1.5 shrink-0 px-3 py-2 bg-brand-red text-white text-xs font-semibold rounded-xl hover:bg-brand-red-light transition-colors"
+                        >
+                          <MapPin size={13} />
+                          Find a Store
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>

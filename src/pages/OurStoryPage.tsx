@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Heart, Leaf, Shield, Users, Star } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { STORY_PRODUCTION_IMAGE } from '../assets';
+import { HALAL_CERTIFIED_IMAGE, STORY_PRODUCTION_IMAGE } from '../assets';
 
 interface OurStoryPageProps {
   navigate: (path: string) => void;
@@ -32,10 +32,9 @@ const TIMELINE = [
   { year: '1993', title: 'Founded in Mississauga', desc: 'Al Shamas Food Products opens its doors with a small production facility and a big vision — to bring authentic South Asian halal flavours to Canadian tables.' },
   { year: '1998', title: 'Halal Certification', desc: 'Received official Halal certification, reaffirming our commitment to quality and trust within the Muslim Canadian community.' },
   { year: '2003', title: 'National Retail Expansion', desc: 'Products reach shelves across Ontario and Quebec, entering major grocery chains and specialty halal stores nationwide.' },
-  { year: '2010', title: 'HACCP & ISO 9001', desc: 'Achieved HACCP food safety certification and ISO 9001 quality management system, setting new benchmarks in frozen halal production.' },
-  { year: '2015', title: 'FSSC 22000 Certified', desc: 'Earned the globally recognised FSSC 22000 food safety certification — one of the first halal frozen food companies in Canada to do so.' },
   { year: '2020', title: 'Western Canada Launch', desc: 'Expanded distribution to Alberta, British Columbia, and Manitoba, making Al Shamas a truly coast-to-coast Canadian brand.' },
   { year: '2024', title: '31+ Years Strong', desc: 'Serving millions of Canadians with over 20 SKUs, 100+ retail locations, and the same original family recipes that started it all.' },
+  { year: '2025', title: 'SQF Food Safety Certified', desc: 'Earned SQF Edition 9 food safety certification from Intertek SAI Global for our Mississauga facility, covering our kebabs, samosas and spring rolls.' },
 ];
 
 const VALUES = [
@@ -44,7 +43,7 @@ const VALUES = [
   { icon: Heart, title: 'Family Recipes', desc: 'Our spice blends and techniques have been refined over three decades by the same founding family.', color: 'brand-orange' },
   { icon: Users, title: 'Community First', desc: 'We give back to the communities that have supported us — locally sourcing ingredients wherever possible.', color: 'brand-green' },
   { icon: Star, title: 'Award-Winning Taste', desc: 'Recognised by industry bodies and community organisations for consistent quality and authentic flavour.', color: 'brand-red' },
-  { icon: Award, title: 'Certified Excellence', desc: 'FSSC 22000, HACCP, ISO 9001, and Halal certifications — we meet the highest global food safety standards.', color: 'brand-orange' },
+  { icon: Award, title: 'Certified Excellence', desc: 'Halal certified by IFANCC and HMA, SQF food safety certified, and ranked in the top 12% of Canadian food manufacturers on Sedex.', color: 'brand-orange' },
 ];
 
 const REACH_STATS = [
@@ -144,7 +143,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
                 In 1993, a passionate family of food entrepreneurs recognised a gap in the Canadian market — there was no premium, fully-certified halal frozen food that delivered the authentic South Asian flavours families craved.
               </p>
               <p className="text-gray-600 leading-relaxed mb-4">
-                What began as a modest production kitchen in Mississauga, Ontario has grown into one of Canada's most trusted halal food brands. We now operate from a state-of-the-art FSSC 22000-certified facility, distributing to over 100 retail locations from Victoria to Halifax.
+                What began as a modest production kitchen in Mississauga, Ontario has grown into one of Canada's most trusted halal food brands. We now operate from an SQF-certified facility, distributing to over 100 retail locations from Victoria to Halifax.
               </p>
               <p className="text-gray-600 leading-relaxed">
                 Through three decades of growth, our core promise has never changed: use only the finest halal ingredients, respect traditional recipes, and deliver consistent quality that families can trust at every meal.
@@ -166,6 +165,38 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
                 <div className="text-white font-serif font-bold text-3xl">100+</div>
                 <div className="text-white/80 text-sm">Retail locations</div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 100% Halal Certified */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div
+            ref={revRef('halal')}
+            className={`flex flex-col lg:flex-row gap-12 items-center relative transition-all duration-700 ${
+              isVis('halal') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
+            }`}
+            style={{ transitionDelay: '100ms' }}
+          >
+            <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-48 h-48 bg-brand-red-pale rounded-full opacity-40 pointer-events-none"></div>
+            <div className="lg:w-1/2 relative">
+              <div className="rounded-3xl overflow-hidden shadow-lg">
+                <img src={HALAL_CERTIFIED_IMAGE} alt="100% Halal Certified" className="w-full h-72 object-cover" />
+              </div>
+              <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-brand-red-pale border-4 border-white flex items-center justify-center shadow-md">
+                <Shield size={24} className="text-brand-red" />
+              </div>
+            </div>
+            <div className="lg:w-1/2 relative">
+              <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
+                No compromises, ever.
+              </div>
+              <h2 className="font-serif text-3xl font-bold text-gray-900 mb-4">100% Halal Certified</h2>
+              <p className="text-gray-600 leading-relaxed">
+                Every piece of chicken and beef used in Al Shamas products is sourced exclusively from certified halal suppliers. Our halal certification is renewed annually and audited by third-party bodies — not a marketing claim, but a verified, ongoing commitment.
+              </p>
             </div>
           </div>
         </div>
@@ -247,9 +278,9 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-red mb-4 shadow-lg">
             <Award size={28} className="text-white" />
           </div>
-          <h2 className="font-serif text-3xl font-bold text-gray-900 mb-3">Award-Winning Quality</h2>
+          <h2 className="font-serif text-3xl font-bold text-gray-900 mb-3">Independently Verified Quality</h2>
           <p className="text-gray-600 leading-relaxed text-sm">
-            Recognised by the Canadian Halal Food Council, community organisations, and industry peers for three consecutive years as a top-tier producer of premium frozen halal products. Our commitment to quality isn't just our promise — it's our track record.
+            Halal certified by IFANCC and HMA, SQF food safety certified by Intertek SAI Global, ranked in the top 12% of Canadian food manufacturers on Sedex, and rated High Performance (100) in our latest code of conduct audit. Our commitment to quality isn't just our promise — it's our track record.
           </p>
         </div>
       </section>

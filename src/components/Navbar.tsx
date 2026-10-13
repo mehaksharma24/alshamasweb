@@ -10,7 +10,6 @@ interface NavbarProps {
 const NAV_LINKS = [
   { label: 'Home', path: '/' },
   { label: 'Our Story', path: '/our-story' },
-  { label: 'The Difference', path: '/the-difference' },
   { label: 'Products', path: '/products' },
   { label: 'Recipes', path: '/recipes' },
   { label: 'Locations', path: '/locations' },

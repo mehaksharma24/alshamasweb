@@ -1,58 +1,12 @@
-import { Search, SlidersHorizontal, X } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, UtensilsCrossed } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { PRODUCTS } from '../data';
+import { PRODUCT_CATEGORIES, PRODUCTS } from '../data';
 
 interface ProductsPageProps {
   navigate: (path: string) => void;
 }
 
 export default function ProductsPage({ navigate }: ProductsPageProps) {
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('All');
-  const [sort, setSort] = useState('default');
-  const [selected, setSelected] = useState<string | null>(null);
-
-  // Automatically create categories from PRODUCTS
-  // Spring Rolls will now appear automatically
-  const CATEGORIES = [
-    'All',
-    ...Array.from(new Set(PRODUCTS.map(product => product.category))),
-  ];
-
-  const filtered = PRODUCTS
-    .filter(product => {
-      const matchCat =
-        category === 'All' || product.category === category;
-
-      const searchTerm = search.toLowerCase().trim();
-
-      const matchSearch =
-        product.name.toLowerCase().includes(searchTerm) ||
-        product.category.toLowerCase().includes(searchTerm) ||
-        product.tags.some(tag =>
-          tag.toLowerCase().includes(searchTerm)
-        );
-
-      return matchCat && matchSearch;
-    })
-    .sort((a, b) => {
-      if (sort === 'name-az') {
-        return a.name.localeCompare(b.name);
-      }
-
-      if (sort === 'name-za') {
-        return b.name.localeCompare(a.name);
-      }
-
-      return 0;
-    });
-
-  const handleProductClick = (slug: string) => {
-    setSelected(slug);
-    navigate(`/products/${slug}`);
-  };
-
   return (
     <div className="min-h-screen pt-24">
       {/* Header */}
@@ -72,186 +26,58 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
         </div>
       </section>
 
-      {/* Filters */}
-      <section className="bg-gray-50 py-6 sticky top-24 z-30 border-b border-gray-100 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+      {/* Categories */}
+      <section className="pb-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
+            {PRODUCT_CATEGORIES.map(category => {
+              const count = PRODUCTS.filter(
+                p => p.category === category.name
+              ).length;
 
-            {/* Search */}
-            <div className="relative flex-1 max-w-xs">
-              <Search
-                size={15}
-                className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-              />
-
-              <input
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder="Search products..."
-                className="w-full pl-9 pr-8 py-2.5 text-sm rounded-2xl border border-gray-200 bg-white focus:outline-none focus:border-brand-orange"
-              />
-
-              {search && (
+              return (
                 <button
-                  type="button"
-                  onClick={() => setSearch('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  key={category.slug}
+                  onClick={() =>
+                    navigate(`/products/category/${category.slug}`)
+                  }
+                  className="group flex items-center gap-6 text-left py-6 border-b border-gray-200 hover:border-brand-red transition-colors"
                 >
-                  <X size={13} />
-                </button>
-              )}
-            </div>
+                  <div className="flex-1 min-w-0">
+                    <h2 className="font-serif text-3xl font-bold text-brand-red mb-2">
+                      {category.name}
+                    </h2>
 
-            {/* Category tabs */}
-            <div className="flex flex-wrap gap-2">
-              {CATEGORIES.map(cat => (
-                <button
-                  type="button"
-                  key={cat}
-                  onClick={() => setCategory(cat)}
-                  className={`px-4 py-2 text-xs font-semibold rounded-full transition-all ${
-                    category === cat
-                      ? 'bg-brand-orange text-white shadow-sm'
-                      : 'bg-white text-gray-600 border border-gray-200 hover:border-brand-orange hover:text-brand-orange'
-                  }`}
-                >
-                  {cat}
-                </button>
-              ))}
-            </div>
+                    <p className="text-sm italic text-gray-600 mb-3">
+                      {category.tagline}
+                    </p>
 
-            {/* Sort */}
-            <div className="flex items-center gap-2 ml-auto">
-              <SlidersHorizontal
-                size={15}
-                className="text-gray-400"
-              />
+                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400 group-hover:text-brand-red transition-colors">
+                      {count} {count === 1 ? 'product' : 'products'}
+                      <ArrowRight size={13} />
+                    </span>
+                  </div>
 
-              <select
-                value={sort}
-                onChange={e => setSort(e.target.value)}
-                className="text-xs bg-white border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:border-brand-orange text-gray-600"
-              >
-                <option value="default">
-                  Sort: Default
-                </option>
-
-                <option value="name-az">
-                  Name A–Z
-                </option>
-
-                <option value="name-za">
-                  Name Z–A
-                </option>
-              </select>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Products grid */}
-      <section className="py-12 bg-white relative overflow-hidden">
-        <div className="absolute right-10 top-10 w-40 h-40 bg-brand-green-pale rounded-full opacity-30 pointer-events-none"></div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-
-          {filtered.length === 0 ? (
-            <div className="text-center py-20">
-              <p className="text-gray-400 font-serif text-xl">
-                No products match your search.
-              </p>
-
-              <button
-                type="button"
-                onClick={() => {
-                  setSearch('');
-                  setCategory('All');
-                  setSort('default');
-                }}
-                className="mt-4 text-brand-orange text-sm hover:underline"
-              >
-                Clear filters
-              </button>
-            </div>
-          ) : (
-            <>
-              <p className="text-gray-400 text-xs mb-6">
-                {filtered.length}{' '}
-                product{filtered.length !== 1 ? 's' : ''}
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                {filtered.map(product => (
-                  <button
-                    type="button"
-                    key={product.id}
-                    onClick={() =>
-                      handleProductClick(product.slug)
-                    }
-                    className={`group text-left rounded-3xl p-5 border transition-all duration-300 hover:bg-brand-orange-pale hover:border-brand-orange/50 hover:shadow-xl ${
-                      selected === product.slug
-                        ? 'border-brand-red border-2 ring-2 ring-brand-red/20 bg-brand-red-pale/30'
-                        : 'bg-white border-gray-100'
-                    }`}
-                  >
-                    <div className="relative mb-4">
-                      <div className="w-full aspect-square rounded-2xl overflow-hidden bg-gray-50">
-                        <img
-                          src={product.image}
-                          alt={product.name}
-                          className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                  <div className="w-40 h-28 sm:w-48 sm:h-32 shrink-0 flex items-center justify-center">
+                    {category.image ? (
+                      <img
+                        src={category.image}
+                        alt={category.name}
+                        className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full rounded-2xl bg-brand-red-pale flex items-center justify-center">
+                        <UtensilsCrossed
+                          size={32}
+                          className="text-brand-red/60"
                         />
                       </div>
-
-                      {/* Bestseller */}
-                      {product.tags.includes('Bestseller') && (
-                        <div className="absolute top-2 left-2 bg-brand-red text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                          Bestseller
-                        </div>
-                      )}
-
-                      {/* Vegetarian */}
-                      {product.tags.includes('Vegetarian') && (
-                        <div className="absolute top-2 right-2 bg-brand-green text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                          Veg
-                        </div>
-                      )}
-                    </div>
-
-                    <div>
-                      <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
-                        {product.category}
-                      </p>
-
-                      <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight mb-1">
-                        {product.name}
-                      </h3>
-
-                      <p className="text-xs text-gray-400">
-                        {product.weight}
-                        {product.pieces
-                          ? ` · ${product.pieces}`
-                          : ''}
-                      </p>
-
-                      <div className="flex flex-wrap gap-1 mt-2">
-                        {product.tags
-                          .slice(0, 2)
-                          .map(tag => (
-                            <span
-                              key={tag}
-                              className="text-xs px-2 py-0.5 bg-gray-50 text-gray-400 rounded-full border border-gray-100"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                      </div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            </>
-          )}
+                    )}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
       </section>
 

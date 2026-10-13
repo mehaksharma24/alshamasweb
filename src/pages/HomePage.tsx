@@ -3,7 +3,7 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCTS, RECIPES } from '../data';
 
 // ONLY CHANGE: Hero banner now uses homebanner.png from images/products
-const HERO_IMAGE = '/images/products/homebanner.png';
+const HERO_IMAGE = '/images/products/homebanner-lineup.jpg';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -300,11 +300,15 @@ export default function HomePage({ navigate }: HomePageProps) {
 
                 <div className="p-4">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs text-brand-orange font-semibold">
-                      {recipe.time}
-                    </span>
+                    {recipe.time && (
+                      <>
+                        <span className="text-xs text-brand-orange font-semibold">
+                          {recipe.time}
+                        </span>
 
-                    <span className="text-gray-300">·</span>
+                        <span className="text-gray-300">·</span>
+                      </>
+                    )}
 
                     <span className="text-xs text-gray-400">
                       {recipe.difficulty}

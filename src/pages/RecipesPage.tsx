@@ -48,7 +48,10 @@ export default function RecipesPage({
         }
 
         if (sort === 'time') {
-          return parseInt(a.time, 10) - parseInt(b.time, 10);
+          // Recipes without a listed time sort last.
+          const minutes = (time?: string) =>
+            time ? parseInt(time, 10) : Infinity;
+          return minutes(a.time) - minutes(b.time);
         }
 
         return 0;
@@ -75,7 +78,7 @@ export default function RecipesPage({
           </h1>
 
           <p className="text-base text-gray-500">
-            Discover six delicious ways to enjoy Al Shamas
+            Discover delicious ways to enjoy Al Shamas
             products at home—quick, creative, and always
             satisfying.
           </p>
@@ -213,15 +216,19 @@ export default function RecipesPage({
                     {/* Recipe Information */}
                     <div className="p-5">
                       <div className="mb-2 flex items-center gap-3">
-                        <span className="flex items-center gap-1 text-xs text-gray-400">
-                          <Clock size={12} />
-                          {recipe.time}
-                        </span>
+                        {recipe.time && (
+                          <span className="flex items-center gap-1 text-xs text-gray-400">
+                            <Clock size={12} />
+                            {recipe.time}
+                          </span>
+                        )}
 
-                        <span className="flex items-center gap-1 text-xs text-gray-400">
-                          <Users size={12} />
-                          {recipe.servings} servings
-                        </span>
+                        {recipe.servings && (
+                          <span className="flex items-center gap-1 text-xs text-gray-400">
+                            <Users size={12} />
+                            {recipe.servings} servings
+                          </span>
+                        )}
                       </div>
 
                       <h3 className="mb-1 font-serif text-lg font-semibold text-gray-900 transition-colors group-hover:text-brand-orange">

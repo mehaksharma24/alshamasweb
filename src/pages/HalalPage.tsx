@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Shield, Award, CheckCircle2 } from 'lucide-react';
+import { Shield, Award, CheckCircle2, Download, Eye } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 
 function useReveal() {
@@ -23,41 +23,61 @@ function useReveal() {
   return { ref, isVis: (k: string) => vis.has(k) };
 }
 
+// Certificate PDFs live in public/certificates.
 const CERTS = [
   {
-    name: 'Halal Certified',
-    body: 'Canadian Halal Food Council',
-    desc: 'Every product and every batch is certified halal by an accredited third-party certifying body. Our halal status covers all ingredients, processing, handling, and packaging.',
+    name: 'IFANCC Halal Product Certificate',
+    body: 'Islamic Food and Nutrition Council of Canada',
+    desc: 'Certifies our kebabs and samosas as Halal under the OIC/SMIIC 1:2019 standard, produced under IFANCC supervision at our Mississauga facility.',
+    validity: 'Valid until December 31, 2026',
+    file: '/certificates/ifancc-halal-product-certificate.pdf',
     color: 'brand-green',
     icon: Shield,
   },
   {
-    name: 'FSSC 22000',
-    body: 'Foundation FSSC',
-    desc: 'One of the most rigorous globally-recognised food safety certifications, covering all aspects of our supply chain, production processes, and quality control systems.',
+    name: 'IFANCC Halal Registration',
+    body: 'Islamic Food and Nutrition Council of Canada',
+    desc: 'Registers our Mississauga facility (CFIA Est. No. 866) to produce Halal products under IFANCC supervision.',
+    validity: 'Valid until December 31, 2026',
+    file: '/certificates/ifancc-halal-registration.pdf',
+    color: 'brand-green',
+    icon: Shield,
+  },
+  {
+    name: 'HMA Halal Registration',
+    body: 'Halal Monitoring Authority',
+    desc: 'Verifies that Al Shamas is approved to process and supply our listed kebabs and samosas, and that HMA-labelled Halal products are hand-slaughtered (dhabihah).',
+    validity: 'Issued June 29, 2026',
+    file: '/certificates/hma-halal-registration.pdf',
+    color: 'brand-red',
+    icon: Shield,
+  },
+  {
+    name: 'SQF Food Safety Certification',
+    body: 'Intertek SAI Global',
+    desc: 'SQF Edition 9 food safety certification for our facility, covering chicken and beef kebabs, samosas and spring rolls. Audit rating: Good.',
+    validity: 'Valid until December 28, 2026',
+    file: '/certificates/sqf-food-safety-audit.pdf',
+    color: 'brand-orange',
+    icon: Award,
+  },
+  {
+    name: 'Sedex Management Controls',
+    body: 'Sedex (SMETA 4-Pillar)',
+    desc: 'Site score of 3.8 / 5 — ranking in the top 12% of food manufacturers in Canada for management controls.',
+    validity: 'Valid until February 17, 2027',
+    file: '/certificates/sedex-management-controls-performance.pdf',
     color: 'brand-red',
     icon: Award,
   },
   {
-    name: 'HACCP',
-    body: 'Hazard Analysis & Critical Control Points',
-    desc: 'Our HACCP plan identifies, evaluates, and controls food safety hazards throughout the production process — ensuring every product leaving our facility is safe.',
+    name: 'Code of Conduct Audit',
+    body: 'Third-party social compliance audit',
+    desc: 'Our facility was rated High Performance (100) in a semi-announced code of conduct audit.',
+    validity: 'Assessed July 8, 2026',
+    file: '/certificates/code-of-conduct-audit-report.pdf',
     color: 'brand-orange',
     icon: CheckCircle2,
-  },
-  {
-    name: 'ISO 9001',
-    body: 'International Standards Organisation',
-    desc: 'ISO 9001 certification confirms that our quality management systems meet international benchmarks — consistent quality, continuous improvement, and customer focus.',
-    color: 'brand-green',
-    icon: Award,
-  },
-  {
-    name: 'USDA Compliant',
-    body: 'United States Department of Agriculture',
-    desc: 'Our production facilities and processes meet USDA standards for food safety and quality — enabling export to US markets and validating our commitment to global standards.',
-    color: 'brand-red',
-    icon: Shield,
   },
 ];
 
@@ -131,15 +151,15 @@ export default function HalalPage() {
             className={`text-center mb-12 transition-all duration-700 ${isVis('cert-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">Our Certifications</h2>
-            <p className="text-gray-500 text-sm">Recognised by leading Canadian and international food safety bodies.</p>
+            <p className="text-gray-500 text-sm">View or download our current halal, food safety and compliance certificates.</p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {CERTS.map(({ name, body, desc, color, icon: Icon }, i) => (
+            {CERTS.map(({ name, body, desc, validity, file, color, icon: Icon }, i) => (
               <div
                 key={name}
                 ref={ref(`cert-${i}`)}
-                className={`bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-500 group ${
+                className={`flex flex-col bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-500 group ${
                   isVis(`cert-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
@@ -153,7 +173,27 @@ export default function HalalPage() {
                     <p className={`text-xs text-${color} font-medium mt-0.5`}>{body}</p>
                   </div>
                 </div>
-                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+                <p className="text-gray-500 text-sm leading-relaxed mb-4">{desc}</p>
+                <p className="mt-auto text-xs text-gray-400 mb-4">{validity}</p>
+                <div className="flex gap-3">
+                  <a
+                    href={file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 border border-gray-200 text-gray-700 text-sm font-semibold rounded-xl hover:border-brand-red hover:text-brand-red transition-colors"
+                  >
+                    <Eye size={15} />
+                    View
+                  </a>
+                  <a
+                    href={file}
+                    download
+                    className="flex-1 inline-flex items-center justify-center gap-1.5 py-2.5 bg-brand-red text-white text-sm font-semibold rounded-xl hover:bg-brand-red-light transition-colors"
+                  >
+                    <Download size={15} />
+                    Download
+                  </a>
+                </div>
               </div>
             ))}
           </div>

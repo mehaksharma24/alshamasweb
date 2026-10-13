@@ -65,7 +65,6 @@ export default function Footer({ navigate }: FooterProps) {
                 { label: 'Products', path: '/products' },
                 { label: 'Recipes', path: '/recipes' },
                 { label: 'Our Story', path: '/our-story' },
-                { label: 'The Difference', path: '/the-difference' },
                 { label: 'Find a Store', path: '/locations' },
                 { label: 'Halal & Certifications', path: '/halal' },
               ].map(link => (
@@ -102,7 +101,7 @@ export default function Footer({ navigate }: FooterProps) {
               </li>
             </ul>
             <div className="mt-5 flex flex-wrap gap-2">
-              {['Halal', 'FSSC 22000', 'HACCP', 'ISO 9001'].map(cert => (
+              {['IFANCC Halal', 'HMA Halal', 'SQF Certified', 'Sedex'].map(cert => (
                 <span key={cert} className="text-xs px-2.5 py-1 rounded-full border border-brand-orange/40 text-brand-orange-light font-medium">
                   {cert}
                 </span>

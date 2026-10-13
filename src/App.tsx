@@ -5,8 +5,8 @@ import Footer from './components/Footer';
 import NewsletterPopup from './components/NewsletterPopup';
 import HomePage from './pages/HomePage';
 import OurStoryPage from './pages/OurStoryPage';
-import TheDifferencePage from './pages/TheDifferencePage';
 import ProductsPage from './pages/ProductsPage';
+import ProductCategoryPage from './pages/ProductCategoryPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import RecipesPage from './pages/RecipesPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
@@ -37,8 +37,8 @@ export default function App() {
   const renderPage = () => {
     if (path === '/') return <HomePage navigate={navigate} />;
     if (path === '/our-story') return <OurStoryPage navigate={navigate} />;
-    if (path === '/the-difference') return <TheDifferencePage />;
     if (path === '/products') return <ProductsPage navigate={navigate} />;
+    if (path.startsWith('/products/category/')) return <ProductCategoryPage slug={path.replace('/products/category/', '')} navigate={navigate} />;
     if (path.startsWith('/products/')) return <ProductDetailPage slug={path.replace('/products/', '')} navigate={navigate} />;
     if (path === '/recipes') return <RecipesPage navigate={navigate} />;
     if (path.startsWith('/recipes/')) return <RecipeDetailPage slug={path.replace('/recipes/', '')} navigate={navigate} />;
