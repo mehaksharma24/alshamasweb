@@ -1,5 +1,6 @@
 import { ArrowLeft, ChefHat, Clock, Users } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
+import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCTS, RECIPES } from '../data';
 
 interface RecipeDetailPageProps {
@@ -22,10 +23,10 @@ export default function RecipeDetailPage({
           </h2>
 
           <button
-            onClick={() => navigate('/recipes')}
+            onClick={() => navigate('/products')}
             className="text-brand-orange hover:underline text-sm"
           >
-            Back to Recipes
+            Back to Products
           </button>
         </div>
       </div>
@@ -40,11 +41,13 @@ export default function RecipeDetailPage({
       {/* Back */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <button
-          onClick={() => navigate('/recipes')}
+          onClick={() =>
+            navigate(product ? `/products/${product.slug}` : '/products')
+          }
           className="flex items-center gap-2 text-gray-400 hover:text-brand-orange text-sm transition-colors"
         >
           <ArrowLeft size={14} />
-          Back to Recipes
+          {product ? `Back to ${product.name}` : 'Back to Products'}
         </button>
       </div>
 
@@ -52,7 +55,7 @@ export default function RecipeDetailPage({
 <section className="relative">
   <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div className="relative w-full h-[350px] sm:h-[450px] lg:h-[580px] rounded-3xl overflow-hidden shadow-2xl">
-      <img
+      <ZoomableImage
         src={recipe.image}
         alt={recipe.title}
         className="w-full h-full object-cover object-center"

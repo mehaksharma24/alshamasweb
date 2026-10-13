@@ -9,9 +9,8 @@ interface NavbarProps {
 
 const NAV_LINKS = [
   { label: 'Home', path: '/' },
-  { label: 'Our Story', path: '/our-story' },
+  { label: 'About Us', path: '/about-us' },
   { label: 'Products', path: '/products' },
-  { label: 'Recipes', path: '/recipes' },
   { label: 'Locations', path: '/locations' },
   { label: 'Halal & Certifications', path: '/halal' },
   { label: 'Contact', path: '/contact' },

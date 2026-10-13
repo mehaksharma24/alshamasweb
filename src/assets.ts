@@ -45,14 +45,6 @@ export const PRODUCT_IMAGES: Record<string, string> = {
     'https://images.pexels.com/photos/3792696/pexels-photo-3792696.jpeg?auto=compress&cs=tinysrgb&w=800',
   'vegetable-samosa':
     'https://images.pexels.com/photos/2474658/pexels-photo-2474658.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'tandoori-chicken-tikka':
-    'https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'frozen-parathas':
-    'https://images.pexels.com/photos/7512843/pexels-photo-7512843.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'plain-paratha-regular':
-    'https://images.pexels.com/photos/8992923/pexels-photo-8992923.jpeg?auto=compress&cs=tinysrgb&w=800',
-  'plain-paratha-family':
-    'https://images.pexels.com/photos/1117862/pexels-photo-1117862.jpeg?auto=compress&cs=tinysrgb&w=800',
 };
 
 // ── Retailer / store chain logos ─────────────────────────────

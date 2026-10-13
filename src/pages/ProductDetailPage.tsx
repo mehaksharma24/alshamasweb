@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight, Leaf, MapPin, Package, Scale, Store, Tag } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import NutritionLabel from '../components/NutritionLabel';
+import ZoomableImage from '../components/ZoomableImage';
 import {
   PRODUCT_CATEGORIES,
   PRODUCTS,
@@ -106,7 +107,7 @@ export default function ProductDetailPage({
       <section className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative w-full h-[350px] sm:h-[450px] lg:h-[580px] rounded-3xl overflow-hidden shadow-2xl bg-gray-50">
-            <img
+            <ZoomableImage
               src={product.image}
               alt={product.name}
               className="w-full h-full object-contain object-center"
@@ -245,13 +246,13 @@ export default function ProductDetailPage({
                 </p>
               </div>
 
-              {/* Recipes using this product */}
-              <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-                <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
-                  Recipes With This Product
-                </h2>
+              {/* Recipe suggestions for this product */}
+              {recipes.length > 0 && (
+                <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
+                  <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+                    Recipe Suggestions
+                  </h2>
 
-                {recipes.length > 0 ? (
                   <div className="space-y-3">
                     {recipes.map(recipe => (
                       <button
@@ -271,19 +272,8 @@ export default function ProductDetailPage({
                       </button>
                     ))}
                   </div>
-                ) : (
-                  <p className="text-sm text-gray-400 mb-4">
-                    No recipes for this product yet.
-                  </p>
-                )}
-
-                <button
-                  onClick={() => navigate('/recipes')}
-                  className="mt-4 w-full py-2.5 bg-brand-red text-white text-sm font-semibold rounded-xl hover:bg-brand-red-light transition-colors"
-                >
-                  Browse All Recipes
-                </button>
-              </div>
+                </div>
+              )}
 
               {/* Where to buy */}
               <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">

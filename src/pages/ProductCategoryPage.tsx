@@ -1,6 +1,7 @@
 import { UtensilsCrossed } from 'lucide-react';
 import { useState } from 'react';
 import NewsletterBanner from '../components/NewsletterBanner';
+import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, type Product } from '../data';
 
 interface ProductCategoryPageProps {
@@ -21,7 +22,7 @@ function ProductTileImage({ product }: { product: Product }) {
   }
 
   return (
-    <img
+    <ZoomableImage
       src={product.image}
       alt={product.name}
       onError={() => setFailed(true)}
@@ -97,24 +98,26 @@ export default function ProductCategoryPage({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-10">
             {products.map(product => (
-              <button
+              <div
                 key={product.id}
-                onClick={() => navigate(`/products/${product.slug}`)}
                 className="group flex flex-col items-center text-center"
               >
                 <div className="relative w-full aspect-[4/3] mb-3">
                   <ProductTileImage product={product} />
                 </div>
 
-                <span className="font-medium text-brand-red group-hover:underline">
+                <button
+                  onClick={() => navigate(`/products/${product.slug}`)}
+                  className="font-medium text-brand-red hover:underline"
+                >
                   {product.name}
-                </span>
+                </button>
 
                 <span className="text-xs text-gray-400 mt-0.5">
                   {product.weight}
                   {product.pieces ? ` · ${product.pieces}` : ''}
                 </span>
-              </button>
+              </div>
             ))}
           </div>
         </div>

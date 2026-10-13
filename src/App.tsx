@@ -8,7 +8,6 @@ import OurStoryPage from './pages/OurStoryPage';
 import ProductsPage from './pages/ProductsPage';
 import ProductCategoryPage from './pages/ProductCategoryPage';
 import ProductDetailPage from './pages/ProductDetailPage';
-import RecipesPage from './pages/RecipesPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import LocationsPage from './pages/LocationsPage';
 import HalalPage from './pages/HalalPage';
@@ -36,11 +35,10 @@ export default function App() {
 
   const renderPage = () => {
     if (path === '/') return <HomePage navigate={navigate} />;
-    if (path === '/our-story') return <OurStoryPage navigate={navigate} />;
+    if (path === '/about-us' || path === '/our-story') return <OurStoryPage navigate={navigate} />;
     if (path === '/products') return <ProductsPage navigate={navigate} />;
     if (path.startsWith('/products/category/')) return <ProductCategoryPage slug={path.replace('/products/category/', '')} navigate={navigate} />;
     if (path.startsWith('/products/')) return <ProductDetailPage slug={path.replace('/products/', '')} navigate={navigate} />;
-    if (path === '/recipes') return <RecipesPage navigate={navigate} />;
     if (path.startsWith('/recipes/')) return <RecipeDetailPage slug={path.replace('/recipes/', '')} navigate={navigate} />;
     if (path === '/locations') return <LocationsPage />;
     if (path === '/halal') return <HalalPage />;

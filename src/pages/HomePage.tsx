@@ -52,8 +52,9 @@ export default function HomePage({ navigate }: HomePageProps) {
     <div className="min-h-screen">
       {/* Hero */}
       <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
+        {/* Starts below the fixed navbar and anchors to the top so the top row of boxes isn't hidden. */}
         <div
-          className="absolute inset-0 bg-cover bg-center"
+          className="absolute inset-x-0 bottom-0 top-[109px] bg-cover bg-top"
           style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
         />
 
@@ -68,7 +69,7 @@ export default function HomePage({ navigate }: HomePageProps) {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
               <Star size={12} fill="currentColor" />
-              Canada's #1 Halal Frozen Foods
+              Canada's Halal Frozen Foods
             </div>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
@@ -79,7 +80,7 @@ export default function HomePage({ navigate }: HomePageProps) {
               <span className="text-brand-green">Foods</span>
             </h1>
 
-            <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-gray-800 text-lg leading-relaxed mb-8 max-w-xl">
               Authentic flavours crafted with the finest halal ingredients — no
               MSG, no preservatives, no artificial additives. Trusted by
               Canadian families for 31+ years.
@@ -94,10 +95,10 @@ export default function HomePage({ navigate }: HomePageProps) {
               </button>
 
               <button
-                onClick={() => navigate('/our-story')}
+                onClick={() => navigate('/about-us')}
                 className="flex items-center gap-2 px-7 py-3.5 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all border border-gray-200 text-sm"
               >
-                Our Story
+                About Us
               </button>
             </div>
 
@@ -105,7 +106,7 @@ export default function HomePage({ navigate }: HomePageProps) {
             <div className="flex flex-wrap gap-4 mt-10">
               {[
                 { icon: Award, label: '31+ Years', sub: 'of excellence' },
-                { icon: Leaf, label: '100% Halal', sub: 'certified' },
+                { icon: Leaf, label: '100% Halal', sub: 'hand slaughtered' },
                 { icon: Star, label: 'No MSG', sub: 'or preservatives' },
                 { icon: Clock, label: 'Ready', sub: 'in minutes' },
               ].map(({ icon: Icon, label, sub }) => (
@@ -121,7 +122,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                     <div className="text-xs font-bold text-gray-800 leading-tight">
                       {label}
                     </div>
-                    <div className="text-xs text-gray-400 leading-tight">
+                    <div className="text-xs text-gray-700 leading-tight">
                       {sub}
                     </div>
                   </div>
@@ -325,15 +326,6 @@ export default function HomePage({ navigate }: HomePageProps) {
                 </div>
               </button>
             ))}
-          </div>
-
-          <div className="text-center mt-10">
-            <button
-              onClick={() => navigate('/recipes')}
-              className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-brand-orange text-brand-orange font-semibold rounded-full hover:bg-brand-orange hover:text-white transition-all text-sm"
-            >
-              View All Recipes <ArrowRight size={15} />
-            </button>
           </div>
         </div>
       </section>

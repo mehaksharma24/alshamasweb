@@ -120,7 +120,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="absolute bottom-0 right-10 w-72 h-72 bg-brand-orange-pale rounded-full opacity-30 pointer-events-none"></div>
         <div className="max-w-3xl mx-auto px-4 text-center relative">
           <p className="font-serif italic text-brand-red text-lg mb-2">Since 1993</p>
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 mb-6">Our Story</h1>
+          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 mb-6">About Us</h1>
           <p className="text-gray-500 text-lg leading-relaxed">
             A family dream of sharing authentic, wholesome halal food with all of Canada — one perfect kebab at a time.
           </p>

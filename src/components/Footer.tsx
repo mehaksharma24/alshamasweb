@@ -63,8 +63,7 @@ export default function Footer({ navigate }: FooterProps) {
             <ul className="space-y-2">
               {[
                 { label: 'Products', path: '/products' },
-                { label: 'Recipes', path: '/recipes' },
-                { label: 'Our Story', path: '/our-story' },
+                { label: 'About Us', path: '/about-us' },
                 { label: 'Find a Store', path: '/locations' },
                 { label: 'Halal & Certifications', path: '/halal' },
               ].map(link => (

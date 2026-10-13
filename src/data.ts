@@ -27,11 +27,6 @@ export const PRODUCT_IMAGES: Record<string, string> = {
   'chicken-kafta-kebab-400g':
     '/images/products/3D Box-Alshamas-ChickenKaftaKebab_10Pcs.png',
 
-  // Tikka and Paratha
-  'tandoori-chicken-tikka':
-    '/images/products/tandoori-chicken-tikka.jpg',
-  'plain-paratha':
-    '/images/products/plain-paratha.jpg',
 
   // Samosas
   'chicken-samosa-1-5kg':
@@ -278,20 +273,6 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
     description:
       'Hand-rolled spring rolls filled with seasoned meat and vegetables — a quick snack or the centrepiece of a party platter.',
     image: PRODUCT_IMAGES['chicken-spring-roll'],
-  },
-  {
-    name: 'Tikka & Grills',
-    slug: 'tikka-grills',
-    tagline: 'Marinated, grilled and full of flavour',
-    description:
-      'Tender chicken marinated in tandoori spices and grilled for a smoky finish.',
-  },
-  {
-    name: 'Parathas',
-    slug: 'parathas',
-    tagline: 'Flaky, layered flatbreads',
-    description:
-      'Soft, flaky parathas that pair perfectly with our kababs, karahis and rolls.',
   },
 ];
 
@@ -592,51 +573,6 @@ export const PRODUCTS: Product[] = [
       carbs: '4g',
       sodium: '410mg',
       servingSize: '2 pieces (90g)',
-    },
-  },
-
-  {
-    id: '21',
-    slug: 'tandoori-chicken-tikka',
-    name: 'Tandoori Chicken Tikka',
-    category: 'Tikka & Grills',
-    weight: '560 g',
-    description:
-      'Tender chicken tikka marinated in a rich tandoori spice blend.',
-    ingredients:
-      'Chicken, yogurt, tandoori spice blend, ginger, garlic, red chili, lemon juice, salt.',
-    image: PRODUCT_IMAGES['tandoori-chicken-tikka'],
-    tags: ['Halal', 'Chicken', 'Tandoori'],
-    nutrition: {
-      calories: 210,
-      protein: '22g',
-      fat: '11g',
-      carbs: '5g',
-      sodium: '400mg',
-      servingSize: '100g',
-    },
-  },
-
-  {
-    id: '22',
-    slug: 'frozen-parathas',
-    name: 'Frozen Parathas',
-    category: 'Parathas',
-    weight: '1 kg',
-    pieces: '20 pieces',
-    description:
-      'Flaky layered frozen parathas that cook golden and crisp in minutes.',
-    ingredients:
-      'Wheat flour, vegetable oil, water, salt.',
-    image: PRODUCT_IMAGES['plain-paratha'],
-    tags: ['Halal', 'Vegetarian'],
-    nutrition: {
-      calories: 250,
-      protein: '5g',
-      fat: '12g',
-      carbs: '30g',
-      sodium: '300mg',
-      servingSize: '1 paratha',
     },
   },
 
