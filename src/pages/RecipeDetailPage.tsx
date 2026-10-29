@@ -1,5 +1,4 @@
 import { ArrowLeft, ChefHat, Clock, Users } from 'lucide-react';
-import NewsletterBanner from '../components/NewsletterBanner';
 import { PackStores, packLabel } from '../components/PackCard';
 import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel } from '../data';
@@ -187,8 +186,6 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
           </div>
         </div>
       </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

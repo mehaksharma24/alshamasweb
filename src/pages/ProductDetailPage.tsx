@@ -1,6 +1,5 @@
 import { ArrowLeft, ArrowRight, Flame, Leaf, MapPin, Package, Tag } from 'lucide-react';
 import CatalogueText from '../components/CatalogueText';
-import NewsletterBanner from '../components/NewsletterBanner';
 import NutritionLabel from '../components/NutritionLabel';
 import PackCard, { tagLabel } from '../components/PackCard';
 import ZoomableImage from '../components/ZoomableImage';
@@ -297,8 +296,6 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
           )}
         </div>
       </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

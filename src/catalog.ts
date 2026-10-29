@@ -100,57 +100,75 @@ export interface Product {
 }
 
 // Packaging Nutrition Facts tables (transcribed from the packaging NFT images).
-const KEBABS = (g: number) => ({
-  servingEn: `Per 2 kebabs (${g} g)`,
-  servingFr: `pour 2 kebabs (${g} g)`,
-});
-
-// Transcribed from the packaging Nutrition Facts tables (NFT_*.png).
+// Every table below was read from a source document:
+//   PKG = Nutrition Facts printed on the packaging (product photos in public/images/products)
+//   CAT = product catalogue PDF (page number given)
 const NFT = {
-  // Sheekh and Charcoal kebabs share the same panel.
-  // Sheekh and Charcoal kebabs share the same panel.
-  beefSheekhCharcoalKebab: {
-    ...KEBABS(86), calories: 180,
-    fat: { amount: '10 g', dv: '14 %' }, saturated: '3 g', trans: '0 g', saturatedTransDv: '22 %',
-    carbs: '4 g', fibre: { amount: '2 g', dv: '4 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '16 g', cholesterol: { amount: '50 mg' }, sodium: { amount: '480 mg', dv: '20 %' },
-    potassium: { amount: '300 mg', dv: '6 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '2.5 mg', dv: '14 %' },
+  // CAT p.5
+  chickenCharcoalKebab: {
+    servingEn: 'Per 1 Kabab (43 g)', servingFr: 'pour 1 kabab (43 g)', calories: 80,
+    fat: { amount: '4.5 g', dv: '6 %' }, saturated: '1 g', trans: '0 g', saturatedTransDv: '6 %',
+    carbs: '2 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '7 g', cholesterol: { amount: '25 mg', dv: '9 %' }, sodium: { amount: '230 mg', dv: '10 %' },
+    potassium: { amount: '150 mg', dv: '3 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '0.75 mg', dv: '4 %' },
   },
-  chickenSheekhCharcoalKebab: {
-    ...KEBABS(86), calories: 160,
-    fat: { amount: '9 g', dv: '12 %' }, saturated: '2 g', trans: '0 g', saturatedTransDv: '10 %',
-    carbs: '4 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '14 g', cholesterol: { amount: '50 mg' }, sodium: { amount: '460 mg', dv: '20 %' },
-    potassium: { amount: '300 mg', dv: '9 %' }, calcium: { amount: '40 mg', dv: '3 %' }, iron: { amount: '1.5 mg', dv: '8 %' },
+  // CAT p.6 (Beef Charcoal) and p.10 (Beef Sheekh) — identical tables
+  beefCharcoalSheekhKebab: {
+    servingEn: 'Serving Size 1 kebab (60 g)', servingFr: 'Portion 1 kebab (60 g)', calories: 130,
+    fat: { amount: '8 g', dv: '10 %' }, saturated: '2.5 g', trans: '0.5 g', saturatedTransDv: '16 %',
+    carbs: '3 g', fibre: { amount: '1 g', dv: '3 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '11 g', cholesterol: { amount: '35 mg', dv: '11 %' }, sodium: { amount: '330 mg', dv: '14 %' },
+    potassium: { amount: '225 mg', dv: '7 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '1.75 mg', dv: '10 %' },
   },
-  beefChapliKebab: {
-    ...KEBABS(100), calories: 200,
-    fat: { amount: '12 g', dv: '16 %' }, saturated: '4 g', trans: '0.2 g', saturatedTransDv: '21 %',
-    carbs: '4 g', fibre: { amount: '2 g', dv: '7 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '20 g', cholesterol: { amount: '50 mg' }, sodium: { amount: '540 mg', dv: '23 %' },
-    potassium: { amount: '350 mg', dv: '7 %' }, calcium: { amount: '40 mg', dv: '3 %' }, iron: { amount: '3 mg', dv: '17 %' },
+  // CAT p.9
+  chickenSheekhKebab: {
+    servingEn: 'Per 1 Kabab (43 g)', servingFr: 'pour 1 kabab (43 g)', calories: 80,
+    fat: { amount: '4 g', dv: '6 %' }, saturated: '1 g', trans: '0 g', saturatedTransDv: '6 %',
+    carbs: '3 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '1 g' },
+    protein: '8 g', cholesterol: { amount: '60 mg', dv: '20 %' }, sodium: { amount: '250 mg', dv: '11 %' },
+    potassium: { amount: '175 mg', dv: '4 %' }, calcium: { amount: '10 mg', dv: '1 %' }, iron: { amount: '1.5 mg', dv: '8 %' },
   },
+  // CAT p.12
   chickenChapliKebab: {
-    ...KEBABS(100), calories: 280,
-    fat: { amount: '22 g', dv: '29 %' }, saturated: '6 g', trans: '0.2 g', saturatedTransDv: '31 %',
-    carbs: '6 g', fibre: { amount: '2 g', dv: '7 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '16 g', cholesterol: { amount: '290 mg' }, sodium: { amount: '520 mg', dv: '23 %' },
-    potassium: { amount: '300 mg', dv: '6 %' }, calcium: { amount: '60 mg', dv: '5 %' }, iron: { amount: '2 mg', dv: '11 %' },
+    servingEn: 'Serving Size 1 kebab (50 g)', servingFr: 'Portion 1 kebab (50 g)', calories: 140,
+    fat: { amount: '11 g', dv: '14 %' }, saturated: '3 g', trans: '0.1 g', saturatedTransDv: '14 %',
+    carbs: '3 g', fibre: { amount: '1 g', dv: '2 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '8 g', cholesterol: { amount: '145 mg', dv: '48 %' }, sodium: { amount: '260 mg', dv: '11 %' },
+    potassium: { amount: '150 mg', dv: '4 %' }, calcium: { amount: '30 mg', dv: '2 %' }, iron: { amount: '1 mg', dv: '6 %' },
   },
+  // CAT p.13
+  beefChapliKebab: {
+    servingEn: 'Serving Size 1 kebab (50 g)', servingFr: 'Portion 1 kebab (50 g)', calories: 100,
+    fat: { amount: '6 g', dv: '7 %' }, saturated: '2 g', trans: '0.1 g', saturatedTransDv: '10 %',
+    carbs: '2 g', fibre: { amount: '1 g', dv: '2 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '10 g', cholesterol: { amount: '25 mg', dv: '8 %' }, sodium: { amount: '270 mg', dv: '12 %' },
+    potassium: { amount: '175 mg', dv: '5 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '1.5 mg', dv: '8 %' },
+  },
+  // CAT p.15
   chickenKaftaKebab: {
-    ...KEBABS(80), calories: 160,
+    servingEn: 'Serving size 2 kebabs (76 g)', servingFr: 'Portion 2 kebabs (76 g)', calories: 150,
     fat: { amount: '9 g', dv: '12 %' }, saturated: '2 g', trans: '0 g', saturatedTransDv: '10 %',
     carbs: '4 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '14 g', cholesterol: { amount: '50 mg' }, sodium: { amount: '420 mg', dv: '18 %' },
-    potassium: { amount: '250 mg', dv: '5 %' }, calcium: { amount: '40 mg', dv: '3 %' }, iron: { amount: '1.5 mg', dv: '8 %' },
+    protein: '14 g', cholesterol: { amount: '50 mg' }, sodium: { amount: '400 mg', dv: '17 %' },
+    potassium: { amount: '240 mg', dv: '5 %' }, calcium: { amount: '40 mg', dv: '3 %' }, iron: { amount: '1.4 mg', dv: '8 %' },
   },
-  meatCharcoalKebab: {
-    ...KEBABS(86), calories: 190,
-    fat: { amount: '15 g', dv: '20 %' }, saturated: '6 g', trans: '0 g', saturatedTransDv: '30 %',
-    carbs: '5 g', fibre: { amount: '1 g', dv: '4 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '12 g', cholesterol: { amount: '45 mg' }, sodium: { amount: '400 mg', dv: '17 %' },
-    potassium: { amount: '50 mg', dv: '1 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '1.5 mg', dv: '8 %' },
+  // PKG — Chicken, Tandoori and Tikka Samosa containers print the same table
+  chickenSamosa: {
+    servingEn: 'Per 3 Samosas (90 g)', servingFr: 'pour 3 samosas (90 g)', calories: 120,
+    fat: { amount: '3 g', dv: '4 %' }, saturated: '2 g', trans: '0 g', saturatedTransDv: '10 %',
+    carbs: '16 g', fibre: { amount: '1 g', dv: '5 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '8 g', cholesterol: { amount: '20 mg' }, sodium: { amount: '370 mg', dv: '16 %' },
+    potassium: { amount: '150 mg', dv: '3 %' }, calcium: { amount: '20 mg', dv: '2 %' }, iron: { amount: '0.5 mg', dv: '3 %' },
   },
+  // PKG — Beef Samosa container
+  beefSamosa: {
+    servingEn: 'Per 3 Samosas (90 g)', servingFr: 'pour 3 samosas (90 g)', calories: 150,
+    fat: { amount: '3 g', dv: '4 %' }, saturated: '1.2 g', trans: '0 g', saturatedTransDv: '9 %',
+    carbs: '27 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '0 g', dv: '0 %' },
+    protein: '6 g', cholesterol: { amount: '15 mg' }, sodium: { amount: '510 mg', dv: '22 %' },
+    potassium: { amount: '150 mg', dv: '3 %' }, calcium: { amount: '30 mg', dv: '2 %' }, iron: { amount: '0.9 mg', dv: '6 %' },
+  },
+  // PKG — spring roll containers (checked against the photos)
   chickenSpringRoll: {
     servingEn: 'Per 3 Spring Rolls (90 g)', servingFr: 'pour 3 Rouleau impérial (90 g)', calories: 130,
     fat: { amount: '3.5 g', dv: '5 %' }, saturated: '2 g', trans: '0 g', saturatedTransDv: '10 %',
@@ -164,13 +182,6 @@ const NFT = {
     carbs: '17 g', fibre: { amount: '2 g', dv: '7 %' }, sugars: { amount: '1 g', dv: '1 %' },
     protein: '7 g', cholesterol: { amount: '20 mg', dv: '6 %' }, sodium: { amount: '400 mg', dv: '17 %' },
     potassium: { amount: '175 mg', dv: '4 %' }, calcium: { amount: '30 mg', dv: '2 %' }, iron: { amount: '1 mg', dv: '6 %' },
-  },
-  chickenSamosa: {
-    servingEn: 'Per 3 Samosas (90 g)', servingFr: 'pour 3 samosas (90 g)', calories: 150,
-    fat: { amount: '3 g', dv: '4 %' }, saturated: '1.5 g', trans: '0 g', saturatedTransDv: '8 %',
-    carbs: '15 g', fibre: { amount: '0 g', dv: '0 %' }, sugars: { amount: '0 g', dv: '0 %' },
-    protein: '9 g', cholesterol: { amount: '15 mg' }, sodium: { amount: '375 mg', dv: '16 %' },
-    potassium: { amount: '150 mg', dv: '3 %' }, calcium: { amount: '30 mg', dv: '2 %' }, iron: { amount: '0.6 mg', dv: '3 %' },
   },
 } satisfies Record<string, NutritionFacts>;
 
@@ -355,7 +366,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: NFT.chickenSheekhCharcoalKebab,
+    nutritionFacts: NFT.chickenCharcoalKebab,
     packs: [
       {
         title: {
@@ -381,6 +392,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 12 per case",
           fr: "Boîte · 12 par caisse"
         },
+        weight: "560 g",
         key: "13-pcs-box",
         source: "master",
         image: "/images/packs/chicken-charcoal-kebab/13-pcs-box.png",
@@ -443,6 +455,7 @@ export const PRODUCTS: Product[] = [
           en: "Case",
           fr: "Caisse"
         },
+        weight: "2.4 kg",
         key: "costco-bc-sku-2768779",
         stores: [
           {
@@ -564,7 +577,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: NFT.beefSheekhCharcoalKebab,
+    nutritionFacts: NFT.beefCharcoalSheekhKebab,
     packs: [
       {
         title: {
@@ -590,6 +603,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 12 per case",
           fr: "Boîte · 12 par caisse"
         },
+        weight: "560 g",
         key: "13-pcs-box",
         source: "master",
         image: "/images/packs/beef-charcoal-kebab/13-pcs-box.png",
@@ -632,6 +646,7 @@ export const PRODUCTS: Product[] = [
           en: "Case",
           fr: "Caisse"
         },
+        weight: "2.4 kg",
         key: "costco-bc-sku-4768778",
         stores: [
           {
@@ -1017,7 +1032,7 @@ export const PRODUCTS: Product[] = [
       en: [],
       fr: []
     },
-    nutritionFacts: NFT.meatCharcoalKebab,
+    nutritionFacts: null,
     packs: [
       {
         title: {
@@ -1043,6 +1058,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 12 per case",
           fr: "Boîte · 12 par caisse"
         },
+        weight: "560 g",
         key: "13-pcs-box",
         source: "master",
         image: "/images/packs/meat-charcoal-kebab/13-pcs-box.png",
@@ -1086,7 +1102,6 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du poulet halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
-      "Bestseller",
       "Halal",
       "Chicken"
     ],
@@ -1157,7 +1172,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: NFT.chickenSheekhCharcoalKebab,
+    nutritionFacts: NFT.chickenSheekhKebab,
     packs: [
       {
         title: {
@@ -1282,7 +1297,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: NFT.beefSheekhCharcoalKebab,
+    nutritionFacts: NFT.beefCharcoalSheekhKebab,
     packs: [
       {
         title: {
@@ -1525,7 +1540,6 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du poulet halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
-      "Bestseller",
       "Halal",
       "Chicken"
     ],
@@ -1620,6 +1634,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 12 per case",
           fr: "Boîte · 12 par caisse"
         },
+        weight: "450 g",
         key: "6-pcs-box",
         source: "master",
         image: "/images/packs/chicken-chapli-kebab/6-pcs-box.png",
@@ -1763,6 +1778,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 12 per case",
           fr: "Boîte · 12 par caisse"
         },
+        weight: "450 g",
         key: "6-pcs-box",
         source: "master",
         image: "/images/packs/beef-chapli-kebab/6-pcs-box.png",
@@ -2293,6 +2309,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 6 per case",
           fr: "Boîte · 6 par caisse"
         },
+        weight: "650 g",
         key: "20-pcs-box",
         source: "master",
         image: "/images/packs/chicken-samosa/20-pcs-box.png",
@@ -2336,6 +2353,7 @@ export const PRODUCTS: Product[] = [
           en: "Case",
           fr: "Caisse"
         },
+        weight: "1.5 kg",
         key: "costco-50-pcs",
         stores: [
           {
@@ -2496,48 +2514,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: {
-      servingEn: "Serving size 3 samosas per (90 g)",
-      servingFr: "Portion 3 samosas par (90 g)",
-      calories: 160,
-      fat: {
-        amount: "3.5 g",
-        dv: "5 %"
-      },
-      saturated: "1 g",
-      trans: "0 g",
-      saturatedTransDv: "6 %",
-      carbs: "26 g",
-      fibre: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      sugars: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      protein: "7 g",
-      cholesterol: {
-        amount: "15 mg",
-        dv: "5 %"
-      },
-      sodium: {
-        amount: "500 mg",
-        dv: "22 %"
-      },
-      calcium: {
-        amount: "30 mg",
-        dv: "2 %"
-      },
-      iron: {
-        amount: "0.9 mg",
-        dv: "6 %"
-      },
-      potassium: {
-        amount: "180 mg",
-        dv: "4 %"
-      }
-    },
+    nutritionFacts: NFT.beefSamosa,
     packs: [
       {
         title: {
@@ -2563,6 +2540,7 @@ export const PRODUCTS: Product[] = [
           en: "Box · 6 per case",
           fr: "Boîte · 6 par caisse"
         },
+        weight: "650 g",
         key: "20-pcs-box",
         source: "master",
         image: "/images/packs/beef-samosa/20-pcs-box.png",
@@ -2712,48 +2690,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: {
-      servingEn: "Serving size 3 samosas per (90 g)",
-      servingFr: "Portion 3 samosas par (90 g)",
-      calories: 150,
-      fat: {
-        amount: "3 g",
-        dv: "4 %"
-      },
-      saturated: "0.6 g",
-      trans: "0 g",
-      saturatedTransDv: "3 %",
-      carbs: "24 g",
-      fibre: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      sugars: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      protein: "6 g",
-      cholesterol: {
-        amount: "15 mg",
-        dv: "5 %"
-      },
-      sodium: {
-        amount: "390 mg",
-        dv: "17 %"
-      },
-      calcium: {
-        amount: "30 mg",
-        dv: "2 %"
-      },
-      iron: {
-        amount: "0.9 mg",
-        dv: "5 %"
-      },
-      potassium: {
-        amount: "150 mg",
-        dv: "3 %"
-      }
-    },
+    nutritionFacts: NFT.chickenSamosa,
     packs: [
       {
         title: {
@@ -2854,48 +2791,7 @@ export const PRODUCTS: Product[] = [
         }
       ]
     },
-    nutritionFacts: {
-      servingEn: "Serving size 3 samosas per (90 g)",
-      servingFr: "Portion 3 samosas par (90 g)",
-      calories: 150,
-      fat: {
-        amount: "3 g",
-        dv: "4 %"
-      },
-      saturated: "0.6 g",
-      trans: "0 g",
-      saturatedTransDv: "3 %",
-      carbs: "24 g",
-      fibre: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      sugars: {
-        amount: "0 g",
-        dv: "0 %"
-      },
-      protein: "6 g",
-      cholesterol: {
-        amount: "15 mg",
-        dv: "5 %"
-      },
-      sodium: {
-        amount: "390 mg",
-        dv: "17 %"
-      },
-      calcium: {
-        amount: "30 mg",
-        dv: "2 %"
-      },
-      iron: {
-        amount: "0.9 mg",
-        dv: "5 %"
-      },
-      potassium: {
-        amount: "150 mg",
-        dv: "3 %"
-      }
-    },
+    nutritionFacts: NFT.chickenSamosa,
     packs: [
       {
         title: {
@@ -3048,6 +2944,7 @@ export const PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
+        weight: "1.2 kg",
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/mutton-samosa/40-pcs-container.png",
@@ -3587,6 +3484,7 @@ export const PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
+        weight: "1.2 kg",
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/mutton-spring-roll/40-pcs-container.png",

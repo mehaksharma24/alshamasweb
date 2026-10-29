@@ -1,4 +1,3 @@
-import NewsletterBanner from '../components/NewsletterBanner';
 import { packLabel } from '../components/PackCard';
 import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
@@ -103,8 +102,6 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
           </div>
         </div>
       </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

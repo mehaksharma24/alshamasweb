@@ -1,5 +1,4 @@
-import { Facebook, Instagram, Mail, MapPin, Phone, Send } from 'lucide-react';
-import { useState } from 'react';
+import { MapPin, Phone } from 'lucide-react';
 import logo from '../logo.png'; // ✅ your real logo
 import { COMPANY, ADDRESS_FULL } from '../company';
 import { useLang } from '../i18n';
@@ -9,17 +8,7 @@ interface FooterProps {
 }
 
 export default function Footer({ navigate }: FooterProps) {
-  const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
   const { t } = useLang();
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (email) {
-      setSubmitted(true);
-      setEmail('');
-    }
-  };
 
   return (
     <footer className="relative overflow-hidden" style={{ backgroundColor: '#1a3d2b' }}>
@@ -27,7 +16,7 @@ export default function Footer({ navigate }: FooterProps) {
       <div className="h-1 bg-brand-orange"></div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           
           {/* Brand */}
           <div>
@@ -40,24 +29,12 @@ export default function Footer({ navigate }: FooterProps) {
               />
             </div>
 
-            <p className="text-white/60 text-sm leading-relaxed mb-5">
+            <p className="text-white/60 text-sm leading-relaxed mb-0">
               {t(
                 'Canadian manufacturer of high-quality halal frozen foods since 2013. Halal certified by the Halal Monitoring Authority (HMA).',
                 'Fabricant canadien d’aliments halal surgelés de grande qualité depuis 2013. Certifié halal par la Halal Monitoring Authority (HMA).'
               )}
             </p>
-
-            <div className="flex gap-3">
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-orange flex items-center justify-center text-white/70 hover:text-white transition-all">
-                <Instagram size={15} />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-orange flex items-center justify-center text-white/70 hover:text-white transition-all">
-                <Facebook size={15} />
-              </a>
-              <a href="#" className="w-8 h-8 rounded-full bg-white/10 hover:bg-brand-red flex items-center justify-center text-white/70 hover:text-white transition-all">
-                <Mail size={15} />
-              </a>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -100,10 +77,6 @@ export default function Footer({ navigate }: FooterProps) {
                 <Phone size={14} className="text-brand-orange-light shrink-0" />
                 <a href={COMPANY.phoneHref} className="hover:text-brand-orange-light">{COMPANY.phone}</a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-white/60">
-                <Mail size={14} className="text-brand-orange-light shrink-0" />
-                <span>{COMPANY.email}</span>
-              </li>
             </ul>
             <div className="mt-5 flex flex-wrap gap-2">
               {[t('HMA Halal', 'Halal HMA'), t('SQF Certified', 'Certifié SQF'), 'SMETA'].map(cert => (
@@ -114,36 +87,6 @@ export default function Footer({ navigate }: FooterProps) {
             </div>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-white font-serif font-semibold mb-2 flex items-center gap-2">
-              <span className="w-4 h-0.5 bg-brand-orange inline-block"></span>
-              {t('Stay in the Loop', 'Restez informé')}
-            </h4>
-            <p className="text-white/60 text-sm mb-4">{t('New products, recipes, and exclusive offers.', 'Nouveaux produits, recettes et offres exclusives.')}</p>
-            {submitted ? (
-              <div className="bg-white/10 text-brand-orange-light text-sm rounded-xl px-4 py-3 border border-brand-orange/30">
-                {t('Thank you for subscribing!', 'Merci de votre abonnement !')}
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  placeholder={t('Your email', 'Votre courriel')}
-                  required
-                  className="flex-1 text-sm px-3 py-2 rounded-xl border border-white/20 focus:outline-none focus:border-brand-orange bg-white/10 text-white placeholder-white/40"
-                />
-                <button
-                  type="submit"
-                  className="p-2 bg-brand-orange text-white rounded-xl hover:bg-brand-orange-light transition-colors"
-                >
-                  <Send size={15} />
-                </button>
-              </form>
-            )}
-          </div>
         </div>
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">

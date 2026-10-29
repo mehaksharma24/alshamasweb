@@ -8,7 +8,6 @@ export const COMPANY = {
   name: 'Al-Shamas Food Products',
   phone: '905-672-1204',
   phoneHref: 'tel:+19056721204',
-  email: 'info@alshamasfood.ca',
   website: 'www.alshamasfoodproducts.ca',
   street: '2244 Drew Road',
   city: 'Mississauga, ON L5S 1B1',

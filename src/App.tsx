@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect } from 'react';
 import SplashScreen from './components/SplashScreen';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
-import NewsletterPopup from './components/NewsletterPopup';
 import HomePage from './pages/HomePage';
 import OurStoryPage from './pages/OurStoryPage';
 import ProductsPage from './pages/ProductsPage';
@@ -69,7 +68,6 @@ export default function App() {
         <Navbar currentPath={path} navigate={navigate} />
         <main>{renderPage()}</main>
         <Footer navigate={navigate} />
-        <NewsletterPopup />
       </div>
     </>
   );

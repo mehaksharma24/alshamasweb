@@ -1,50 +1,10 @@
-import { useState, useMemo } from 'react';
-import { Search, MapPin, Phone, X } from 'lucide-react';
-import { STORES } from '../data';
-import { RETAILER_LOGOS } from '../assets';
-import NewsletterBanner from '../components/NewsletterBanner';
+import { Phone } from 'lucide-react';
+import { COMPANY } from '../company';
 import { useLang } from '../i18n';
-
-const PROVINCES = ['All', 'ON', 'QC', 'BC', 'AB', 'MB'];
-const CHAINS = ['All', ...Array.from(new Set(STORES.map(s => s.chain)))];
-
-const STORE_BG_COLORS = [
-  'bg-white',
-  'bg-brand-green-pale',
-  'bg-white',
-  'bg-brand-orange-pale',
-  'bg-white',
-  'bg-brand-red-pale',
-  'bg-white',
-  'bg-brand-green-pale',
-  'bg-white',
-  'bg-brand-orange-pale',
-  'bg-white',
-  'bg-brand-red-pale',
-];
+import { RETAILERS } from '../retailers';
 
 export default function LocationsPage() {
-  const [search, setSearch] = useState('');
-  const [province, setProvince] = useState('All');
-  const [chain, setChain] = useState('All');
   const { t } = useLang();
-
-  const filtered = useMemo(() => {
-    const term = search.toLowerCase().trim();
-    return STORES.filter(s => {
-      const matchSearch = !term ||
-        s.name.toLowerCase().includes(term) ||
-        s.city.toLowerCase().includes(term) ||
-        s.postal.toLowerCase().includes(term) ||
-        s.chain.toLowerCase().includes(term);
-      const matchProvince = province === 'All' || s.province === province;
-      const matchChain = chain === 'All' || s.chain === chain;
-      return matchSearch && matchProvince && matchChain;
-    }).sort((a, b) => {
-      if (!term) return 0;
-      return a.name.toLowerCase().indexOf(term) - b.name.toLowerCase().indexOf(term);
-    });
-  }, [search, province, chain]);
 
   return (
     <div className="min-h-screen pt-24">
@@ -55,118 +15,50 @@ export default function LocationsPage() {
           <div className="inline-block bg-brand-green-pale text-brand-green text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
             {t('Find Us', 'Où nous trouver')}
           </div>
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Store Locator', 'Localisateur de magasins')}</h1>
-          <p className="text-gray-500 text-base">{t('Find Al-Shamas products at a store near you.', 'Trouvez les produits Al-Shamas dans un magasin près de chez vous.')}</p>
+          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Where to Buy', 'Où acheter')}</h1>
+          <p className="text-gray-500 text-base">
+            {t('Al-Shamas products are available at these stores.', 'Les produits Al-Shamas sont offerts dans ces magasins.')}
+          </p>
         </div>
       </section>
 
-      {/* Search & Filter */}
-      <section className="bg-white border-b border-gray-100 shadow-sm sticky top-24 z-30 py-5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center flex-wrap">
-            <div className="relative">
-              <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-              <input
-                value={search}
-                onChange={e => setSearch(e.target.value)}
-                placeholder={t('City, store name, postal code...', 'Ville, magasin, code postal...')}
-                className="pl-9 pr-8 py-2.5 text-sm rounded-2xl border border-gray-200 bg-gray-50 focus:outline-none focus:border-brand-green w-72"
-              />
-              {search && (
-                <button onClick={() => setSearch('')} className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
-                  <X size={13} />
-                </button>
-              )}
-            </div>
-
-            <select
-              value={province}
-              onChange={e => setProvince(e.target.value)}
-              className="text-xs bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none text-gray-600"
-            >
-              {PROVINCES.map(p => <option key={p} value={p}>{p === 'All' ? t('All Provinces', 'Toutes les provinces') : p}</option>)}
-            </select>
-
-            <select
-              value={chain}
-              onChange={e => setChain(e.target.value)}
-              className="text-xs bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none text-gray-600"
-            >
-              {CHAINS.map(c => <option key={c} value={c}>{c === 'All' ? t('All Chains', 'Toutes les chaînes') : c}</option>)}
-            </select>
-
-            {(search || province !== 'All' || chain !== 'All') && (
-              <button
-                onClick={() => { setSearch(''); setProvince('All'); setChain('All'); }}
-                className="text-xs text-brand-red hover:underline flex items-center gap-1"
+      {/* Retailers */}
+      <section className="py-12 bg-gray-50">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            {RETAILERS.map(r => (
+              <div
+                key={r.name}
+                className="bg-white rounded-2xl border border-gray-100 shadow-sm p-5 flex flex-col items-center justify-center gap-3"
               >
-                <X size={12} /> {t('Clear all', 'Tout effacer')}
-              </button>
-            )}
+                <div className="h-14 flex items-center justify-center">
+                  <img src={r.logo} alt={r.name} className="max-h-14 max-w-[150px] object-contain" />
+                </div>
+                <span className="text-sm font-medium text-gray-700">{r.name}</span>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-10 bg-white rounded-3xl border border-dashed border-gray-300 p-8 text-center">
+            <h2 className="font-serif text-xl font-semibold text-gray-900 mb-2">
+              {t('Store addresses coming soon', 'Adresses des magasins à venir')}
+            </h2>
+            <p className="text-sm text-gray-500 mb-4">
+              {t(
+                'Availability can vary by store. For help finding a product near you, call our office.',
+                'La disponibilité peut varier selon le magasin. Pour trouver un produit près de chez vous, appelez notre bureau.'
+              )}
+            </p>
+            <a
+              href={COMPANY.phoneHref}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-brand-red-light transition-colors"
+            >
+              <Phone size={14} />
+              {COMPANY.phone}
+            </a>
           </div>
         </div>
       </section>
-
-      {/* Results */}
-      <section className="py-10 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-400 text-xs mb-5">{t(`${filtered.length} location${filtered.length !== 1 ? 's' : ''} found`, `${filtered.length} emplacement${filtered.length !== 1 ? 's' : ''} trouvé${filtered.length !== 1 ? 's' : ''}`)}</p>
-
-          {filtered.length === 0 ? (
-            <div className="text-center py-16">
-              <p className="font-serif text-xl text-gray-400">{t('No stores found matching your search.', 'Aucun magasin ne correspond à votre recherche.')}</p>
-              <button
-                onClick={() => { setSearch(''); setProvince('All'); setChain('All'); }}
-                className="mt-3 text-brand-green text-sm hover:underline"
-              >
-                {t('Clear filters', 'Effacer les filtres')}
-              </button>
-            </div>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {filtered.map((store, i) => {
-                const bgClass = STORE_BG_COLORS[i % STORE_BG_COLORS.length];
-                const borderClass = bgClass === 'bg-brand-green-pale' ? 'border-brand-green/10'
-                  : bgClass === 'bg-brand-orange-pale' ? 'border-brand-orange/10'
-                  : bgClass === 'bg-brand-red-pale' ? 'border-brand-red/10'
-                  : 'border-gray-100';
-                return (
-                  <div key={store.id} className={`${bgClass} rounded-2xl p-5 border ${borderClass} hover:shadow-md transition-all`}>
-                    <div className="flex items-start justify-between mb-3">
-                      <div className="flex items-center gap-2">
-                        {RETAILER_LOGOS[store.chain] ? (
-                          <img src={RETAILER_LOGOS[store.chain]} alt={store.chain} className="w-8 h-8 object-contain rounded-md" />
-                        ) : (
-                          <div className="w-8 h-8 rounded-md bg-white border border-gray-100 flex items-center justify-center text-xs font-bold text-gray-500 shrink-0">
-                            {store.chain.slice(0, 2).toUpperCase()}
-                          </div>
-                        )}
-                        <div>
-                          <h3 className="font-semibold text-gray-900 text-sm leading-tight">{store.name}</h3>
-                          <span className="text-xs text-brand-green font-medium">{store.chain}</span>
-                        </div>
-                      </div>
-                      <span className="text-xs bg-white/80 text-gray-500 px-2 py-0.5 rounded-full shrink-0 border border-gray-100 ml-2">{store.province}</span>
-                    </div>
-                    <div className="space-y-1.5">
-                      <div className="flex items-start gap-2 text-xs text-gray-500">
-                        <MapPin size={12} className="text-brand-red mt-0.5 shrink-0" />
-                        <span>{store.address}, {store.city}, {store.province} {store.postal}</span>
-                      </div>
-                      <div className="flex items-center gap-2 text-xs text-gray-500">
-                        <Phone size={12} className="text-brand-green shrink-0" />
-                        <span>{store.phone}</span>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-      </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { Mail, MapPin, Menu, Phone, X } from 'lucide-react';
+import { MapPin, Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../logo.png'; // logo inside src/
 import { COMPANY, ADDRESS_SHORT } from '../company';
@@ -31,10 +31,6 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
             <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
               <Phone size={11} />
               <span>{COMPANY.phone}</span>
-            </a>
-            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
-              <Mail size={11} />
-              <span>{COMPANY.email}</span>
             </a>
             <span className="hidden sm:flex items-center gap-1.5 text-white/80 whitespace-nowrap">
               <MapPin size={11} />

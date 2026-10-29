@@ -1,7 +1,7 @@
 import { ArrowRight, Award, Clock, Palette, ShieldCheck, Star } from 'lucide-react';
-import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel } from '../data';
 import { RECIPES_FR } from '../recipes-fr';
+import { RETAILERS } from '../retailers';
 import { useLang } from '../i18n';
 
 const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
@@ -12,39 +12,6 @@ const HERO_IMAGE = '/images/products/homebanner-lineup.jpg';
 interface HomePageProps {
   navigate: (path: string) => void;
 }
-
-// Retailer logos are loaded directly from /images/products.
-// These files should be in the project's root images/products folder.
-const RETAILER_LOGO_MAP: Record<string, string> = {
-  'Freshco': '/images/products/Freshco.png',
-  'Nation Fresh Foods': '/images/products/Nation Fresh Foods.png',
-  'Nations Fresh Foods': '/images/products/Nation Fresh Foods.png',
-  'T&T Supermarket': '/images/products/TT supermarket.png',
-  'Adonis': '/images/products/adonis.png',
-  'Food Basics': '/images/products/Food Basics.png',
-  'Metro': '/images/products/metro.png',
-  'Bulk Barn': '/images/products/Bulk Barn.png',
-  'Costco': '/images/products/Costco.png',
-  'Walmart': '/images/products/walmart.png',
-  'Sobeys': '/images/products/sobeys.png',
-  'Loblaws': '/images/products/loblaws.png',
-  'Iqbal Foods': '/images/products/Iqbal Foods.png',
-};
-
-const RETAILER_NAMES = [
-  'Freshco',
-  'Iqbal Foods',
-  'Nations Fresh Foods',
-  'T&T Supermarket',
-  'Adonis',
-  'Food Basics',
-  'Metro',
-  'Bulk Barn',
-  'Costco',
-  'Walmart',
-  'Sobeys',
-  'Loblaws',
-];
 
 const FEATURED_IDS = ['1', '4', '5', '8', '11', '12'];
 
@@ -167,14 +134,14 @@ export default function HomePage({ navigate }: HomePageProps) {
             className="flex animate-scroll-left gap-8"
             style={{ width: 'max-content' }}
           >
-            {[...RETAILER_NAMES, ...RETAILER_NAMES].map((name, i) => (
+            {[...RETAILERS, ...RETAILERS].map(({ name, logo }, i) => (
               <div
                 key={i}
                 className="flex items-center justify-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-sm min-w-[140px] border border-gray-100"
               >
-                {RETAILER_LOGO_MAP[name] ? (
+                {logo ? (
                   <img
-                    src={RETAILER_LOGO_MAP[name]}
+                    src={logo}
                     alt={name}
                     className="h-11 w-auto object-contain"
                   />
@@ -206,8 +173,8 @@ export default function HomePage({ navigate }: HomePageProps) {
 
             <p className="text-gray-500 max-w-md mx-auto text-sm">
               {t(
-                'Our best-selling frozen favourites — made with halal ingredients and zero compromises.',
-                'Nos favoris surgelés les plus vendus — préparés avec des ingrédients halal, sans compromis.'
+                'A selection of our halal frozen favourites.',
+                'Une sélection de nos favoris halal surgelés.'
               )}
             </p>
           </div>
@@ -361,8 +328,6 @@ export default function HomePage({ navigate }: HomePageProps) {
           </div>
         </div>
       </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

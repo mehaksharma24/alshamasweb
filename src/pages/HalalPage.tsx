@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Shield, Award, CheckCircle2, Download, Eye } from 'lucide-react';
-import NewsletterBanner from '../components/NewsletterBanner';
 import { useLang } from '../i18n';
 
 function useReveal() {
@@ -76,7 +75,7 @@ const CERTS = [
   },
   {
     name: { en: 'Sedex Management Controls', fr: 'Contrôles de gestion Sedex' },
-    body: { en: 'Sedex (SMETA 4-Pillar)', fr: 'Sedex (SMETA à 4 piliers)' },
+    body: { en: 'Sedex', fr: 'Sedex' },
     desc: {
       en: 'Site score of 3.8 / 5 — ranking in the top 12% of food manufacturers in Canada for management controls.',
       fr: 'Note du site de 3,8 / 5 — parmi les 12 % meilleurs fabricants alimentaires au Canada pour les contrôles de gestion.',
@@ -100,17 +99,6 @@ const CERTS = [
   },
 ];
 
-const PRACTICES = [
-  { en: 'All halal certifications renewed annually and third-party audited', fr: 'Toutes les certifications halal sont renouvelées chaque année et vérifiées par des tiers' },
-  { en: 'Segregated halal production lines — no cross-contamination', fr: 'Chaînes de production halal séparées — aucune contamination croisée' },
-  { en: 'Certified halal suppliers for all meat ingredients', fr: 'Fournisseurs halal certifiés pour toutes les viandes' },
-  { en: 'Regular third-party facility inspections', fr: 'Inspections régulières de l’installation par des tiers' },
-  { en: 'Full traceability from farm to freezer', fr: 'Traçabilité complète, de la ferme au congélateur' },
-  { en: 'Employee halal-awareness training programmes', fr: 'Programmes de formation des employés sur les exigences halal' },
-  { en: 'Clean-label policy — no hidden additives', fr: 'Politique d’étiquetage transparent — aucun additif caché' },
-  { en: 'Allergen control and labelling compliance', fr: 'Contrôle des allergènes et conformité de l’étiquetage' },
-];
-
 export default function HalalPage() {
   const { ref, isVis } = useReveal();
   const { lang, t } = useLang();
@@ -130,7 +118,7 @@ export default function HalalPage() {
           </div>
           <h1 className="font-serif text-5xl font-bold text-gray-900 mb-4">{t('Halal & Certifications', 'Halal et certifications')}</h1>
           <p className="text-gray-500 text-lg leading-relaxed">
-            {t('Our commitment to halal is not a checkbox — it is the foundation of everything we do.', 'Notre engagement envers le halal n’est pas une simple formalité — c’est le fondement de tout ce que nous faisons.')}
+            {t('Our halal, food-safety and compliance certificates.', 'Nos certificats halal, de salubrité alimentaire et de conformité.')}
           </p>
         </div>
       </section>
@@ -154,14 +142,14 @@ export default function HalalPage() {
           >
             <p className="text-gray-600 leading-relaxed mb-5">
               {t(
-                'Since our founding in 2013, halal integrity has been non-negotiable. Every piece of meat we use comes from certified halal suppliers. Our facility is structured to prevent any cross-contamination between halal and non-halal products at every stage of production.',
-                'Depuis notre fondation en 2013, l’intégrité halal est non négociable. Toute la viande que nous utilisons provient de fournisseurs halal certifiés. Notre installation est organisée pour prévenir toute contamination croisée entre produits halal et non halal, à chaque étape de la production.'
+                'Al-Shamas follows Islamic principles and is Halal certified by the Halal Monitoring Authority (HMA), so you can enjoy every product with confidence.',
+                'Al-Shamas respecte les principes islamiques et est certifié halal par la Halal Monitoring Authority (HMA), afin que vous puissiez savourer chacun de nos produits en toute confiance.'
               )}
             </p>
             <p className="text-gray-600 leading-relaxed">
               {t(
-                'We maintain full traceability from farm to freezer — knowing exactly where every ingredient comes from and verifying halal status at every step. Our halal certification is renewed annually, audited by third-party accrediting bodies, and displayed on every product we sell.',
-                'Nous assurons une traçabilité complète, de la ferme au congélateur : nous savons exactement d’où provient chaque ingrédient et vérifions son statut halal à chaque étape. Notre certification halal est renouvelée chaque année, vérifiée par des organismes d’accréditation tiers et affichée sur chacun de nos produits.'
+                'The HMA verifies that Al-Shamas is approved to process and supply its listed products from 2244 Drew Road (EST #866 and #7088), and that all Halal products bearing the HMA logo are slaughtered (dhabihah) by hand. Our products are also registered as Halal with the Islamic Food and Nutrition Council of Canada (IFANCC).',
+                'La HMA atteste qu’Al-Shamas est autorisé à transformer et à fournir ses produits inscrits à partir du 2244 Drew Road (EST no 866 et no 7088), et que tous les produits halal portant le logo HMA proviennent d’un abattage à la main (dhabihah). Nos produits sont aussi enregistrés comme halal auprès de l’Islamic Food and Nutrition Council of Canada (IFANCC).'
               )}
             </p>
           </div>
@@ -226,37 +214,6 @@ export default function HalalPage() {
         </div>
       </section>
 
-      {/* Practices */}
-      <section className="py-16 bg-gray-50 relative overflow-hidden">
-        <div className="absolute left-0 bottom-0 w-56 h-56 bg-brand-green-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-40 pointer-events-none"></div>
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div
-            ref={ref('prac-title')}
-            className={`text-center mb-10 transition-all duration-700 ${isVis('prac-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
-          >
-            <h2 className="font-serif text-3xl font-bold text-gray-900">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {PRACTICES.map((practice, i) => (
-              <div
-                key={i}
-                ref={ref(`prac-${i}`)}
-                className={`flex items-start gap-3 bg-white rounded-2xl p-4 border border-gray-100 shadow-sm transition-all duration-500 ${
-                  isVis(`prac-${i}`) ? 'opacity-100 translate-x-0' : i % 2 === 0 ? 'opacity-0 -translate-x-5' : 'opacity-0 translate-x-5'
-                }`}
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center shrink-0 mt-0.5">
-                  <CheckCircle2 size={14} className="text-white" />
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed">{practice[lang]}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <NewsletterBanner />
     </div>
   );
 }

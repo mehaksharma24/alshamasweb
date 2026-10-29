@@ -1,5 +1,4 @@
 import { ArrowRight, UtensilsCrossed } from 'lucide-react';
-import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 
@@ -70,8 +69,6 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
           </div>
         </div>
       </section>
-
-      <NewsletterBanner />
     </div>
   );
 }
