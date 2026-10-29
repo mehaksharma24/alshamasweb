@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { X, Send, Gift, Sparkles } from 'lucide-react';
 import { NEWSLETTER_POPUP_IMAGE } from '../assets';
+import { useLang } from '../i18n';
 
 export default function NewsletterPopup() {
   const [visible, setVisible] = useState(false);
@@ -8,6 +9,7 @@ export default function NewsletterPopup() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [dismissed, setDismissed] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -40,7 +42,7 @@ export default function NewsletterPopup() {
           className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-brand-red text-white px-4 py-3 rounded-2xl shadow-2xl hover:bg-brand-red-light transition-all animate-bounce"
         >
           <Gift size={16} />
-          <span className="text-xs font-semibold">Exclusive Offer</span>
+          <span className="text-xs font-semibold">{t('Exclusive Offer', 'Offre exclusive')}</span>
         </button>
       )}
 
@@ -66,11 +68,11 @@ export default function NewsletterPopup() {
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
               <div className="flex items-center gap-1 mb-1">
                 <Sparkles size={14} className="text-white/80" />
-                <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">Exclusive Offer</span>
+                <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">{t('Exclusive Offer', 'Offre exclusive')}</span>
                 <Sparkles size={14} className="text-white/80" />
               </div>
               <p className="text-white font-serif font-bold text-xl leading-tight">
-                Get 10% Off Your<br />First Order
+                {t('Get 10% Off Your', 'Obtenez 10 % de rabais sur')}<br />{t('First Order', 'votre première commande')}
               </p>
             </div>
 
@@ -99,22 +101,22 @@ export default function NewsletterPopup() {
                 <div className="w-12 h-12 rounded-full bg-brand-green-pale flex items-center justify-center mx-auto mb-3">
                   <Gift size={22} className="text-brand-green" />
                 </div>
-                <p className="font-serif font-semibold text-gray-900 mb-1">You're in!</p>
+                <p className="font-serif font-semibold text-gray-900 mb-1">{t('You’re in!', 'C’est fait !')}</p>
                 <p className="text-gray-400 text-xs leading-relaxed">
-                  Welcome to the Al Shamas family. Check your inbox for your discount code.
+                  {t('Welcome to the Al-Shamas family. Check your inbox for your discount code.', 'Bienvenue dans la famille Al-Shamas. Consultez votre boîte de réception pour obtenir votre code de rabais.')}
                 </p>
               </div>
             ) : (
               <>
                 <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center">
-                  Subscribe for new products, exclusive recipes, and special offers — delivered to your inbox.
+                  {t('Subscribe for new products, exclusive recipes, and special offers — delivered to your inbox.', 'Abonnez-vous pour recevoir nos nouveaux produits, recettes exclusives et offres spéciales dans votre boîte de réception.')}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-2.5">
                   <input
                     type="email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    placeholder="Enter your email address"
+                    placeholder={t('Enter your email address', 'Entrez votre adresse courriel')}
                     required
                     className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-orange bg-gray-50"
                   />
@@ -123,10 +125,10 @@ export default function NewsletterPopup() {
                     className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-white rounded-xl transition-all"
                     style={{ background: 'linear-gradient(90deg, #C8102E, #E87722)' }}
                   >
-                    Claim My Discount <Send size={14} />
+                    {t('Claim My Discount', 'Obtenir mon rabais')} <Send size={14} />
                   </button>
                 </form>
-                <p className="text-center text-gray-300 text-xs mt-2">No spam, unsubscribe anytime.</p>
+                <p className="text-center text-gray-300 text-xs mt-2">{t('No spam, unsubscribe anytime.', 'Aucun pourriel. Désabonnement en tout temps.')}</p>
               </>
             )}
           </div>

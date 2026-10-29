@@ -133,7 +133,7 @@ export default function HalalPage() {
             style={{ transitionDelay: '150ms' }}
           >
             <p className="text-gray-600 leading-relaxed mb-5">
-              Since our founding in 1993, halal integrity has been non-negotiable. Every piece of meat we use comes from certified halal suppliers. Our facility is structured to prevent any cross-contamination between halal and non-halal products at every stage of production.
+              Since our founding in 2013, halal integrity has been non-negotiable. Every piece of meat we use comes from certified halal suppliers. Our facility is structured to prevent any cross-contamination between halal and non-halal products at every stage of production.
             </p>
             <p className="text-gray-600 leading-relaxed">
               We maintain full traceability from farm to freezer — knowing exactly where every ingredient comes from and verifying halal status at every step. Our halal certification is renewed annually, audited by third-party accrediting bodies, and displayed on every product we sell.

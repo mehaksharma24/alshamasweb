@@ -1,11 +1,154 @@
 import { useEffect, useRef, useState } from 'react';
-import { Award, Heart, Leaf, Shield, Users, Star } from 'lucide-react';
+import { Award, Building2, Factory, Globe2, MapPin, Phone, ShieldCheck, Sparkles } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { HALAL_CERTIFIED_IMAGE, STORY_PRODUCTION_IMAGE } from '../assets';
+import { STORY_COVER_IMAGE, CERTIFICATION_LOGOS } from '../assets';
+import { COMPANY } from '../company';
+import { useLang } from '../i18n';
 
 interface OurStoryPageProps {
   navigate: (path: string) => void;
 }
+
+type Bi = { en: string; fr: string };
+
+// ── Company Profile — catalogue text, word for word ─────────────
+const PROFILE_HEADING: Bi = {
+  en: 'We are a Canadian success story…',
+  fr: 'Nous sommes une réussite canadienne…',
+};
+
+const PROFILE_PARAGRAPHS: Bi[] = [
+  {
+    en: '… and the story is just getting started. For nearly a decade, we’ve been bringing delicious halal frozen foods to Canadian families.',
+    fr: '… et l’histoire ne fait que commencer. Depuis près d’une décennie, nous offrons aux familles canadiennes de savoureux aliments halal surgelés.',
+  },
+  {
+    en: 'Our mission is simple: deliver high-quality, great-tasting food that makes everyday meals easier. Crafted with care and made with thoughtfully selected ingredients, our products are free from artificial colours.',
+    fr: 'Notre mission est simple : proposer des produits de grande qualité, délicieux, et qui facilitent les repas au quotidien. Préparés avec soin et à partir d’ingrédients rigoureusement sélectionnés, nos produits sont sans colorants artificiels.',
+  },
+  {
+    en: 'Al-Shamas proves that frozen can taste just as fresh. Inspired by home-style recipes passed down through generations, every bite brings authentic flavour to your table.',
+    fr: 'Avec Al-Shamas, le surgelé peut être aussi bon que le frais. Inspirées de recettes maison transmises de génération en génération, nos créations apportent une touche authentique à votre table.',
+  },
+  {
+    en: 'Our Canadian journey began in 2013, and we’re proud to serve customers from coast to coast.',
+    fr: 'Notre aventure au Canada a commencé en 2013, et nous sommes fiers de servir nos clients d’un océan à l’autre.',
+  },
+  {
+    en: 'Al-Shamas follows Islamic principles and is Halal certified by the Halal Monitoring Authority (HMA), so you can enjoy every product with confidence.',
+    fr: 'Al-Shamas respecte les principes islamiques et est certifié halal par la Halal Monitoring Authority (HMA), afin que vous puissiez savourer chacun de nos produits en toute confiance.',
+  },
+];
+
+const PROFILE_CLOSING: Bi = {
+  en: 'This is who we are and we’re proud to share our story with you.',
+  fr: 'Voilà ce qui nous définit — et nous sommes fiers de partager notre histoire avec vous.',
+};
+
+// ── Company at a glance ───────────────────────────────────────
+const FACTS: { icon: typeof Award; label: Bi; value: Bi }[] = [
+  {
+    icon: Sparkles,
+    label: { en: 'Established', fr: 'Fondée' },
+    value: { en: '2013 in Canada', fr: 'En 2013 au Canada' },
+  },
+  {
+    icon: Building2,
+    label: { en: 'Company', fr: 'Entreprise' },
+    value: {
+      en: 'Canadian manufacturer specializing in high-quality halal frozen foods, including kebabs, samosas, spring rolls, and other ready-to-cook products.',
+      fr: 'Fabricant canadien spécialisé dans les aliments halal surgelés de grande qualité, notamment des kebabs, des samosas, des rouleaux impériaux et d’autres produits prêts à cuire.',
+    },
+  },
+  {
+    icon: Award,
+    label: { en: 'Quality', fr: 'Qualité' },
+    value: {
+      en: 'Products made with carefully selected ingredients and authentic recipes.',
+      fr: 'Des produits préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques.',
+    },
+  },
+  {
+    icon: ShieldCheck,
+    label: { en: 'Halal Certification', fr: 'Certification halal' },
+    value: { en: 'Halal Monitoring Authority (HMA)', fr: 'Halal Monitoring Authority (HMA)' },
+  },
+  {
+    icon: Globe2,
+    label: { en: 'Markets', fr: 'Marchés' },
+    value: { en: 'Canada and international markets', fr: 'Le Canada et les marchés internationaux' },
+  },
+];
+
+const LOCATIONS: { label: Bi; address: string; est: string }[] = [
+  { label: { en: 'Location 1', fr: 'Emplacement 1' }, address: '2244 Drew Road, Unit 1, Mississauga', est: 'EST #7088' },
+  { label: { en: 'Location 2', fr: 'Emplacement 2' }, address: '2244 Drew Road, Unit 3, Mississauga', est: 'EST #866' },
+];
+
+// ── Milestones & accomplishments ──────────────────────────────
+const MILESTONES: { year: Bi; text: Bi }[] = [
+  {
+    year: { en: '2013', fr: '2013' },
+    text: {
+      en: 'Established in Canada, initially importing products from the UK.',
+      fr: 'Fondation de l’entreprise au Canada, qui importe d’abord ses produits du Royaume-Uni.',
+    },
+  },
+  {
+    year: { en: '2015', fr: '2015' },
+    text: {
+      en: 'Started operations at a 5,000 sq. ft. Canadian manufacturing facility (EST #866).',
+      fr: 'Début des activités dans une installation de fabrication canadienne de 5 000 pi² (EST #866).',
+    },
+  },
+  {
+    year: { en: '2016', fr: '2016' },
+    text: { en: 'Obtained Provincial Food Licence.', fr: 'Obtention du permis alimentaire provincial.' },
+  },
+  {
+    year: { en: '2020', fr: '2020' },
+    text: { en: 'Obtained Federal Food Licence.', fr: 'Obtention de la licence alimentaire fédérale.' },
+  },
+  {
+    year: { en: '2021', fr: '2021' },
+    text: { en: 'Became eligible to export internationally.', fr: 'Admissibilité à l’exportation vers les marchés internationaux.' },
+  },
+  {
+    year: { en: 'August 2026', fr: 'Août 2026' },
+    text: {
+      en: 'Opened our new manufacturing plant (EST #7088), expanding production capacity to support future business growth.',
+      fr: 'Ouverture de notre nouvelle usine de fabrication (EST #7088), qui accroît notre capacité de production afin de soutenir la croissance future de l’entreprise.',
+    },
+  },
+];
+
+// ── Certifications — catalogue text, word for word ──────────────
+const CERTIFICATIONS: { logo: string; en: string; fr: string }[] = [
+  { logo: CERTIFICATION_LOGOS.hma, en: 'HMA Certified', fr: 'Certifié HMA' },
+  { logo: CERTIFICATION_LOGOS.sqf, en: 'SQF Certified', fr: 'Certifié SQF' },
+  { logo: CERTIFICATION_LOGOS.gmp, en: '3rd party GMP Audited', fr: 'Vérifié BPF par un tiers' },
+  { logo: CERTIFICATION_LOGOS.codeOfConduct, en: 'Code of Conduct Audited', fr: 'Audit du code de conduite' },
+  { logo: CERTIFICATION_LOGOS.smeta, en: 'SMETA 4-Pillar Audited', fr: 'Audit SMETA à 4 piliers' },
+  { logo: CERTIFICATION_LOGOS.supplyChain, en: 'Supply Chain Security Audited', fr: 'Audit de la sécurité de la chaîne d’approvisionnement' },
+];
+
+// ── Proudly Canadian — cities served (catalogue) ────────────────
+const PROVINCES: { name: Bi; cities: string[] }[] = [
+  { name: { en: 'Nova Scotia', fr: 'Nouvelle-Écosse' }, cities: ['Halifax'] },
+  { name: { en: 'Quebec', fr: 'Québec' }, cities: ['Montreal'] },
+  {
+    name: { en: 'Ontario', fr: 'Ontario' },
+    cities: [
+      'Ottawa', 'Orleans', 'Whitby', 'Oshawa', 'Ajax', 'Pickering', 'Markham', 'Richmond Hill', 'Vaughan', 'Maple',
+      'Toronto', 'Scarborough', 'North York', 'East York', 'Brampton', 'Etobicoke', 'Mississauga', 'Oakville',
+      'Burlington', 'Hamilton', 'Stoney Creek', 'Guelph', 'Cambridge', 'Kitchener', 'Milton', 'London', 'Windsor',
+    ],
+  },
+  { name: { en: 'Manitoba', fr: 'Manitoba' }, cities: ['Winnipeg'] },
+  { name: { en: 'Saskatchewan', fr: 'Saskatchewan' }, cities: ['Saskatoon', 'Regina'] },
+  { name: { en: 'Alberta', fr: 'Alberta' }, cities: ['Calgary', 'Edmonton'] },
+  { name: { en: 'British Columbia', fr: 'Colombie-Britannique' }, cities: ['Vancouver', 'Surrey', 'Richmond'] },
+];
 
 function useReveal() {
   const map = useRef<Map<string, Element>>(new Map());
@@ -28,31 +171,6 @@ function useReveal() {
   return { ref, isVis: (k: string) => vis.has(k) };
 }
 
-const TIMELINE = [
-  { year: '1993', title: 'Founded in Mississauga', desc: 'Al Shamas Food Products opens its doors with a small production facility and a big vision — to bring authentic South Asian halal flavours to Canadian tables.' },
-  { year: '1998', title: 'Halal Certification', desc: 'Received official Halal certification, reaffirming our commitment to quality and trust within the Muslim Canadian community.' },
-  { year: '2003', title: 'National Retail Expansion', desc: 'Products reach shelves across Ontario and Quebec, entering major grocery chains and specialty halal stores nationwide.' },
-  { year: '2020', title: 'Western Canada Launch', desc: 'Expanded distribution to Alberta, British Columbia, and Manitoba, making Al Shamas a truly coast-to-coast Canadian brand.' },
-  { year: '2024', title: '31+ Years Strong', desc: 'Serving millions of Canadians with over 20 SKUs, 100+ retail locations, and the same original family recipes that started it all.' },
-  { year: '2025', title: 'SQF Food Safety Certified', desc: 'Earned SQF Edition 9 food safety certification from Intertek SAI Global for our Mississauga facility, covering our kebabs, samosas and spring rolls.' },
-];
-
-const VALUES = [
-  { icon: Leaf, title: 'No Shortcuts', desc: 'We never use MSG, artificial preservatives, trans fats, or artificial nitrates. Clean ingredients only.', color: 'brand-green' },
-  { icon: Shield, title: 'Halal Always', desc: 'Every product, every batch — certified halal by accredited Canadian bodies. Non-negotiable.', color: 'brand-red' },
-  { icon: Heart, title: 'Family Recipes', desc: 'Our spice blends and techniques have been refined over three decades by the same founding family.', color: 'brand-orange' },
-  { icon: Users, title: 'Community First', desc: 'We give back to the communities that have supported us — locally sourcing ingredients wherever possible.', color: 'brand-green' },
-  { icon: Star, title: 'Award-Winning Taste', desc: 'Recognised by industry bodies and community organisations for consistent quality and authentic flavour.', color: 'brand-red' },
-  { icon: Award, title: 'Certified Excellence', desc: 'Halal certified by IFANCC and HMA, SQF food safety certified, and ranked in the top 12% of Canadian food manufacturers on Sedex.', color: 'brand-orange' },
-];
-
-const REACH_STATS = [
-  { target: 100, suffix: '+', label: 'Retail Locations', color: 'text-brand-red' },
-  { target: 8, suffix: '', label: 'Provinces', color: 'text-brand-green' },
-  { target: 20, suffix: '+', label: 'Product SKUs', color: 'text-brand-orange' },
-  { target: 31, suffix: '+', label: 'Years of Trust', color: 'text-brand-red' },
-];
-
 function useIntersection(ref: React.RefObject<Element | null>, threshold = 0.15) {
   const [visible, setVisible] = useState(false);
   useEffect(() => {
@@ -67,34 +185,14 @@ function useIntersection(ref: React.RefObject<Element | null>, threshold = 0.15)
   return visible;
 }
 
-function CountUp({ target, suffix, visible }: { target: number; suffix: string; visible: boolean }) {
-  const [count, setCount] = useState(1);
-  useEffect(() => {
-    if (!visible) return;
-    const duration = 1400;
-    const steps = 50;
-    const inc = (target - 1) / steps;
-    let current = 1;
-    setCount(1);
-    const interval = setInterval(() => {
-      current += inc;
-      if (current >= target) { setCount(target); clearInterval(interval); }
-      else setCount(Math.floor(current));
-    }, duration / steps);
-    return () => clearInterval(interval);
-  }, [visible, target]);
-  return <>{count}{suffix}</>;
-}
-
-function TimelineItem({ item, index, visible }: { item: typeof TIMELINE[0]; index: number; visible: boolean }) {
+function TimelineItem({ year, text, index, visible }: { year: string; text: string; index: number; visible: boolean }) {
   const even = index % 2 === 0;
   return (
     <div className={`flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : even ? 'opacity-0 -translate-x-8' : 'opacity-0 translate-x-8'} ${even ? 'lg:flex-row' : 'lg:flex-row-reverse'}`} style={{ transitionDelay: `${index * 80}ms` }}>
       <div className={`lg:w-1/2 ${even ? 'lg:text-right' : 'lg:text-left'}`}>
         <div className={`bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-shadow inline-block text-left ${even ? 'lg:ml-auto' : 'lg:mr-auto'} max-w-sm w-full`}>
-          <div className="text-brand-red font-serif font-bold text-2xl mb-1">{item.year}</div>
-          <h3 className="font-semibold text-gray-900 mb-2">{item.title}</h3>
-          <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
+          <div className="text-brand-red font-serif font-bold text-2xl mb-2">{year}</div>
+          <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
         </div>
       </div>
       <div className="hidden lg:flex relative z-10 w-10 h-10 rounded-full bg-brand-red items-center justify-center shadow-md shrink-0">
@@ -106,10 +204,10 @@ function TimelineItem({ item, index, visible }: { item: typeof TIMELINE[0]; inde
 }
 
 export default function OurStoryPage({ navigate }: OurStoryPageProps) {
+  const { lang, t } = useLang();
+  const pick = (b: Bi) => b[lang];
   const timelineRef = useRef<HTMLDivElement>(null);
-  const reachRef = useRef<HTMLDivElement>(null);
   const timelineVisible = useIntersection(timelineRef, 0.05);
-  const reachVisible = useIntersection(reachRef, 0.3);
   const { ref: revRef, isVis } = useReveal();
 
   return (
@@ -119,15 +217,15 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="absolute top-10 left-10 w-56 h-56 bg-brand-red-pale rounded-full opacity-40 pointer-events-none"></div>
         <div className="absolute bottom-0 right-10 w-72 h-72 bg-brand-orange-pale rounded-full opacity-30 pointer-events-none"></div>
         <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <p className="font-serif italic text-brand-red text-lg mb-2">Since 1993</p>
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 mb-6">About Us</h1>
+          <p className="font-serif italic text-brand-red text-lg mb-2">{t('Since 2013', 'Depuis 2013')}</p>
+          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 mb-6">{t('About Us', 'À propos de nous')}</h1>
           <p className="text-gray-500 text-lg leading-relaxed">
-            A family dream of sharing authentic, wholesome halal food with all of Canada — one perfect kebab at a time.
+            {t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')}
           </p>
         </div>
       </section>
 
-      {/* Brand story */}
+      {/* Company Profile (catalogue) */}
       <section className="py-16 bg-gray-50 relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-brand-green-pale rounded-full opacity-25"></div>
@@ -135,153 +233,176 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-serif text-3xl font-semibold text-gray-900 mb-5">
-                Born in Mississauga.<br />
-                <span className="text-brand-red">Loved across Canada.</span>
-              </h2>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                In 1993, a passionate family of food entrepreneurs recognised a gap in the Canadian market — there was no premium, fully-certified halal frozen food that delivered the authentic South Asian flavours families craved.
-              </p>
-              <p className="text-gray-600 leading-relaxed mb-4">
-                What began as a modest production kitchen in Mississauga, Ontario has grown into one of Canada's most trusted halal food brands. We now operate from an SQF-certified facility, distributing to over 100 retail locations from Victoria to Halifax.
-              </p>
-              <p className="text-gray-600 leading-relaxed">
-                Through three decades of growth, our core promise has never changed: use only the finest halal ingredients, respect traditional recipes, and deliver consistent quality that families can trust at every meal.
-              </p>
+              <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
+                {t('Company Profile', 'Profil de l’entreprise')}
+              </div>
+              <h2 className="font-serif text-3xl font-semibold text-gray-900 mb-5">{pick(PROFILE_HEADING)}</h2>
+              {PROFILE_PARAGRAPHS.map((p, i) => (
+                <p key={i} className="text-gray-600 leading-relaxed mb-4">{pick(p)}</p>
+              ))}
+              <p className="text-gray-900 font-semibold italic leading-relaxed">{pick(PROFILE_CLOSING)}</p>
             </div>
             <div className="relative">
-              <div className="rounded-3xl overflow-hidden shadow-xl">
+              <div className="rounded-3xl overflow-hidden shadow-xl bg-white">
                 <img
-                  src={STORY_PRODUCTION_IMAGE}
-                  alt="Al Shamas production"
-                  className="w-full h-80 object-cover"
+                  src={STORY_COVER_IMAGE}
+                  alt={t('Al-Shamas kebabs and samosas', 'Kebabs et samosas Al-Shamas')}
+                  className="w-full h-auto object-cover"
                 />
               </div>
               <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-lg">
-                <div className="text-brand-red font-serif font-bold text-3xl">31+</div>
-                <div className="text-gray-500 text-sm">Years of excellence</div>
+                <div className="text-brand-red font-serif font-bold text-3xl">2013</div>
+                <div className="text-gray-500 text-sm">{t('Established in Canada', 'Fondée au Canada')}</div>
               </div>
-              <div className="absolute -top-5 -right-5 bg-brand-red rounded-2xl p-4 shadow-lg">
-                <div className="text-white font-serif font-bold text-3xl">100+</div>
-                <div className="text-white/80 text-sm">Retail locations</div>
+              <div className="absolute -top-5 -right-5 bg-white rounded-2xl p-2 shadow-lg">
+                <img src={CERTIFICATION_LOGOS.hma} alt={t('HMA Halal certified', 'Certifié halal HMA')} className="w-20 h-20 object-contain" />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 100% Halal Certified */}
+      {/* Company at a glance */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={revRef('halal')}
-            className={`flex flex-col lg:flex-row gap-12 items-center relative transition-all duration-700 ${
-              isVis('halal') ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-10'
-            }`}
-            style={{ transitionDelay: '100ms' }}
-          >
-            <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-48 h-48 bg-brand-red-pale rounded-full opacity-40 pointer-events-none"></div>
-            <div className="lg:w-1/2 relative">
-              <div className="rounded-3xl overflow-hidden shadow-lg">
-                <img src={HALAL_CERTIFIED_IMAGE} alt="100% Halal Certified" className="w-full h-72 object-cover" />
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company at a Glance', 'L’entreprise en bref')}</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {FACTS.map(({ icon: Icon, label, value }, i) => (
+              <div
+                key={label.en}
+                ref={revRef(`fact-${i}`)}
+                className={`bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
+                  isVis(`fact-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${i * 80}ms` }}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-brand-green-pale flex items-center justify-center mb-4">
+                  <Icon size={22} className="text-brand-green" />
+                </div>
+                <h3 className="text-xs font-semibold tracking-widest uppercase text-brand-red mb-2">{pick(label)}</h3>
+                <p className="text-gray-700 text-sm leading-relaxed">{pick(value)}</p>
               </div>
-              <div className="absolute -bottom-4 -right-4 w-16 h-16 rounded-full bg-brand-red-pale border-4 border-white flex items-center justify-center shadow-md">
-                <Shield size={24} className="text-brand-red" />
+            ))}
+
+            {/* Facilities & office */}
+            <div
+              ref={revRef('fact-loc')}
+              className={`bg-brand-green rounded-3xl p-6 text-white transition-all duration-500 ${
+                isVis('fact-loc') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${FACTS.length * 80}ms` }}
+            >
+              <div className="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-4">
+                <Factory size={22} className="text-white" />
               </div>
-            </div>
-            <div className="lg:w-1/2 relative">
-              <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
-                No compromises, ever.
-              </div>
-              <h2 className="font-serif text-3xl font-bold text-gray-900 mb-4">100% Halal Certified</h2>
-              <p className="text-gray-600 leading-relaxed">
-                Every piece of chicken and beef used in Al Shamas products is sourced exclusively from certified halal suppliers. Our halal certification is renewed annually and audited by third-party bodies — not a marketing claim, but a verified, ongoing commitment.
-              </p>
+              <h3 className="text-xs font-semibold tracking-widest uppercase text-white/80 mb-3">{t('Facilities', 'Installations')}</h3>
+              <ul className="space-y-3 text-sm">
+                {LOCATIONS.map(loc => (
+                  <li key={loc.est} className="flex gap-2">
+                    <MapPin size={15} className="mt-0.5 shrink-0 text-brand-orange-light" />
+                    <span>
+                      <span className="font-semibold">{pick(loc.label)}:</span> {loc.address} – {loc.est}
+                    </span>
+                  </li>
+                ))}
+                <li className="flex gap-2">
+                  <Phone size={15} className="mt-0.5 shrink-0 text-brand-orange-light" />
+                  <span>
+                    <span className="font-semibold">{t('Office Phone', 'Téléphone du bureau')}:</span>{' '}
+                    <a href={COMPANY.phoneHref} className="underline-offset-2 hover:underline">{COMPANY.phone}</a>
+                  </span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-20 bg-white relative overflow-hidden">
+      {/* Milestones */}
+      <section className="py-20 bg-gray-50 relative overflow-hidden">
         <div className="absolute top-0 left-0 w-40 h-40 bg-brand-red-pale rounded-full -translate-x-1/2 opacity-40 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">Our Journey</h2>
-            <p className="text-gray-500 text-sm">Three decades of milestones, one consistent mission.</p>
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company Milestones & Accomplishments', 'Jalons et réalisations')}</h2>
+            <p className="text-gray-500 text-sm">{t('Our journey since 2013.', 'Notre parcours depuis 2013.')}</p>
           </div>
 
           <div className="relative" ref={timelineRef}>
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-red/30 to-transparent -translate-x-1/2"></div>
             <div className="space-y-10">
-              {TIMELINE.map((item, i) => (
-                <TimelineItem key={item.year} item={item} index={i} visible={timelineVisible} />
+              {MILESTONES.map((m, i) => (
+                <TimelineItem key={m.year.en} year={pick(m.year)} text={pick(m.text)} index={i} visible={timelineVisible} />
               ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Reach across Canada — counting on scroll */}
-      <section className="py-16 bg-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute right-0 bottom-0 w-56 h-56 bg-brand-orange-pale rounded-full translate-x-1/3 translate-y-1/3 opacity-50"></div>
-        </div>
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <h2 className="font-serif text-3xl font-bold text-gray-900 text-center mb-12">Our Reach Across Canada</h2>
-          <div ref={reachRef} className="grid grid-cols-2 sm:grid-cols-4 gap-6">
-            {REACH_STATS.map(({ target, suffix, label, color }) => (
-              <div key={label} className="bg-white rounded-3xl p-6 text-center shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-                <div className={`font-serif font-bold text-4xl ${color} mb-1`}>
-                  <CountUp target={target} suffix={suffix} visible={reachVisible} />
-                </div>
-                <div className="text-gray-500 text-sm">{label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Values */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute left-10 top-10 w-48 h-48 bg-brand-green-pale rounded-full opacity-30 pointer-events-none"></div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      {/* Certifications (catalogue) */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">How We Are Different</h2>
-            <p className="text-gray-500 text-sm">Our values set us apart in the frozen food industry.</p>
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Certifications', 'Certifications')}</h2>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {VALUES.map(({ icon: Icon, title, desc, color }, i) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+            {CERTIFICATIONS.map((c, i) => (
               <div
-                key={title}
-                ref={revRef(`val-${i}`)}
-                className={`bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
-                  isVis(`val-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                key={c.en}
+                ref={revRef(`cert-${i}`)}
+                className={`flex flex-col items-center text-center bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
+                  isVis(`cert-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
-                style={{ transitionDelay: `${i * 80}ms` }}
+                style={{ transitionDelay: `${i * 60}ms` }}
               >
-                <div className={`w-12 h-12 rounded-2xl bg-${color}-pale flex items-center justify-center mb-4`}>
-                  <Icon size={22} className={`text-${color}`} />
+                <div className="h-24 flex items-center justify-center mb-4">
+                  <img src={c.logo} alt="" className="max-h-24 max-w-[150px] object-contain" />
                 </div>
-                <h3 className="font-serif font-semibold text-gray-900 mb-2">{title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
+                <p className="font-semibold text-gray-900 text-sm">{t(c.en, c.fr)}</p>
               </div>
             ))}
+          </div>
+          <div className="text-center mt-10">
+            <button
+              onClick={() => navigate('/halal')}
+              className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-brand-red text-brand-red font-semibold rounded-full hover:bg-brand-red hover:text-white transition-all text-sm"
+            >
+              {t('View Halal & Certifications', 'Voir Halal et certifications')}
+            </button>
           </div>
         </div>
       </section>
 
-      {/* Award */}
-      <section className="py-16 bg-brand-red-pale relative overflow-hidden">
-        <div className="absolute right-10 top-1/2 -translate-y-1/2 w-56 h-56 bg-white/30 rounded-full pointer-events-none"></div>
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-red mb-4 shadow-lg">
-            <Award size={28} className="text-white" />
+      {/* Proudly Canadian (catalogue) */}
+      <section className="py-20 bg-brand-red-pale relative overflow-hidden">
+        <div className="absolute right-10 top-10 w-56 h-56 bg-white/40 rounded-full pointer-events-none"></div>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
+              {t('Proudly Canadian.', 'Fièrement canadien.')}
+              <br />
+              <span className="text-brand-red">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>
+            </h2>
           </div>
-          <h2 className="font-serif text-3xl font-bold text-gray-900 mb-3">Independently Verified Quality</h2>
-          <p className="text-gray-600 leading-relaxed text-sm">
-            Halal certified by IFANCC and HMA, SQF food safety certified by Intertek SAI Global, ranked in the top 12% of Canadian food manufacturers on Sedex, and rated High Performance (100) in our latest code of conduct audit. Our commitment to quality isn't just our promise — it's our track record.
-          </p>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/70 rounded-3xl p-8 shadow-sm">
+            {[
+              ['Nova Scotia', 'Quebec', 'Manitoba'],
+              ['Ontario'],
+              ['Saskatchewan', 'Alberta', 'British Columbia'],
+            ].map(group => (
+              <div key={group.join()} className={group[0] === 'Ontario' ? 'col-span-2 order-last md:order-none' : 'space-y-6'}>
+                {PROVINCES.filter(p => group.includes(p.name.en)).map(p => (
+                  <div key={p.name.en}>
+                    <h3 className="text-xs font-bold tracking-widest uppercase text-brand-red mb-2">{pick(p.name)}</h3>
+                    <ul className={`text-sm text-gray-700 space-y-0.5 ${p.cities.length > 5 ? 'columns-2 sm:columns-3' : ''}`}>
+                      {p.cities.map(c => <li key={c}>{c}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

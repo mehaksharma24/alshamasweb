@@ -86,3 +86,16 @@ export const HALAL_CERTIFIED_IMAGE =
 
 export const NEWSLETTER_POPUP_IMAGE =
   'https://images.pexels.com/photos/958545/pexels-photo-958545.jpeg?auto=compress&cs=tinysrgb&w=600';
+
+// ── About Us (from the product catalogue) ─────────────────────
+
+export const STORY_COVER_IMAGE = '/images/about/cover.jpg';
+
+export const CERTIFICATION_LOGOS = {
+  hma: '/images/about/hma.png',
+  sqf: '/images/about/sqf.png',
+  gmp: '/images/about/gmp.png',
+  codeOfConduct: '/images/about/code-of-conduct.png',
+  smeta: '/images/about/smeta.png',
+  supplyChain: '/images/about/supply-chain-security.png',
+};

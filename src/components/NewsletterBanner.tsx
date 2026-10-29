@@ -1,9 +1,11 @@
 import { useState } from 'react';
 import { Send } from 'lucide-react';
+import { useLang } from '../i18n';
 
 export default function NewsletterBanner() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLang();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -21,18 +23,18 @@ export default function NewsletterBanner() {
       <div className="relative max-w-7xl mx-auto px-4">
         <div className="max-w-xl mx-auto bg-white rounded-3xl shadow-lg border border-gray-100 px-8 py-10 text-center">
           <div className="inline-block bg-brand-orange-pale text-brand-orange text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
-            Newsletter
+            {t('Newsletter', 'Infolettre')}
           </div>
           <h2 className="font-serif text-2xl font-semibold text-gray-800 mb-2">
-            Recipes, Offers & New Arrivals
+            {t('Recipes, Offers & New Arrivals', 'Recettes, offres et nouveautés')}
           </h2>
           <p className="text-gray-400 mb-6 text-sm leading-relaxed">
-            Join thousands of Canadians who get our latest products and exclusive recipes in their inbox.
+            {t('Get our latest products and exclusive recipes in your inbox.', 'Recevez nos nouveaux produits et nos recettes exclusives dans votre boîte de réception.')}
           </p>
 
           {submitted ? (
             <div className="inline-flex items-center gap-2 bg-brand-green-pale text-brand-green px-6 py-3 rounded-2xl font-medium text-sm">
-              You're subscribed — welcome to the Al Shamas family!
+              {t('You’re subscribed — welcome to the Al-Shamas family!', 'Vous êtes abonné — bienvenue dans la famille Al-Shamas !')}
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3">
@@ -40,7 +42,7 @@ export default function NewsletterBanner() {
                 type="email"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
-                placeholder="Enter your email address"
+                placeholder={t('Enter your email address', 'Entrez votre adresse courriel')}
                 required
                 className="flex-1 px-4 py-3 rounded-2xl border border-gray-200 text-sm focus:outline-none focus:border-brand-orange bg-gray-50"
               />
@@ -48,7 +50,7 @@ export default function NewsletterBanner() {
                 type="submit"
                 className="flex items-center justify-center gap-2 px-6 py-3 bg-brand-orange text-white text-sm font-semibold rounded-2xl hover:bg-brand-orange-light transition-colors shadow-sm"
               >
-                Subscribe <Send size={14} />
+                {t('Subscribe', 'S’abonner')} <Send size={14} />
               </button>
             </form>
           )}

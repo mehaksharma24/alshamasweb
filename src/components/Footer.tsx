@@ -1,6 +1,8 @@
 import { Facebook, Instagram, Mail, MapPin, Phone, Send } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../logo.png'; // ✅ your real logo
+import { COMPANY, ADDRESS_FULL } from '../company';
+import { useLang } from '../i18n';
 
 interface FooterProps {
   navigate: (path: string) => void;
@@ -9,6 +11,7 @@ interface FooterProps {
 export default function Footer({ navigate }: FooterProps) {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLang();
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -38,7 +41,10 @@ export default function Footer({ navigate }: FooterProps) {
             </div>
 
             <p className="text-white/60 text-sm leading-relaxed mb-5">
-              Canada's trusted halal frozen food brand since 1993. Premium quality, authentic flavours, 31+ years of excellence.
+              {t(
+                'Canadian manufacturer of high-quality halal frozen foods since 2013. Halal certified by the Halal Monitoring Authority (HMA).',
+                'Fabricant canadien d’aliments halal surgelés de grande qualité depuis 2013. Certifié halal par la Halal Monitoring Authority (HMA).'
+              )}
             </p>
 
             <div className="flex gap-3">
@@ -58,14 +64,14 @@ export default function Footer({ navigate }: FooterProps) {
           <div>
             <h4 className="text-white font-serif font-semibold mb-4 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-brand-orange inline-block"></span>
-              Quick Links
+              {t('Quick Links', 'Liens rapides')}
             </h4>
             <ul className="space-y-2">
               {[
-                { label: 'Products', path: '/products' },
-                { label: 'About Us', path: '/about-us' },
-                { label: 'Find a Store', path: '/locations' },
-                { label: 'Halal & Certifications', path: '/halal' },
+                { label: t('Products', 'Produits'), path: '/products' },
+                { label: t('About Us', 'À propos'), path: '/about-us' },
+                { label: t('Find a Store', 'Trouver un magasin'), path: '/locations' },
+                { label: t('Halal & Certifications', 'Halal et certifications'), path: '/halal' },
               ].map(link => (
                 <li key={link.path}>
                   <button
@@ -83,24 +89,24 @@ export default function Footer({ navigate }: FooterProps) {
           <div>
             <h4 className="text-white font-serif font-semibold mb-4 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-brand-orange inline-block"></span>
-              Contact
+              {t('Contact', 'Nous joindre')}
             </h4>
             <ul className="space-y-3">
               <li className="flex items-start gap-2 text-sm text-white/60">
                 <MapPin size={14} className="mt-0.5 text-brand-orange-light shrink-0" />
-                <span>1234 Industrial Pkwy, Mississauga, ON L5B 1M5</span>
+                <span>{ADDRESS_FULL}</span>
               </li>
               <li className="flex items-center gap-2 text-sm text-white/60">
                 <Phone size={14} className="text-brand-orange-light shrink-0" />
-                <span>905-555-0100</span>
+                <a href={COMPANY.phoneHref} className="hover:text-brand-orange-light">{COMPANY.phone}</a>
               </li>
               <li className="flex items-center gap-2 text-sm text-white/60">
                 <Mail size={14} className="text-brand-orange-light shrink-0" />
-                <span>info@alshamasfood.ca</span>
+                <span>{COMPANY.email}</span>
               </li>
             </ul>
             <div className="mt-5 flex flex-wrap gap-2">
-              {['IFANCC Halal', 'HMA Halal', 'SQF Certified', 'Sedex'].map(cert => (
+              {[t('HMA Halal', 'Halal HMA'), t('SQF Certified', 'Certifié SQF'), 'SMETA'].map(cert => (
                 <span key={cert} className="text-xs px-2.5 py-1 rounded-full border border-brand-orange/40 text-brand-orange-light font-medium">
                   {cert}
                 </span>
@@ -112,12 +118,12 @@ export default function Footer({ navigate }: FooterProps) {
           <div>
             <h4 className="text-white font-serif font-semibold mb-2 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-brand-orange inline-block"></span>
-              Stay in the Loop
+              {t('Stay in the Loop', 'Restez informé')}
             </h4>
-            <p className="text-white/60 text-sm mb-4">New products, recipes, and exclusive offers.</p>
+            <p className="text-white/60 text-sm mb-4">{t('New products, recipes, and exclusive offers.', 'Nouveaux produits, recettes et offres exclusives.')}</p>
             {submitted ? (
               <div className="bg-white/10 text-brand-orange-light text-sm rounded-xl px-4 py-3 border border-brand-orange/30">
-                Thank you for subscribing!
+                {t('Thank you for subscribing!', 'Merci de votre abonnement !')}
               </div>
             ) : (
               <form onSubmit={handleSubscribe} className="flex gap-2">
@@ -125,7 +131,7 @@ export default function Footer({ navigate }: FooterProps) {
                   type="email"
                   value={email}
                   onChange={e => setEmail(e.target.value)}
-                  placeholder="Your email"
+                  placeholder={t('Your email', 'Votre courriel')}
                   required
                   className="flex-1 text-sm px-3 py-2 rounded-xl border border-white/20 focus:outline-none focus:border-brand-orange bg-white/10 text-white placeholder-white/40"
                 />
@@ -142,10 +148,10 @@ export default function Footer({ navigate }: FooterProps) {
 
         <div className="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-white/40 text-xs">
-            &copy; {new Date().getFullYear()} Al Shamas Food Products Inc. All rights reserved.
+            &copy; {new Date().getFullYear()} Al-Shamas Food Products. {t('All rights reserved.', 'Tous droits réservés.')}
           </p>
           <p className="text-white/40 text-xs">
-            Proudly Canadian • Since 1993 • Halal Certified
+            {t('Proudly Canadian • Since 2013 • HMA Halal Certified', 'Fièrement canadien • Depuis 2013 • Certifié halal HMA')}
           </p>
         </div>
       </div>

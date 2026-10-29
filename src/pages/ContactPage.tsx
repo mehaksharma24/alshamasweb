@@ -130,8 +130,8 @@ export default function ContactPage() {
             <div className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { icon: MapPin, label: 'Address', value: '1234 Industrial Pkwy\nMississauga, ON L5B 1M5', color: 'brand-red' },
-                  { icon: Phone, label: 'Phone', value: '905-555-0100\nMon–Fri, 9am–5pm', color: 'brand-green' },
+                  { icon: MapPin, label: 'Address', value: '2244 Drew Road, Units 1 & 3\nMississauga, ON L5S 1B1', color: 'brand-red' },
+                  { icon: Phone, label: 'Phone', value: '905-672-1204\nMon–Fri, 9am–5pm', color: 'brand-green' },
                   { icon: Mail, label: 'Email', value: 'info@alshamasfood.ca\nWholesale enquiries welcome', color: 'brand-orange' },
                 ].map(({ icon: Icon, label, value, color }) => (
                   <div key={label} className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">

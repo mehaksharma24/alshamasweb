@@ -1,6 +1,8 @@
 import { Mail, MapPin, Menu, Phone, X } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../logo.png'; // logo inside src/
+import { COMPANY, ADDRESS_SHORT } from '../company';
+import { LangToggle, useLang } from '../i18n';
 
 interface NavbarProps {
   currentPath: string;
@@ -8,16 +10,17 @@ interface NavbarProps {
 }
 
 const NAV_LINKS = [
-  { label: 'Home', path: '/' },
-  { label: 'About Us', path: '/about-us' },
-  { label: 'Products', path: '/products' },
-  { label: 'Locations', path: '/locations' },
-  { label: 'Halal & Certifications', path: '/halal' },
-  { label: 'Contact', path: '/contact' },
+  { label: 'Home', fr: 'Accueil', path: '/' },
+  { label: 'About Us', fr: 'À propos', path: '/about-us' },
+  { label: 'Products', fr: 'Produits', path: '/products' },
+  { label: 'Locations', fr: 'Points de vente', path: '/locations' },
+  { label: 'Halal & Certifications', fr: 'Halal et certifications', path: '/halal' },
+  { label: 'Contact', fr: 'Contact', path: '/contact' },
 ];
 
 export default function Navbar({ currentPath, navigate }: NavbarProps) {
   const [open, setOpen] = useState(false);
+  const { t } = useLang();
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
@@ -25,20 +28,20 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
       <div className="bg-brand-red text-white text-xs">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-1.5 flex flex-col sm:flex-row items-center justify-between gap-1 sm:gap-4">
           <div className="flex items-center gap-4 flex-wrap justify-center sm:justify-start">
-            <a href="tel:9055550100" className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
+            <a href={COMPANY.phoneHref} className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
               <Phone size={11} />
-              <span>905-555-0100</span>
+              <span>{COMPANY.phone}</span>
             </a>
-            <a href="mailto:info@alshamasfood.ca" className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
+            <a href={`mailto:${COMPANY.email}`} className="flex items-center gap-1.5 hover:text-white/80 transition-colors whitespace-nowrap">
               <Mail size={11} />
-              <span>info@alshamasfood.ca</span>
+              <span>{COMPANY.email}</span>
             </a>
             <span className="hidden sm:flex items-center gap-1.5 text-white/80 whitespace-nowrap">
               <MapPin size={11} />
-              <span>1234 Industrial Pkwy, Mississauga, ON</span>
+              <span>{ADDRESS_SHORT}</span>
             </span>
           </div>
-          <span className="text-white/70 hidden md:block whitespace-nowrap">Premium Halal Since 1993</span>
+          <span className="text-white/70 hidden md:block whitespace-nowrap">{t('Proudly Canadian • Since 2013', 'Fièrement canadien • Depuis 2013')}</span>
         </div>
       </div>
 
@@ -72,18 +75,22 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                       : 'text-gray-600 hover:text-brand-red hover:bg-brand-red-pale'
                   }`}
                 >
-                  {link.label}
+                  {t(link.label, link.fr)}
                 </button>
               ))}
+              <LangToggle className="ml-3" />
             </div>
 
             {/* Mobile toggle */}
+            <div className="lg:hidden flex items-center gap-2">
+            <LangToggle />
             <button
               onClick={() => setOpen(!open)}
               className="lg:hidden p-2 rounded-full text-gray-500 hover:text-brand-red hover:bg-brand-red-pale transition-colors"
             >
               {open ? <X size={18} /> : <Menu size={18} />}
             </button>
+            </div>
           </div>
         </div>
 
@@ -101,7 +108,7 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                       : 'text-gray-600 hover:text-brand-red hover:bg-brand-red-pale'
                   }`}
                 >
-                  {link.label}
+                  {t(link.label, link.fr)}
                 </button>
               ))}
             </div>

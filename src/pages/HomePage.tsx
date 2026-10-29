@@ -1,6 +1,15 @@
-import { ArrowRight, Award, Clock, Leaf, Star } from 'lucide-react';
+import { ArrowRight, Award, Clock, Palette, ShieldCheck, Star } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCTS, RECIPES } from '../data';
+import { useLang } from '../i18n';
+
+const CATEGORY_FR: Record<string, string> = {
+  Kababs: 'Kebabs',
+  Samosas: 'Samosas',
+  'Spring Rolls': 'Rouleaux impériaux',
+};
+
+const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
 
 // ONLY CHANGE: Hero banner now uses homebanner.png from images/products
 const HERO_IMAGE = '/images/products/homebanner-lineup.jpg';
@@ -47,6 +56,7 @@ const FEATURED_IDS = ['1', '4', '5', '6', '11', '12'];
 export default function HomePage({ navigate }: HomePageProps) {
   const featured = PRODUCTS.filter(p => FEATURED_IDS.includes(p.id));
   const recipes = RECIPES.slice(0, 4);
+  const { lang, t } = useLang();
 
   return (
     <div className="min-h-screen">
@@ -69,21 +79,34 @@ export default function HomePage({ navigate }: HomePageProps) {
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
               <Star size={12} fill="currentColor" />
-              Canada's Halal Frozen Foods
+              {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
             </div>
 
             <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-              Canada's Premium
-              <br />
-              <span className="text-brand-red">Halal</span> Frozen
-              <br />
-              <span className="text-brand-green">Foods</span>
+              {lang === 'fr' ? (
+                <>
+                  Aliments
+                  <br />
+                  <span className="text-brand-red">halal</span> surgelés
+                  <br />
+                  <span className="text-brand-green">de qualité</span>
+                </>
+              ) : (
+                <>
+                  Canada's Premium
+                  <br />
+                  <span className="text-brand-red">Halal</span> Frozen
+                  <br />
+                  <span className="text-brand-green">Foods</span>
+                </>
+              )}
             </h1>
 
             <p className="text-gray-800 text-lg leading-relaxed mb-8 max-w-xl">
-              Authentic flavours crafted with the finest halal ingredients — no
-              MSG, no preservatives, no artificial additives. Trusted by
-              Canadian families for 31+ years.
+              {t(
+                'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
+                'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
+              )}
             </p>
 
             <div className="flex flex-wrap gap-3">
@@ -91,24 +114,24 @@ export default function HomePage({ navigate }: HomePageProps) {
                 onClick={() => navigate('/products')}
                 className="flex items-center gap-2 px-7 py-3.5 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red-light transition-all shadow-lg shadow-brand-red/20 text-sm"
               >
-                Shop Products <ArrowRight size={16} />
+                {t('Shop Products', 'Voir les produits')} <ArrowRight size={16} />
               </button>
 
               <button
                 onClick={() => navigate('/about-us')}
                 className="flex items-center gap-2 px-7 py-3.5 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all border border-gray-200 text-sm"
               >
-                About Us
+                {t('About Us', 'À propos de nous')}
               </button>
             </div>
 
             {/* Trust badges */}
             <div className="flex flex-wrap gap-4 mt-10">
               {[
-                { icon: Award, label: '31+ Years', sub: 'of excellence' },
-                { icon: Leaf, label: '100% Halal', sub: 'hand slaughtered' },
-                { icon: Star, label: 'No MSG', sub: 'or preservatives' },
-                { icon: Clock, label: 'Ready', sub: 'in minutes' },
+                { icon: Award, label: t('Since 2013', 'Depuis 2013'), sub: t('Proudly Canadian', 'Fièrement canadien') },
+                { icon: ShieldCheck, label: t('HMA Halal', 'Halal HMA'), sub: t('Certified', 'Certifié') },
+                { icon: Palette, label: t('No Artificial', 'Sans colorants'), sub: t('Colours', 'artificiels') },
+                { icon: Clock, label: t('Heat & Eat', 'Prêt à réchauffer'), sub: t('Fully cooked', 'Entièrement cuit') },
               ].map(({ icon: Icon, label, sub }) => (
                 <div
                   key={label}
@@ -140,7 +163,7 @@ export default function HomePage({ navigate }: HomePageProps) {
 
         <div className="text-center mb-6">
           <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase">
-            Available At
+            {t('Available At', 'Offert chez')}
           </p>
         </div>
 
@@ -179,16 +202,18 @@ export default function HomePage({ navigate }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <div className="inline-block bg-brand-orange-pale text-brand-orange text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
-              Top Picks
+              {t('Top Picks', 'Nos favoris')}
             </div>
 
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
-              Featured Products
+              {t('Featured Products', 'Produits vedettes')}
             </h2>
 
             <p className="text-gray-500 max-w-md mx-auto text-sm">
-              Our best-selling frozen favourites — made with halal ingredients
-              and zero compromises.
+              {t(
+                'Our best-selling frozen favourites — made with halal ingredients and zero compromises.',
+                'Nos favoris surgelés les plus vendus — préparés avec des ingrédients halal, sans compromis.'
+              )}
             </p>
           </div>
 
@@ -210,14 +235,14 @@ export default function HomePage({ navigate }: HomePageProps) {
 
                   {product.tags.includes('Bestseller') && (
                     <div className="absolute top-2 left-2 bg-brand-red text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-                      Bestseller
+                      {t('Bestseller', 'Populaire')}
                     </div>
                   )}
                 </div>
 
                 <div>
                   <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
-                    {product.category}
+                    {lang === 'fr' ? CATEGORY_FR[product.category] ?? product.category : product.category}
                   </p>
 
                   <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight mb-1">
@@ -238,7 +263,7 @@ export default function HomePage({ navigate }: HomePageProps) {
               onClick={() => navigate('/products')}
               className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-brand-red text-brand-red font-semibold rounded-full hover:bg-brand-red hover:text-white transition-all text-sm"
             >
-              View All Products <ArrowRight size={15} />
+              {t('View All Products', 'Voir tous les produits')} <ArrowRight size={15} />
             </button>
           </div>
         </div>
@@ -252,15 +277,24 @@ export default function HomePage({ navigate }: HomePageProps) {
 
         <div className="max-w-3xl mx-auto px-4 text-center relative">
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-gray-800 leading-snug mb-4">
-            "From our kitchen to yours —{' '}
-            <span className="text-brand-red italic">authenticity</span> in every
-            bite."
+            {lang === 'fr' ? (
+              <>
+                « De notre cuisine à la vôtre —{' '}
+                <span className="text-brand-red italic">l’authenticité</span> à chaque bouchée. »
+              </>
+            ) : (
+              <>
+                "From our kitchen to yours —{' '}
+                <span className="text-brand-red italic">authenticity</span> in every bite."
+              </>
+            )}
           </h2>
 
           <p className="text-gray-500 text-sm leading-relaxed">
-            Every Al Shamas product is crafted with the same care and spice
-            blends perfected over three decades — real ingredients, real
-            flavour, real heritage.
+            {t(
+              'Al-Shamas proves that frozen can taste just as fresh. Inspired by home-style recipes passed down through generations, every bite brings authentic flavour to your table.',
+              'Avec Al-Shamas, le surgelé peut être aussi bon que le frais. Inspirées de recettes maison transmises de génération en génération, nos créations apportent une touche authentique à votre table.'
+            )}
           </p>
         </div>
       </section>
@@ -272,15 +306,15 @@ export default function HomePage({ navigate }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-12">
             <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
-              Inspiration
+              {t('Inspiration', 'Inspiration')}
             </div>
 
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
-              Recipe Ideas
+              {t('Recipe Ideas', 'Idées recettes')}
             </h2>
 
             <p className="text-gray-500 text-sm">
-              Creative ways to use Al Shamas products at home.
+              {t('Creative ways to use Al-Shamas products at home.', 'Des façons créatives d’utiliser les produits Al-Shamas à la maison.')}
             </p>
           </div>
 
@@ -312,7 +346,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                     )}
 
                     <span className="text-xs text-gray-400">
-                      {recipe.difficulty}
+                      {lang === 'fr' ? DIFFICULTY_FR[recipe.difficulty] ?? recipe.difficulty : recipe.difficulty}
                     </span>
                   </div>
 
@@ -321,7 +355,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                   </h3>
 
                   <p className="text-xs text-gray-400 mt-1">
-                    Uses: {recipe.product}
+                    {t('Uses:', 'Produit :')} {recipe.product}
                   </p>
                 </div>
               </button>

@@ -22,13 +22,20 @@ export default function App() {
   const [path, setPath] = useState(getPath);
 
   const navigate = useCallback((to: string) => {
-    window.location.hash = to;
+    try {
+      window.location.hash = to;
+    } catch {
+      /* hash not writable in some embedded previews — in-memory routing still works */
+    }
     setPath(to);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
   useEffect(() => {
-    const handler = () => setPath(getPath());
+    const handler = () => {
+      const h = window.location.hash;
+      if (h === '' || h.startsWith('#/')) setPath(getPath());
+    };
     window.addEventListener('hashchange', handler);
     return () => window.removeEventListener('hashchange', handler);
   }, []);
