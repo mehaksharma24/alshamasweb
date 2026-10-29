@@ -3,6 +3,7 @@ import { Search, MapPin, Phone, X } from 'lucide-react';
 import { STORES } from '../data';
 import { RETAILER_LOGOS } from '../assets';
 import NewsletterBanner from '../components/NewsletterBanner';
+import { useLang } from '../i18n';
 
 const PROVINCES = ['All', 'ON', 'QC', 'BC', 'AB', 'MB'];
 const CHAINS = ['All', ...Array.from(new Set(STORES.map(s => s.chain)))];
@@ -26,6 +27,7 @@ export default function LocationsPage() {
   const [search, setSearch] = useState('');
   const [province, setProvince] = useState('All');
   const [chain, setChain] = useState('All');
+  const { t } = useLang();
 
   const filtered = useMemo(() => {
     const term = search.toLowerCase().trim();
@@ -51,10 +53,10 @@ export default function LocationsPage() {
         <div className="absolute top-0 left-0 w-64 h-64 bg-brand-green-pale rounded-full -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none"></div>
         <div className="max-w-3xl mx-auto px-4 text-center relative">
           <div className="inline-block bg-brand-green-pale text-brand-green text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
-            Find Us
+            {t('Find Us', 'Où nous trouver')}
           </div>
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">Store Locator</h1>
-          <p className="text-gray-500 text-base">Find Al Shamas products at a store near you.</p>
+          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Store Locator', 'Localisateur de magasins')}</h1>
+          <p className="text-gray-500 text-base">{t('Find Al-Shamas products at a store near you.', 'Trouvez les produits Al-Shamas dans un magasin près de chez vous.')}</p>
         </div>
       </section>
 
@@ -67,7 +69,7 @@ export default function LocationsPage() {
               <input
                 value={search}
                 onChange={e => setSearch(e.target.value)}
-                placeholder="City, store name, postal code..."
+                placeholder={t('City, store name, postal code...', 'Ville, magasin, code postal...')}
                 className="pl-9 pr-8 py-2.5 text-sm rounded-2xl border border-gray-200 bg-gray-50 focus:outline-none focus:border-brand-green w-72"
               />
               {search && (
@@ -82,7 +84,7 @@ export default function LocationsPage() {
               onChange={e => setProvince(e.target.value)}
               className="text-xs bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none text-gray-600"
             >
-              {PROVINCES.map(p => <option key={p} value={p}>{p === 'All' ? 'All Provinces' : p}</option>)}
+              {PROVINCES.map(p => <option key={p} value={p}>{p === 'All' ? t('All Provinces', 'Toutes les provinces') : p}</option>)}
             </select>
 
             <select
@@ -90,7 +92,7 @@ export default function LocationsPage() {
               onChange={e => setChain(e.target.value)}
               className="text-xs bg-gray-50 border border-gray-200 rounded-xl px-3 py-2.5 focus:outline-none text-gray-600"
             >
-              {CHAINS.map(c => <option key={c} value={c}>{c === 'All' ? 'All Chains' : c}</option>)}
+              {CHAINS.map(c => <option key={c} value={c}>{c === 'All' ? t('All Chains', 'Toutes les chaînes') : c}</option>)}
             </select>
 
             {(search || province !== 'All' || chain !== 'All') && (
@@ -98,7 +100,7 @@ export default function LocationsPage() {
                 onClick={() => { setSearch(''); setProvince('All'); setChain('All'); }}
                 className="text-xs text-brand-red hover:underline flex items-center gap-1"
               >
-                <X size={12} /> Clear all
+                <X size={12} /> {t('Clear all', 'Tout effacer')}
               </button>
             )}
           </div>
@@ -108,16 +110,16 @@ export default function LocationsPage() {
       {/* Results */}
       <section className="py-10 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-gray-400 text-xs mb-5">{filtered.length} location{filtered.length !== 1 ? 's' : ''} found</p>
+          <p className="text-gray-400 text-xs mb-5">{t(`${filtered.length} location${filtered.length !== 1 ? 's' : ''} found`, `${filtered.length} emplacement${filtered.length !== 1 ? 's' : ''} trouvé${filtered.length !== 1 ? 's' : ''}`)}</p>
 
           {filtered.length === 0 ? (
             <div className="text-center py-16">
-              <p className="font-serif text-xl text-gray-400">No stores found matching your search.</p>
+              <p className="font-serif text-xl text-gray-400">{t('No stores found matching your search.', 'Aucun magasin ne correspond à votre recherche.')}</p>
               <button
                 onClick={() => { setSearch(''); setProvince('All'); setChain('All'); }}
                 className="mt-3 text-brand-green text-sm hover:underline"
               >
-                Clear filters
+                {t('Clear filters', 'Effacer les filtres')}
               </button>
             </div>
           ) : (

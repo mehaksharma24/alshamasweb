@@ -12,6 +12,7 @@ import RecipeDetailPage from './pages/RecipeDetailPage';
 import LocationsPage from './pages/LocationsPage';
 import HalalPage from './pages/HalalPage';
 import ContactPage from './pages/ContactPage';
+import { useLang } from './i18n';
 
 function getPath() {
   return window.location.hash.replace('#', '') || '/';
@@ -20,6 +21,7 @@ function getPath() {
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
   const [path, setPath] = useState(getPath);
+  const { t } = useLang();
 
   const navigate = useCallback((to: string) => {
     try {
@@ -53,8 +55,8 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
-          <h1 className="font-serif text-4xl text-gray-800 mb-4">Page Not Found</h1>
-          <button onClick={() => navigate('/')} className="text-brand-red hover:underline">Go Home</button>
+          <h1 className="font-serif text-4xl text-gray-800 mb-4">{t('Page Not Found', 'Page introuvable')}</h1>
+          <button onClick={() => navigate('/')} className="text-brand-red hover:underline">{t('Go Home', 'Retour à l’accueil')}</button>
         </div>
       </div>
     );

@@ -1,13 +1,8 @@
 import { ArrowRight, Award, Clock, Palette, ShieldCheck, Star } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { PRODUCTS, RECIPES } from '../data';
+import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel } from '../data';
+import { RECIPES_FR } from '../recipes-fr';
 import { useLang } from '../i18n';
-
-const CATEGORY_FR: Record<string, string> = {
-  Kababs: 'Kebabs',
-  Samosas: 'Samosas',
-  'Spring Rolls': 'Rouleaux impériaux',
-};
 
 const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
 
@@ -51,7 +46,7 @@ const RETAILER_NAMES = [
   'Loblaws',
 ];
 
-const FEATURED_IDS = ['1', '4', '5', '6', '11', '12'];
+const FEATURED_IDS = ['1', '4', '5', '8', '11', '12'];
 
 export default function HomePage({ navigate }: HomePageProps) {
   const featured = PRODUCTS.filter(p => FEATURED_IDS.includes(p.id));
@@ -228,7 +223,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                   <div className="w-full aspect-square rounded-2xl overflow-hidden bg-gray-50">
                     <img
                       src={product.image}
-                      alt={product.name}
+                      alt={product.name[lang]}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
                   </div>
@@ -242,16 +237,18 @@ export default function HomePage({ navigate }: HomePageProps) {
 
                 <div>
                   <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
-                    {lang === 'fr' ? CATEGORY_FR[product.category] ?? product.category : product.category}
+                    {categoryLabel(PRODUCT_CATEGORIES.find(c => c.name === product.category), lang)}
                   </p>
 
                   <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight mb-1">
-                    {product.name}
+                    {product.name[lang]}
                   </h3>
 
                   <p className="text-xs text-gray-400">
-                    {product.weight}
-                    {product.pieces ? ` · ${product.pieces}` : ''}
+                    {t(
+                      `${product.packs.length} pack size${product.packs.length === 1 ? '' : 's'}`,
+                      `${product.packs.length} format${product.packs.length === 1 ? '' : 's'}`
+                    )}
                   </p>
                 </div>
               </button>
@@ -328,7 +325,7 @@ export default function HomePage({ navigate }: HomePageProps) {
                 <div className="aspect-video overflow-hidden">
                   <img
                     src={recipe.image}
-                    alt={recipe.title}
+                    alt={lang === 'fr' ? RECIPES_FR[recipe.slug]?.title ?? recipe.title : recipe.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                 </div>
@@ -351,11 +348,12 @@ export default function HomePage({ navigate }: HomePageProps) {
                   </div>
 
                   <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight">
-                    {recipe.title}
+                    {lang === 'fr' ? RECIPES_FR[recipe.slug]?.title ?? recipe.title : recipe.title}
                   </h3>
 
                   <p className="text-xs text-gray-400 mt-1">
-                    {t('Uses:', 'Produit :')} {recipe.product}
+                    {t('Uses:', 'Produit :')}{' '}
+                    {PRODUCTS.find(p => p.id === recipe.productId)?.name[lang] ?? recipe.product}
                   </p>
                 </div>
               </button>

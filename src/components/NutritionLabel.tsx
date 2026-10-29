@@ -64,7 +64,7 @@ export default function NutritionLabel({ facts: f }: { facts: NutritionFacts }) 
           </div>
 
           <div className="border-t border-black pt-[calc(var(--u)*3)] pb-[calc(var(--u)*4)]">
-            <Row>
+            <Row dv={f.carbsDv}>
               <b>Carbohydrate / Glucides</b> {f.carbs}
             </Row>
             <Row dv={f.fibre.dv} className="pl-[calc(var(--u)*15)]">
@@ -85,10 +85,23 @@ export default function NutritionLabel({ facts: f }: { facts: NutritionFacts }) 
             <b>Sodium</b> {f.sodium.amount}
           </Row>
 
-          <Row dv={f.potassium.dv} className="border-t-[length:calc(var(--u)*5)] border-black py-[calc(var(--u)*4)]">
-            Potassium {f.potassium.amount}
-          </Row>
-          <Row dv={f.calcium.dv} className="border-t border-black py-[calc(var(--u)*4)]">
+          <div className="border-t-[length:calc(var(--u)*5)] border-black" />
+          {f.potassium && (
+            <Row dv={f.potassium.dv} className="py-[calc(var(--u)*4)]">
+              Potassium {f.potassium.amount}
+            </Row>
+          )}
+          {f.vitaminA && (
+            <Row dv={f.vitaminA.dv} className={`${f.potassium ? 'border-t border-black ' : ''}py-[calc(var(--u)*4)]`}>
+              Vitamin A / Vitamine A {f.vitaminA.amount}
+            </Row>
+          )}
+          {f.vitaminC && (
+            <Row dv={f.vitaminC.dv} className={`${f.potassium || f.vitaminA ? 'border-t border-black ' : ''}py-[calc(var(--u)*4)]`}>
+              Vitamin C / Vitamine C {f.vitaminC.amount}
+            </Row>
+          )}
+          <Row dv={f.calcium.dv} className={`${f.potassium || f.vitaminA || f.vitaminC ? 'border-t border-black ' : ''}py-[calc(var(--u)*4)]`}>
             Calcium {f.calcium.amount}
           </Row>
           <Row dv={f.iron.dv} className="border-t border-black py-[calc(var(--u)*4)]">

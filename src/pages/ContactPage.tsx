@@ -1,10 +1,15 @@
 import { useState } from 'react';
 import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
+import { COMPANY } from '../company';
+import { useLang } from '../i18n';
+
+const MAP_SRC = 'https://www.google.com/maps?q=2244+Drew+Road,+Mississauga,+ON+L5S+1B1&output=embed';
 
 export default function ContactPage() {
   const [form, setForm] = useState({ firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+  const { lang, t } = useLang();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,8 +23,8 @@ export default function ContactPage() {
       <section className="py-16 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-72 h-72 bg-brand-red-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"></div>
         <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">Contact Us</h1>
-          <p className="text-gray-500 text-base">We'd love to hear from you — questions, orders, wholesale enquiries.</p>
+          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Contact Us', 'Nous joindre')}</h1>
+          <p className="text-gray-500 text-base">{t('We’d love to hear from you — questions, orders, wholesale enquiries.', 'Nous serions ravis de vous lire — questions, commandes, demandes de vente en gros.')}</p>
         </div>
       </section>
 
@@ -30,35 +35,35 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Form */}
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-6">Send a Message</h2>
+              <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-6">{t('Send a Message', 'Envoyez-nous un message')}</h2>
 
               {submitted ? (
                 <div className="bg-brand-green-pale text-brand-green rounded-2xl p-6 text-center">
-                  <div className="font-serif text-xl font-semibold mb-2">Message Received</div>
-                  <p className="text-sm">Thank you for reaching out. Our team will get back to you within 1–2 business days.</p>
+                  <div className="font-serif text-xl font-semibold mb-2">{t('Message Received', 'Message reçu')}</div>
+                  <p className="text-sm">{t('Thank you for reaching out. Our team will get back to you within 1–2 business days.', 'Merci de nous avoir écrit. Notre équipe vous répondra d’ici 1 à 2 jours ouvrables.')}</p>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* First + Last name */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">First Name</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('First Name', 'Prénom')}</label>
                       <input
                         required
                         value={form.firstName}
                         onChange={e => setForm({ ...form, firstName: e.target.value })}
                         className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50"
-                        placeholder="First name"
+                        placeholder={t('First name', 'Prénom')}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">Last Name</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('Last Name', 'Nom')}</label>
                       <input
                         required
                         value={form.lastName}
                         onChange={e => setForm({ ...form, lastName: e.target.value })}
                         className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50"
-                        placeholder="Last name"
+                        placeholder={t('Last name', 'Nom')}
                       />
                     </div>
                   </div>
@@ -66,53 +71,53 @@ export default function ContactPage() {
                   {/* Email + Phone */}
                   <div className="grid grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">Email</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('Email', 'Courriel')}</label>
                       <input
                         type="email"
                         required
                         value={form.email}
                         onChange={e => setForm({ ...form, email: e.target.value })}
                         className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50"
-                        placeholder="your@email.com"
+                        placeholder={t('your@email.com', 'vous@courriel.com')}
                       />
                     </div>
                     <div>
-                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">Contact Number</label>
+                      <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('Contact Number', 'Téléphone')}</label>
                       <input
                         type="tel"
                         value={form.phone}
                         onChange={e => setForm({ ...form, phone: e.target.value })}
                         className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50"
-                        placeholder="e.g. 416-555-0100"
+                        placeholder={t('e.g. 905-555-0100', 'p. ex. 905-555-0100')}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-600 mb-1.5">Subject</label>
+                    <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('Subject', 'Objet')}</label>
                     <select
                       value={form.subject}
                       onChange={e => setForm({ ...form, subject: e.target.value })}
                       className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50 text-gray-600"
                     >
-                      <option value="">Select a subject</option>
-                      <option value="general">General Enquiry</option>
-                      <option value="wholesale">Wholesale / Distribution</option>
-                      <option value="product">Product Question</option>
-                      <option value="halal">Halal Certification</option>
-                      <option value="feedback">Feedback</option>
+                      <option value="">{t('Select a subject', 'Choisissez un objet')}</option>
+                      <option value="general">{t('General Enquiry', 'Demande générale')}</option>
+                      <option value="wholesale">{t('Wholesale / Distribution', 'Vente en gros / distribution')}</option>
+                      <option value="product">{t('Product Question', 'Question sur un produit')}</option>
+                      <option value="halal">{t('Halal Certification', 'Certification halal')}</option>
+                      <option value="feedback">{t('Feedback', 'Commentaires')}</option>
                     </select>
                   </div>
 
                   <div>
-                    <label className="block text-xs font-semibold text-gray-600 mb-1.5">Message</label>
+                    <label className="block text-xs font-semibold text-gray-600 mb-1.5">{t('Message', 'Message')}</label>
                     <textarea
                       required
                       rows={5}
                       value={form.message}
                       onChange={e => setForm({ ...form, message: e.target.value })}
                       className="w-full px-4 py-2.5 text-sm rounded-xl border border-gray-200 focus:outline-none focus:border-brand-red bg-gray-50 resize-none"
-                      placeholder="How can we help?"
+                      placeholder={t('How can we help?', 'Comment pouvons-nous vous aider ?')}
                     />
                   </div>
 
@@ -120,7 +125,7 @@ export default function ContactPage() {
                     type="submit"
                     className="w-full flex items-center justify-center gap-2 py-3 bg-brand-red text-white font-semibold rounded-xl hover:bg-brand-red-light transition-colors shadow-sm text-sm"
                   >
-                    Send Message <Send size={15} />
+                    {t('Send Message', 'Envoyer')} <Send size={15} />
                   </button>
                 </form>
               )}
@@ -130,9 +135,22 @@ export default function ContactPage() {
             <div className="space-y-5">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {[
-                  { icon: MapPin, label: 'Address', value: '2244 Drew Road, Units 1 & 3\nMississauga, ON L5S 1B1', color: 'brand-red' },
-                  { icon: Phone, label: 'Phone', value: '905-672-1204\nMon–Fri, 9am–5pm', color: 'brand-green' },
-                  { icon: Mail, label: 'Email', value: 'info@alshamasfood.ca\nWholesale enquiries welcome', color: 'brand-orange' },
+                  {
+                    icon: MapPin,
+                    label: t('Address', 'Adresse'),
+                    value: t(
+                      `${COMPANY.street}, Unit 1 & Unit 3\nMississauga, ON L5S 1B1`,
+                      `${COMPANY.street}, unités 1 et 3\nMississauga (Ontario) L5S 1B1`
+                    ),
+                    color: 'brand-red',
+                  },
+                  { icon: Phone, label: t('Office Phone', 'Téléphone du bureau'), value: COMPANY.phone, color: 'brand-green' },
+                  {
+                    icon: Mail,
+                    label: t('Email', 'Courriel'),
+                    value: `${COMPANY.email}\n${t('Wholesale enquiries welcome', 'Demandes de vente en gros bienvenues')}`,
+                    color: 'brand-orange',
+                  },
                 ].map(({ icon: Icon, label, value, color }) => (
                   <div key={label} className="bg-white rounded-2xl p-4 border border-gray-100 shadow-sm">
                     <div className={`w-8 h-8 rounded-xl bg-${color}-pale flex items-center justify-center mb-3`}>
@@ -147,13 +165,13 @@ export default function ContactPage() {
               <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm">
                 <div className="flex items-center gap-2 mb-3">
                   <Clock size={16} className="text-brand-orange" />
-                  <h3 className="font-semibold text-gray-900 text-sm">Business Hours</h3>
+                  <h3 className="font-semibold text-gray-900 text-sm">{t('Business Hours', 'Heures d’ouverture')}</h3>
                 </div>
                 <div className="space-y-1.5 text-xs text-gray-500">
                   {[
-                    ['Monday – Friday', '9:00 am – 5:00 pm'],
-                    ['Saturday', '10:00 am – 3:00 pm'],
-                    ['Sunday', 'Closed'],
+                    [t('Monday – Friday', 'Lundi au vendredi'), lang === 'fr' ? '9 h – 17 h' : '9:00 am – 5:00 pm'],
+                    [t('Saturday', 'Samedi'), lang === 'fr' ? '10 h – 15 h' : '10:00 am – 3:00 pm'],
+                    [t('Sunday', 'Dimanche'), t('Closed', 'Fermé')],
                   ].map(([day, hours]) => (
                     <div key={day} className="flex justify-between">
                       <span>{day}</span>
@@ -165,8 +183,8 @@ export default function ContactPage() {
 
               <div className="bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-sm">
                 <iframe
-                  title="Al Shamas Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d46076.17940499786!2d-79.65469849999999!3d43.5890452!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x882b470b0a098001%3A0x19f5d81e7c5c9d34!2sMississauga%2C%20ON!5e0!3m2!1sen!2sca!4v1700000000000!5m2!1sen!2sca"
+                  title={t('Al-Shamas location — 2244 Drew Road, Mississauga', 'Emplacement Al-Shamas — 2244 Drew Road, Mississauga')}
+                  src={MAP_SRC}
                   width="100%"
                   height="220"
                   style={{ border: 0 }}
