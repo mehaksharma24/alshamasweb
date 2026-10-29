@@ -42,7 +42,7 @@ export default function NewsletterPopup() {
           className="fixed bottom-6 right-6 z-50 flex items-center gap-2 bg-brand-red text-white px-4 py-3 rounded-2xl shadow-2xl hover:bg-brand-red-light transition-all animate-bounce"
         >
           <Gift size={16} />
-          <span className="text-xs font-semibold">{t('Exclusive Offer', 'Offre exclusive')}</span>
+          <span className="text-xs font-semibold">{t('Newsletter', 'Infolettre')}</span>
         </button>
       )}
 
@@ -68,11 +68,11 @@ export default function NewsletterPopup() {
             <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
               <div className="flex items-center gap-1 mb-1">
                 <Sparkles size={14} className="text-white/80" />
-                <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">{t('Exclusive Offer', 'Offre exclusive')}</span>
+                <span className="text-white/90 text-xs font-semibold tracking-widest uppercase">{t('Newsletter', 'Infolettre')}</span>
                 <Sparkles size={14} className="text-white/80" />
               </div>
               <p className="text-white font-serif font-bold text-xl leading-tight">
-                {t('Get 10% Off Your', 'Obtenez 10 % de rabais sur')}<br />{t('First Order', 'votre première commande')}
+                {t('Stay in the Loop', 'Restez informé')}
               </p>
             </div>
 
@@ -103,13 +103,13 @@ export default function NewsletterPopup() {
                 </div>
                 <p className="font-serif font-semibold text-gray-900 mb-1">{t('You’re in!', 'C’est fait !')}</p>
                 <p className="text-gray-400 text-xs leading-relaxed">
-                  {t('Welcome to the Al-Shamas family. Check your inbox for your discount code.', 'Bienvenue dans la famille Al-Shamas. Consultez votre boîte de réception pour obtenir votre code de rabais.')}
+                  {t('Welcome to the Al-Shamas family. Thank you for subscribing.', 'Bienvenue dans la famille Al-Shamas. Merci de votre abonnement.')}
                 </p>
               </div>
             ) : (
               <>
                 <p className="text-gray-600 text-sm leading-relaxed mb-4 text-center">
-                  {t('Subscribe for new products, exclusive recipes, and special offers — delivered to your inbox.', 'Abonnez-vous pour recevoir nos nouveaux produits, recettes exclusives et offres spéciales dans votre boîte de réception.')}
+                  {t('Subscribe for new products and recipes — delivered to your inbox.', 'Abonnez-vous pour recevoir nos nouveaux produits et nos recettes dans votre boîte de réception.')}
                 </p>
                 <form onSubmit={handleSubmit} className="space-y-2.5">
                   <input
@@ -125,7 +125,7 @@ export default function NewsletterPopup() {
                     className="w-full flex items-center justify-center gap-2 py-2.5 text-sm font-semibold text-white rounded-xl transition-all"
                     style={{ background: 'linear-gradient(90deg, #C8102E, #E87722)' }}
                   >
-                    {t('Claim My Discount', 'Obtenir mon rabais')} <Send size={14} />
+                    {t('Subscribe', 'S’abonner')} <Send size={14} />
                   </button>
                 </form>
                 <p className="text-center text-gray-300 text-xs mt-2">{t('No spam, unsubscribe anytime.', 'Aucun pourriel. Désabonnement en tout temps.')}</p>
