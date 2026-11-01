@@ -25,14 +25,26 @@ export default function ProductGallery({ product }: { product: Product }) {
   }, [product, lang, name]);
 
   const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
   useEffect(() => setIndex(0), [product.slug]);
+  useEffect(() => {
+    if (slides.length < 2 || paused) return;
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const id = setTimeout(() => setIndex(i => (i + 1) % slides.length), 3500);
+    return () => clearTimeout(id);
+  }, [index, paused, slides.length]);
   const go = (i: number) => setIndex((i + slides.length) % slides.length);
   const current = slides[Math.min(index, slides.length - 1)];
   const many = slides.length > 1;
 
   return (
     <div>
-      <div className="relative w-full h-[320px] sm:h-[440px] lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl bg-gray-50">
+      <div
+        className="relative w-full h-[320px] sm:h-[440px] lg:h-[520px] rounded-3xl overflow-hidden shadow-2xl bg-gray-50"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
         {slides.map((s, i) => (
           <div
             key={s.src}
@@ -66,23 +78,6 @@ export default function ProductGallery({ product }: { product: Product }) {
         )}
       </div>
 
-      {many && (
-        <div className="mt-4 flex gap-3 overflow-x-auto pb-2 justify-start sm:justify-center">
-          {slides.map((s, i) => (
-            <button
-              key={s.src}
-              onClick={() => go(i)}
-              aria-label={s.label}
-              aria-current={i === index}
-              className={`shrink-0 w-20 h-16 sm:w-24 sm:h-20 rounded-xl overflow-hidden bg-gray-50 border-2 transition-colors ${
-                i === index ? 'border-brand-red' : 'border-transparent hover:border-gray-300'
-              }`}
-            >
-              <img src={s.src} alt="" loading="lazy" className="w-full h-full object-contain" />
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
