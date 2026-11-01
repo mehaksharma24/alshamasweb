@@ -1,6 +1,6 @@
-import { ArrowRight, UtensilsCrossed } from 'lucide-react';
+import { UtensilsCrossed } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
+import { PRODUCT_CATEGORIES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 
 interface ProductsPageProps {
@@ -31,9 +31,6 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
             {PRODUCT_CATEGORIES.map(category => {
-              const products = PRODUCTS.filter(p => p.category === category.name);
-              const count = products.length;
-              const packs = products.reduce((n, p) => n + p.packs.length, 0);
               return (
                 <button
                   key={category.slug}
@@ -42,14 +39,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
                 >
                   <div className="flex-1 min-w-0">
                     <h2 className="font-serif text-3xl font-bold text-brand-red mb-2">{categoryLabel(category, lang)}</h2>
-                    <p className="text-sm italic text-gray-600 mb-3">{category.tagline[lang]}</p>
-                    <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-gray-400 group-hover:text-brand-red transition-colors">
-                      {t(
-                        `${count} ${count === 1 ? 'product' : 'products'} · ${packs} pack sizes`,
-                        `${count} ${count === 1 ? 'produit' : 'produits'} · ${packs} formats`
-                      )}
-                      <ArrowRight size={13} />
-                    </span>
+                    <p className="text-sm italic text-gray-600">{category.tagline[lang]}</p>
                   </div>
                   <div className="w-40 h-28 sm:w-48 sm:h-32 shrink-0 flex items-center justify-center">
                     {category.image ? (

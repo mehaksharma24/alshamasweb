@@ -1,5 +1,4 @@
 import NewsletterBanner from '../components/NewsletterBanner';
-import { packLabel } from '../components/PackCard';
 import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
 import { useLang } from '../i18n';
@@ -52,7 +51,7 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
         </div>
       </section>
 
-      {/* Products with their pack sizes */}
+      {/* Products */}
       <section className="pt-6 pb-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
@@ -76,27 +75,6 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
                     {name}
                   </button>
 
-                  {/* Pack sizes */}
-                  {product.packs.length > 0 ? (
-                    <div className="mt-3 flex flex-wrap justify-center gap-2">
-                      {product.packs.map(pack => (
-                        <button
-                          key={pack.key}
-                          onClick={() => navigate(`/products/${product.slug}`)}
-                          title={pack.detail[lang]}
-                          className="flex items-center gap-1.5 pl-1 pr-2.5 py-1 rounded-full border border-gray-200 bg-white hover:border-brand-red transition-colors"
-                        >
-                          <img src={pack.image} alt="" loading="lazy" className="w-7 h-7 rounded-full object-cover bg-gray-50" />
-                          <span className="text-xs text-gray-600 whitespace-nowrap">{packLabel(pack, lang)}</span>
-                          {pack.stores?.length ? (
-                            <span className="text-[10px] font-semibold text-[#E31837]">Costco</span>
-                          ) : null}
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <span className="text-xs text-gray-400 mt-1">{t('Pack sizes coming soon', 'Formats à venir')}</span>
-                  )}
                 </div>
               );
             })}
