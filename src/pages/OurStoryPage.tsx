@@ -185,24 +185,6 @@ function useIntersection(ref: React.RefObject<Element | null>, threshold = 0.15)
   return visible;
 }
 
-function TimelineItem({ year, text, index, visible }: { year: string; text: string; index: number; visible: boolean }) {
-  const even = index % 2 === 0;
-  return (
-    <div className={`flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : even ? 'opacity-0 -translate-x-8' : 'opacity-0 translate-x-8'} ${even ? 'lg:flex-row' : 'lg:flex-row-reverse'}`} style={{ transitionDelay: `${index * 80}ms` }}>
-      <div className={`lg:w-1/2 ${even ? 'lg:text-right' : 'lg:text-left'}`}>
-        <div className={`bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-shadow inline-block text-left ${even ? 'lg:ml-auto' : 'lg:mr-auto'} max-w-sm w-full`}>
-          <div className="text-brand-red font-serif font-bold text-2xl mb-2">{year}</div>
-          <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
-        </div>
-      </div>
-      <div className="hidden lg:flex relative z-10 w-10 h-10 rounded-full bg-brand-red items-center justify-center shadow-md shrink-0">
-        <div className="w-3 h-3 rounded-full bg-white"></div>
-      </div>
-      <div className="lg:w-1/2"></div>
-    </div>
-  );
-}
-
 export default function OurStoryPage({ navigate }: OurStoryPageProps) {
   const { lang, t } = useLang();
   const pick = (b: Bi) => b[lang];
@@ -211,29 +193,42 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
   const { ref: revRef, isVis } = useReveal();
 
   return (
-    <div className="min-h-screen pt-32">
-      {/* Header */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute top-10 left-10 w-56 h-56 bg-brand-red-pale rounded-full opacity-40 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-10 w-72 h-72 bg-brand-orange-pale rounded-full opacity-30 pointer-events-none"></div>
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <p className="font-serif italic text-brand-red text-lg mb-2">{t('Since 2013', 'Depuis 2013')}</p>
-          <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 mb-6">{t('About Us', 'À propos de nous')}</h1>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            {t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')}
-          </p>
+    <div className="min-h-screen pt-24">
+      {/* Banner — matches the home page style */}
+      <section className="relative bg-white overflow-hidden">
+        <div className="relative h-[580px] sm:h-[540px] lg:h-[420px]">
+          <img
+            src="/images/about/about-banner.webp"
+            alt={t('Al-Shamas kebab and samosa boxes', 'Boîtes de kebabs et de samosas Al-Shamas')}
+            className="absolute left-0 right-0 bottom-12 h-[260px] sm:h-[300px] lg:top-0 lg:bottom-10 lg:left-[40%] w-full lg:w-[60%] lg:h-auto object-contain object-center"
+          />
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start pt-10 lg:pt-[72px]">
+            <div className="w-full lg:w-[40%] text-center lg:text-left">
+              <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Since 2013', 'Depuis 2013')}</p>
+              <h1 className="font-display font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
+                {t('About Us', 'À propos de nous')}
+              </h1>
+              <svg className="mx-auto lg:mx-0 mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
+                <path d="M4 12 C80 2 200 2 296 8" fill="none" stroke="#C8102E" strokeWidth="4" strokeLinecap="round" />
+              </svg>
+              <p className="mt-4 text-gray-700 text-lg leading-relaxed">
+                {t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')}
+              </p>
+            </div>
+          </div>
+          <svg className="absolute bottom-0 left-0 w-full h-20 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
+            <path d="M0 24 C260 96 560 98 820 64 C1060 32 1260 40 1440 78" fill="none" stroke="#C8102E" strokeWidth="4" opacity="0.35" />
+          </svg>
         </div>
       </section>
 
       {/* Company Profile (catalogue) */}
-      <section className="py-16 bg-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-brand-green-pale rounded-full opacity-25"></div>
-        </div>
+      <section className="py-14 bg-[#fff8f1] relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
+              <div className="inline-block bg-brand-red text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
                 {t('Company Profile', 'Profil de l’entreprise')}
               </div>
               <h2 className="font-serif text-3xl font-semibold text-gray-900 mb-5">{pick(PROFILE_HEADING)}</h2>
@@ -263,9 +258,9 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       </section>
 
       {/* Company at a glance */}
-      <section className="py-20 bg-white">
+      <section className="py-14 bg-[#d7ecdf]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company at a Glance', 'L’entreprise en bref')}</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -273,7 +268,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
               <div
                 key={label.en}
                 ref={revRef(`fact-${i}`)}
-                className={`bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
+                className={`bg-white rounded-3xl p-6 shadow-sm hover:shadow-lg transition-all duration-500 ${
                   isVis(`fact-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
@@ -320,53 +315,63 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         </div>
       </section>
 
-      {/* Milestones */}
-      <section className="py-20 bg-gray-50 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-40 h-40 bg-brand-red-pale rounded-full -translate-x-1/2 opacity-40 pointer-events-none"></div>
+      {/* Milestones — compact timeline */}
+      <section className="py-14 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-14">
+          <div className="text-center mb-10">
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company Milestones & Accomplishments', 'Jalons et réalisations')}</h2>
             <p className="text-gray-500 text-sm">{t('Our journey since 2013.', 'Notre parcours depuis 2013.')}</p>
           </div>
-
           <div className="relative" ref={timelineRef}>
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-red/30 to-transparent -translate-x-1/2"></div>
-            <div className="space-y-10">
+            <div className="hidden lg:block absolute left-0 right-0 top-5 h-1 rounded-full bg-gradient-to-r from-brand-red via-brand-orange to-brand-green" />
+            <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5">
               {MILESTONES.map((m, i) => (
-                <TimelineItem key={m.year.en} year={pick(m.year)} text={pick(m.text)} index={i} visible={timelineVisible} />
+                <li
+                  key={m.year.en}
+                  className={`relative transition-all duration-700 ${timelineVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+                  style={{ transitionDelay: `${i * 90}ms` }}
+                >
+                  <div className="hidden lg:flex w-11 h-11 mx-auto rounded-full bg-brand-red border-4 border-white shadow-md items-center justify-center relative z-10">
+                    <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                  </div>
+                  <div className="lg:mt-4 h-full bg-[#fff8f1] border-t-4 border-brand-red rounded-2xl p-5 shadow-sm">
+                    <div className="text-brand-red font-display font-black text-2xl leading-tight">{pick(m.year)}</div>
+                    <p className="mt-2 text-gray-700 text-sm leading-relaxed">{pick(m.text)}</p>
+                  </div>
+                </li>
               ))}
-            </div>
+            </ol>
           </div>
         </div>
       </section>
 
       {/* Certifications (catalogue) */}
-      <section className="py-20 bg-white">
+      <section className="py-14 bg-[#d7ecdf]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+          <div className="text-center mb-10">
             <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Certifications', 'Certifications')}</h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {CERTIFICATIONS.map((c, i) => (
               <div
                 key={c.en}
                 ref={revRef(`cert-${i}`)}
-                className={`flex flex-col items-center text-center bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
+                className={`flex flex-col items-center text-center bg-white rounded-3xl p-5 shadow-sm hover:shadow-lg transition-all duration-500 ${
                   isVis(`cert-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
-                <div className="h-24 flex items-center justify-center mb-4">
-                  <img src={c.logo} alt="" className="max-h-24 max-w-[150px] object-contain" />
+                <div className="h-20 flex items-center justify-center mb-3">
+                  <img src={c.logo} alt="" className="max-h-20 max-w-[120px] object-contain" />
                 </div>
                 <p className="font-semibold text-gray-900 text-sm">{t(c.en, c.fr)}</p>
               </div>
             ))}
           </div>
-          <div className="text-center mt-10">
+          <div className="text-center mt-8">
             <button
               onClick={() => navigate('/halal')}
-              className="inline-flex items-center gap-2 px-8 py-3.5 border-2 border-brand-red text-brand-red font-semibold rounded-full hover:bg-brand-red hover:text-white transition-all text-sm"
+              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red-light transition-all text-sm"
             >
               {t('View Halal & Certifications', 'Voir Halal et certifications')}
             </button>
@@ -375,17 +380,16 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       </section>
 
       {/* Proudly Canadian (catalogue) */}
-      <section className="py-20 bg-brand-red-pale relative overflow-hidden">
-        <div className="absolute right-10 top-10 w-56 h-56 bg-white/40 rounded-full pointer-events-none"></div>
+      <section className="py-14 bg-brand-red relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">
+          <div className="text-center mb-10">
+            <h2 className="font-serif text-4xl font-bold text-white mb-3">
               {t('Proudly Canadian.', 'Fièrement canadien.')}
               <br />
-              <span className="text-brand-red">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>
+              <span className="font-script font-normal text-[#FFE7C2]">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>
             </h2>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white/70 rounded-3xl p-8 shadow-sm">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white rounded-3xl p-8 shadow-lg">
             {[
               ['Nova Scotia', 'Quebec', 'Manitoba'],
               ['Ontario'],
