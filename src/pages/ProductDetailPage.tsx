@@ -1,12 +1,30 @@
-import { ArrowLeft, ArrowRight, Flame, Leaf, MapPin, Package, Tag } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Flame, Leaf, MapPin, Package, ShoppingBag, Store, Tag } from 'lucide-react';
 import CatalogueText from '../components/CatalogueText';
 import NewsletterBanner from '../components/NewsletterBanner';
 import NutritionLabel from '../components/NutritionLabel';
 import PackCard, { tagLabel } from '../components/PackCard';
-import ZoomableImage from '../components/ZoomableImage';
+import ProductGallery from '../components/ProductGallery';
+import { COSTCO_LOGO } from '../components/PackCard';
+import type { Pack } from '../catalog';
 import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel, findProduct } from '../data';
 import { useLang } from '../i18n';
 import { RECIPES_FR } from '../recipes-fr';
+
+type ColumnId = 'retail' | 'costco' | 'a1';
+
+/** Which store column a pack belongs in. Packs with no store go under Retail. */
+function storeColumn(pack: Pack): ColumnId {
+  const names = (pack.stores ?? []).map(s => s.name);
+  if (names.some(n => n.startsWith('Costco'))) return 'costco';
+  if (names.includes('A1 Cash & Carry')) return 'a1';
+  return 'retail';
+}
+
+const COLUMNS: { id: ColumnId; title: { en: string; fr: string }; logo?: string; icon: typeof Store }[] = [
+  { id: 'retail', title: { en: 'Retail Packs', fr: 'Formats de détail' }, icon: ShoppingBag },
+  { id: 'costco', title: { en: 'Costco', fr: 'Costco' }, logo: COSTCO_LOGO, icon: Store },
+  { id: 'a1', title: { en: 'A1 Cash & Carry', fr: 'A1 Cash & Carry' }, icon: Store },
+];
 
 interface ProductDetailPageProps {
   slug: string;
@@ -69,13 +87,13 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
         </div>
       </div>
 
-      {/* Main image */}
+      {/* Main image slider (all pack sizes) */}
       <section className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative w-full h-[320px] sm:h-[440px] lg:h-[540px] rounded-3xl overflow-hidden shadow-2xl bg-gray-50">
-            <ZoomableImage src={product.image} alt={name} className="w-full h-full object-contain object-center" />
+          <div className="relative">
+            <ProductGallery product={product} />
             {product.tags.includes('Bestseller') && (
-              <div className="absolute top-4 left-4 bg-brand-red text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
+              <div className="absolute top-4 left-4 z-20 bg-brand-red text-white text-sm font-semibold px-3 py-1 rounded-full shadow">
                 {tagLabel('Bestseller', lang)}
               </div>
             )}
@@ -113,24 +131,43 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
         </div>
       </section>
 
-      {/* Pack sizes */}
+      {/* Pack sizes by where they are sold */}
       <section className="pb-14 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="flex items-center justify-center gap-2 font-serif text-2xl font-semibold text-gray-900 mb-6">
             <Package size={20} className="text-brand-orange" />
-            {t('Pack Sizes', 'Formats offerts')}
+            {t('Pack Sizes & Where to Buy', 'Formats et où acheter')}
           </h2>
-          {product.packs.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {product.packs.map(pack => (
-                <PackCard key={pack.key} product={product} pack={pack} />
-              ))}
-            </div>
-          ) : (
-            <p className="text-center text-sm text-gray-400">
-              {t('Pack sizes coming soon.', 'Formats à venir.')}
-            </p>
-          )}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {COLUMNS.map(col => {
+              const packs = product.packs.filter(p => storeColumn(p) === col.id);
+              return (
+                <div key={col.id} className="rounded-3xl bg-gray-50 border border-gray-100 p-4 sm:p-5 flex flex-col">
+                  <div className="h-14 flex items-center justify-center gap-3 mb-4 border-b border-gray-200 pb-4">
+                    {col.logo ? (
+                      <img src={col.logo} alt={col.title.en} className="h-8 w-auto object-contain" />
+                    ) : (
+                      <col.icon size={22} className="text-brand-red" />
+                    )}
+                    <h3 className="font-display font-extrabold uppercase tracking-wide text-gray-900 text-base">{col.title[lang]}</h3>
+                  </div>
+                  {packs.length ? (
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
+                      {packs.map(pack => (
+                        <PackCard key={pack.key} product={product} pack={pack} compact />
+                      ))}
+                    </div>
+                  ) : (
+                    <p className="flex-1 flex items-center justify-center text-center text-sm text-gray-400 py-8">
+                      {col.id === 'retail'
+                        ? t('Retail pack sizes coming soon.', 'Formats de détail à venir.')
+                        : t('Not currently available here.', 'Non offert actuellement ici.')}
+                    </p>
+                  )}
+                </div>
+              );
+            })}
+          </div>
           <div className="text-center mt-8">
             <button
               onClick={() => navigate('/locations')}

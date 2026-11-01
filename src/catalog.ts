@@ -22,7 +22,7 @@ export interface Para {
 }
 
 export interface PackStore {
-  name: 'Costco' | 'Costco BC';
+  name: 'Costco' | 'Costco BC' | 'A1 Cash & Carry' | 'Sysco / Dot Foods';
   sku?: string;
 }
 
@@ -37,6 +37,8 @@ export interface Pack {
   stores?: PackStore[];
   /** where the pack size comes from */
   source: 'master' | 'packaging';
+  /** true when this pack's photo is the product's main photo */
+  main?: boolean;
 }
 
 interface Nutrient {
@@ -367,6 +369,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "344 g",
+        main: true,
         key: "8-pcs-344g-box",
         source: "master",
         image: "/images/packs/chicken-charcoal-kebab/8-pcs-344g-box.png",
@@ -467,7 +470,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-2kg-case",
         source: "master",
         image: "/images/packs/chicken-charcoal-kebab/a1-2kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "MEA081"
+          }
+        ]
       }
     ]
   },
@@ -576,6 +585,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "344 g",
+        main: true,
         key: "8-pcs-344g-box",
         source: "master",
         image: "/images/packs/beef-charcoal-kebab/8-pcs-344g-box.png",
@@ -656,7 +666,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-2kg-case",
         source: "master",
         image: "/images/packs/beef-charcoal-kebab/a1-2kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "MEA080"
+          }
+        ]
       }
     ]
   },
@@ -979,7 +995,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-2kg-case",
         source: "master",
         image: "/images/packs/lamb-charcoal-kebab/a1-2kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "MEA082"
+          }
+        ]
       }
     ]
   },
@@ -1029,6 +1051,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "344 g",
+        main: true,
         key: "8-pcs-344g-box",
         source: "packaging",
         image: "/images/packs/meat-charcoal-kebab/8-pcs-344g-box.png",
@@ -1169,6 +1192,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "344 g",
+        main: true,
         key: "8-pcs-344g-box",
         source: "packaging",
         image: "/images/packs/chicken-sheekh-kebab/8-pcs-344g-box.png",
@@ -1294,6 +1318,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "344 g",
+        main: true,
         key: "8-pcs-344g-box",
         source: "packaging",
         image: "/images/packs/beef-sheekh-kebab/8-pcs-344g-box.png",
@@ -1606,6 +1631,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "400 g",
+        main: true,
         key: "8-pcs-400g-box",
         source: "master",
         image: "/images/packs/chicken-chapli-kebab/8-pcs-400g-box.png",
@@ -1638,7 +1664,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-1kg-case",
         source: "master",
         image: "/images/packs/chicken-chapli-kebab/a1-1kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "CHK237"
+          }
+        ]
       }
     ]
   },
@@ -1749,6 +1781,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "400 g",
+        main: true,
         key: "8-pcs-400g-box",
         source: "master",
         image: "/images/packs/beef-chapli-kebab/8-pcs-400g-box.png",
@@ -1781,7 +1814,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-1kg-case",
         source: "master",
         image: "/images/packs/beef-chapli-kebab/a1-1kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "MEA440"
+          }
+        ]
       }
     ]
   },
@@ -2024,6 +2063,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "400 g",
+        main: true,
         key: "10-pcs-box",
         source: "master",
         image: "/images/packs/chicken-kafta-kebab/10-pcs-box.png",
@@ -2176,6 +2216,7 @@ export const PRODUCTS: Product[] = [
           fr: "Boîte · 12 par caisse"
         },
         weight: "400 g",
+        main: true,
         key: "10-pcs-box",
         source: "master",
         image: "/images/packs/beef-kafta-kebab/10-pcs-box.png",
@@ -2308,6 +2349,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/chicken-samosa/40-pcs-container.png",
@@ -2380,7 +2422,13 @@ export const PRODUCTS: Product[] = [
         key: "sysco-3kg-case",
         source: "master",
         image: "/images/packs/chicken-samosa/sysco-3kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "Sysco / Dot Foods",
+            sku: "7398471"
+          }
+        ]
       },
       {
         title: {
@@ -2395,7 +2443,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-1-2kg-case",
         source: "master",
         image: "/images/packs/chicken-samosa/a1-1-2kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "CHK223"
+          }
+        ]
       },
       {
         title: {
@@ -2410,7 +2464,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-jumbo-1-5kg-case",
         source: "master",
         image: "/images/packs/chicken-samosa/a1-jumbo-1-5kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "CHK238"
+          }
+        ]
       }
     ]
   },
@@ -2578,6 +2638,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/beef-samosa/40-pcs-container.png",
@@ -2610,7 +2671,13 @@ export const PRODUCTS: Product[] = [
         key: "sysco-3kg-case",
         source: "master",
         image: "/images/packs/beef-samosa/sysco-3kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "Sysco / Dot Foods",
+            sku: "7398463"
+          }
+        ]
       },
       {
         title: {
@@ -2625,7 +2692,13 @@ export const PRODUCTS: Product[] = [
         key: "a1-1-2kg-case",
         source: "master",
         image: "/images/packs/beef-samosa/a1-1-2kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "A1 Cash & Carry",
+            sku: "MEA420"
+          }
+        ]
       }
     ]
   },
@@ -2765,6 +2838,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/chicken-tandoori-samosa/40-pcs-container.png",
@@ -2907,6 +2981,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/chicken-tikka-samosa/40-pcs-container.png",
@@ -3219,7 +3294,13 @@ export const PRODUCTS: Product[] = [
         key: "sysco-3kg-case",
         source: "master",
         image: "/images/packs/vegetable-samosa/sysco-3kg-case.png",
-        photo: false
+        photo: false,
+        stores: [
+          {
+            name: "Sysco / Dot Foods",
+            sku: "7398494"
+          }
+        ]
       }
     ]
   },
@@ -3317,6 +3398,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/chicken-spring-roll/40-pcs-container.png",
@@ -3432,6 +3514,7 @@ export const PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        main: true,
         key: "40-pcs-container",
         source: "master",
         image: "/images/packs/beef-spring-roll/40-pcs-container.png",

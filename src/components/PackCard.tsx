@@ -38,10 +38,14 @@ export function PackStores({ pack }: { pack: Pack }) {
     <div className="mt-2 flex flex-col items-center gap-1">
       {pack.stores.map(s => (
         <div key={`${s.name}-${s.sku}`} className="flex items-center gap-2">
-          <img src={COSTCO_LOGO} alt="Costco" className="h-5 w-auto object-contain" />
+          {s.name.startsWith('Costco') ? (
+            <img src={COSTCO_LOGO} alt="Costco" className="h-5 w-auto object-contain" />
+          ) : (
+            <span className="text-xs font-bold text-gray-700">{s.name === 'A1 Cash & Carry' ? 'A1' : s.name}</span>
+          )}
           <span className="text-xs text-gray-600">
             {s.name === 'Costco BC' ? 'BC · ' : ''}
-            {s.sku ? `SKU ${s.sku}` : ''}
+            {s.sku ? (s.name === 'A1 Cash & Carry' ? `Code ${s.sku}` : `SKU ${s.sku}`) : ''}
           </span>
         </div>
       ))}
@@ -50,12 +54,12 @@ export function PackStores({ pack }: { pack: Pack }) {
 }
 
 /** One pack size: image (click to enlarge), name, pieces/weight, packaging and where it's sold. */
-export default function PackCard({ product, pack }: { product: Product; pack: Pack }) {
+export default function PackCard({ product, pack, compact = false }: { product: Product; pack: Pack; compact?: boolean }) {
   const { lang } = useLang();
   const name = product.name[lang];
   return (
-    <div className="bg-white rounded-3xl border border-gray-100 shadow-sm p-4 flex flex-col text-center">
-      <div className="aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-50 mb-4 flex items-center justify-center">
+    <div className={`bg-white rounded-3xl border border-gray-100 shadow-sm flex flex-col text-center ${compact ? 'p-3' : 'p-4'}`}>
+      <div className={`aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center ${compact ? 'mb-3' : 'mb-4'}`}>
         <ZoomableImage
           src={pack.image}
           alt={`${name} — ${packLabel(pack, lang)}`}
