@@ -1,4 +1,4 @@
-import { UtensilsCrossed } from 'lucide-react';
+import { ArrowRight, UtensilsCrossed } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
@@ -40,6 +40,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
                   <div className="flex-1 min-w-0">
                     <h2 className="font-serif text-3xl font-bold text-brand-red mb-2">{categoryLabel(category, lang)}</h2>
                     <p className="text-sm italic text-gray-600">{category.tagline[lang]}</p>
+                    <ArrowRight size={18} className="mt-3 text-gray-400 group-hover:text-brand-red group-hover:translate-x-1 transition-all" />
                   </div>
                   <div className="w-40 h-28 sm:w-48 sm:h-32 shrink-0 flex items-center justify-center">
                     {category.image ? (
