@@ -284,6 +284,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du poulet halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Chicken",
       "Charcoal Grilled"
@@ -493,6 +494,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du bœuf halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Beef",
       "Charcoal Grilled"
@@ -1212,6 +1214,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du bœuf halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Beef"
     ],
@@ -1669,6 +1672,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du bœuf halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Beef"
     ],
@@ -1939,6 +1943,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du poulet halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Chicken"
     ],
@@ -2051,6 +2056,7 @@ export const PRODUCTS: Product[] = [
       fr: "Préparé à la main avec du bœuf halal et un mélange d’épices, entièrement cuit — il suffit de réchauffer et de déguster."
     },
     tags: [
+      "Bestseller",
       "Halal",
       "Beef"
     ],

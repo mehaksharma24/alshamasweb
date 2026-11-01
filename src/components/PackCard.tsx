@@ -12,7 +12,7 @@ const TAG_FR: Record<string, string> = {
   Mutton: 'Mouton',
   'Charcoal Grilled': 'Grillé au charbon',
   Tandoori: 'Tandoori',
-  Bestseller: 'Populaire',
+  Bestseller: 'Meilleur vendeur',
   Vegetarian: 'Végétarien',
   'Peri Peri': 'Peri peri',
   Bread: 'Pain',
@@ -20,6 +20,7 @@ const TAG_FR: Record<string, string> = {
 
 // eslint-disable-next-line react-refresh/only-export-components
 export function tagLabel(tag: string, lang: 'en' | 'fr') {
+  if (tag === 'Bestseller') return lang === 'fr' ? 'Meilleur vendeur' : 'Best Seller';
   return lang === 'fr' ? TAG_FR[tag] ?? tag : tag;
 }
 
