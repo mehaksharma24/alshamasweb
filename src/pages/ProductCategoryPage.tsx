@@ -1,5 +1,4 @@
 import NewsletterBanner from '../components/NewsletterBanner';
-import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 
@@ -60,12 +59,19 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
               return (
                 <div key={product.id} className="group flex flex-col items-center text-center">
                   <div className="relative w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
-                    <ZoomableImage
-                      src={product.image}
-                      alt={name}
-                      loading="lazy"
-                      className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => navigate(`/products/${product.slug}`)}
+                      aria-label={name}
+                      className="absolute inset-0 w-full h-full cursor-pointer"
+                    >
+                      <img
+                        src={product.image}
+                        alt={name}
+                        loading="lazy"
+                        className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </button>
                   </div>
 
                   <button

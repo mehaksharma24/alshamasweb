@@ -1,7 +1,6 @@
 import { ArrowLeft, ChefHat, Clock, Users } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PackStores, packLabel } from '../components/PackCard';
-import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 import { RECIPES_FR } from '../recipes-fr';
@@ -58,7 +57,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
       <section className="relative">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative w-full h-[350px] sm:h-[450px] lg:h-[580px] rounded-3xl overflow-hidden shadow-2xl">
-            <ZoomableImage src={recipe.image} alt={title} className="w-full h-full object-cover object-center" />
+            <img src={recipe.image} alt={title} className="w-full h-full object-cover object-center" />
             <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent pointer-events-none" />
           </div>
         </div>
@@ -133,9 +132,13 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
 
               {product ? (
                 <div>
-                  <div className="rounded-2xl overflow-hidden mb-4 bg-gray-50 flex items-center justify-center">
-                    <ZoomableImage src={product.image} alt={product.name[lang]} className="w-full h-44 object-contain" />
-                  </div>
+                  <button
+                    type="button"
+                    onClick={() => navigate(`/products/${product.slug}`)}
+                    className="w-full rounded-2xl overflow-hidden mb-4 bg-gray-50 flex items-center justify-center cursor-pointer"
+                  >
+                    <img src={product.image} alt={product.name[lang]} className="w-full h-44 object-contain hover:scale-105 transition-transform duration-300" />
+                  </button>
                   <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
                     {categoryLabel(category, lang)}
                   </p>
@@ -150,12 +153,19 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
                       <ul className="space-y-2">
                         {product.packs.map(pack => (
                           <li key={pack.key} className="flex items-center gap-3 rounded-xl border border-gray-100 p-2">
-                            <ZoomableImage
+                            <button
+                              type="button"
+                              onClick={() => navigate(`/products/${product.slug}`)}
+                              className="shrink-0 cursor-pointer"
+                              aria-label={`${product.name[lang]} — ${packLabel(pack, lang)}`}
+                            >
+                              <img
                               src={pack.image}
                               alt={`${product.name[lang]} — ${packLabel(pack, lang)}`}
                               loading="lazy"
                               className="w-14 h-14 rounded-lg object-contain bg-gray-50 shrink-0"
                             />
+                            </button>
                             <div className="min-w-0 text-left">
                               <p className="text-sm font-semibold text-gray-800">{packLabel(pack, lang)}</p>
                               <p className="text-xs text-gray-500">{pack.detail[lang]}</p>
