@@ -57,15 +57,15 @@ export default function HomePage({ navigate }: HomePageProps) {
     <div className="min-h-screen">
       {/* Hero — red & white, product boxes on a sunlit table */}
       <section className="relative pt-20 bg-white overflow-hidden">
-        <div className="relative h-[760px] sm:h-[700px] lg:h-[620px]">
+        <div className="relative h-[900px] sm:h-[820px] lg:h-[620px]">
           {/* Table scene */}
           <img
             src={HERO_IMAGE}
             alt={t('Al-Shamas kebab, samosa and spring roll boxes on a table', 'Boîtes de kebabs, samosas et rouleaux impériaux Al-Shamas sur une table')}
-            className="absolute left-0 right-0 bottom-16 h-[320px] sm:h-[380px] lg:top-0 lg:bottom-0 lg:left-[30%] w-full lg:w-[70%] lg:h-full object-cover object-[78%_75%] lg:object-[100%_75%]"
+            className="absolute left-0 right-0 bottom-16 h-[300px] sm:h-[360px] lg:top-0 lg:bottom-0 lg:left-[30%] w-full lg:w-[70%] lg:h-full object-cover object-[78%_75%] lg:object-[100%_75%]"
           />
           {/* White fade behind the text (top on mobile, left on desktop) */}
-          <div className="absolute inset-0 lg:hidden bg-[linear-gradient(180deg,#fff_0%,#fff_46%,rgba(255,255,255,0)_58%)]" />
+          <div className="absolute inset-0 lg:hidden bg-[linear-gradient(180deg,#fff_0%,#fff_58%,rgba(255,255,255,0)_66%)]" />
           <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(90deg,#fff_0%,#fff_38%,rgba(255,255,255,0.85)_45%,rgba(255,255,255,0)_56%)]" />
 
           {/* Red swooshes */}
@@ -77,20 +77,36 @@ export default function HomePage({ navigate }: HomePageProps) {
           {/* Text */}
           <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start lg:items-center pt-24 sm:pt-20 lg:pt-6">
             <div className="w-full lg:w-[46%] max-w-[620px] mx-auto lg:mx-0 text-center">
-              <h1 className="font-display font-black text-[#2b1410] leading-none tracking-tight text-[34px] sm:text-[46px] lg:text-[40px] xl:text-[50px] sm:whitespace-nowrap">
-                {t('Chicken Sheekh Kebab', 'Sheekh kebab au poulet')}
+              <p className="inline-block bg-brand-red-pale text-brand-red text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">
+                {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
+              </p>
+              <h1 className="font-display font-black text-[#2b1410] leading-[1.02] tracking-tight text-[38px] sm:text-[54px] lg:text-[44px] xl:text-[52px] lg:whitespace-nowrap">
+                {lang === 'fr' ? (
+                  <>
+                    Aliments <span className="text-brand-red">halal</span>
+                    <br />
+                    surgelés de qualité
+                  </>
+                ) : (
+                  <>
+                    Canada&apos;s Premium
+                    <br />
+                    <span className="text-brand-red">Halal</span> Frozen Foods
+                  </>
+                )}
               </h1>
-              <p className={`font-script text-brand-red mt-3 leading-tight sm:whitespace-nowrap ${lang === 'fr' ? 'text-[19px] sm:text-[26px] lg:text-[22px] xl:text-[26px]' : 'text-[21px] sm:text-[32px] lg:text-[27px] xl:text-[33px]'}`}>
+              <p className={`font-script text-brand-red mt-4 leading-tight sm:whitespace-nowrap ${lang === 'fr' ? 'text-[19px] sm:text-[26px] lg:text-[22px] xl:text-[26px]' : 'text-[21px] sm:text-[32px] lg:text-[27px] xl:text-[32px]'}`}>
                 {t('Fully Cooked • Heat & Eat • Hand Made', 'Entièrement cuit • Prêt à réchauffer • Fait à la main')}
               </p>
               <svg className="mx-auto mt-1 w-56 sm:w-72 h-4" viewBox="0 0 300 16" aria-hidden="true">
                 <path d="M4 12 C80 2 200 2 296 8" fill="none" stroke="#C8102E" strokeWidth="4" strokeLinecap="round" />
               </svg>
-              <div className="font-display font-black uppercase leading-[0.95] mt-5">
-                <div className="text-[#2b1410] text-[24px] sm:text-[34px]">{t('Deliciously', 'Délicieusement')}</div>
-                <div className="text-brand-red text-[52px] sm:text-[70px] tracking-tight">{t('Spiced &', 'Épicé &')}</div>
-                <div className="text-[#2b1410] text-[26px] sm:text-[40px]">{t('Perfectly Grilled', 'Parfaitement grillé')}</div>
-              </div>
+              <p className="mt-5 text-gray-700 text-base sm:text-lg leading-relaxed max-w-[520px] mx-auto">
+                {t(
+                  'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
+                  'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
+                )}
+              </p>
             </div>
           </div>
 
