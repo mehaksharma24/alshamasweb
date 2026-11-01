@@ -1,13 +1,12 @@
-import { ArrowRight, Award, Clock, Palette, ShieldCheck, Star } from 'lucide-react';
+import { ArrowRight, Award, Clock, Palette, ShieldCheck } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, RECIPES, categoryLabel } from '../data';
 import { RECIPES_FR } from '../recipes-fr';
 import { useLang } from '../i18n';
+import HeroSlider from '../components/HeroSlider';
 
 const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
 
-// ONLY CHANGE: Hero banner now uses homebanner.png from images/products
-const HERO_IMAGE = '/images/products/homebanner-lineup.jpg';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -55,99 +54,27 @@ export default function HomePage({ navigate }: HomePageProps) {
 
   return (
     <div className="min-h-screen">
-      {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
-        {/* Starts below the fixed navbar and anchors to the top so the top row of boxes isn't hidden. */}
-        <div
-          className="absolute inset-x-0 bottom-0 top-[109px] bg-cover bg-top"
-          style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
-        />
+      <HeroSlider />
 
-        <div className="absolute inset-0 bg-white/80"></div>
-
-        {/* Decorative circles */}
-        <div className="absolute top-20 right-10 w-80 h-80 bg-brand-red-pale rounded-full opacity-50 pointer-events-none"></div>
-        <div className="absolute bottom-10 left-10 w-56 h-56 bg-brand-green-pale rounded-full opacity-50 pointer-events-none"></div>
-        <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-brand-orange-pale rounded-full opacity-70 pointer-events-none"></div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
-              <Star size={12} fill="currentColor" />
-              {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
+      {/* Trust badges */}
+      <section className="bg-white border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {[
+            { icon: Award, label: t('Since 2013', 'Depuis 2013'), sub: t('Proudly Canadian', 'Fièrement canadien') },
+            { icon: ShieldCheck, label: t('HMA Halal', 'Halal HMA'), sub: t('Certified', 'Certifié') },
+            { icon: Palette, label: t('No Artificial Colours', 'Sans colorants artificiels'), sub: t('Carefully selected ingredients', 'Ingrédients soigneusement sélectionnés') },
+            { icon: Clock, label: t('Heat & Eat', 'Prêt à réchauffer'), sub: t('Fully cooked kebabs', 'Kebabs entièrement cuits') },
+          ].map(({ icon: Icon, label, sub }) => (
+            <div key={label} className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-full bg-brand-green-pale flex items-center justify-center shrink-0">
+                <Icon size={18} className="text-brand-green" />
+              </div>
+              <div>
+                <div className="text-sm font-bold text-gray-900 leading-tight">{label}</div>
+                <div className="text-xs text-gray-500 leading-tight">{sub}</div>
+              </div>
             </div>
-
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
-              {lang === 'fr' ? (
-                <>
-                  Aliments
-                  <br />
-                  <span className="text-brand-red">halal</span> surgelés
-                  <br />
-                  <span className="text-brand-green">de qualité</span>
-                </>
-              ) : (
-                <>
-                  Canada's Premium
-                  <br />
-                  <span className="text-brand-red">Halal</span> Frozen
-                  <br />
-                  <span className="text-brand-green">Foods</span>
-                </>
-              )}
-            </h1>
-
-            <p className="text-gray-800 text-lg leading-relaxed mb-8 max-w-xl">
-              {t(
-                'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
-                'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
-              )}
-            </p>
-
-            <div className="flex flex-wrap gap-3">
-              <button
-                onClick={() => navigate('/products')}
-                className="flex items-center gap-2 px-7 py-3.5 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red-light transition-all shadow-lg shadow-brand-red/20 text-sm"
-              >
-                {t('Shop Products', 'Voir les produits')} <ArrowRight size={16} />
-              </button>
-
-              <button
-                onClick={() => navigate('/about-us')}
-                className="flex items-center gap-2 px-7 py-3.5 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all border border-gray-200 text-sm"
-              >
-                {t('About Us', 'À propos de nous')}
-              </button>
-            </div>
-
-            {/* Trust badges */}
-            <div className="flex flex-wrap gap-4 mt-10">
-              {[
-                { icon: Award, label: t('Since 2013', 'Depuis 2013'), sub: t('Proudly Canadian', 'Fièrement canadien') },
-                { icon: ShieldCheck, label: t('HMA Halal', 'Halal HMA'), sub: t('Certified', 'Certifié') },
-                { icon: Palette, label: t('No Artificial', 'Sans colorants'), sub: t('Colours', 'artificiels') },
-                { icon: Clock, label: t('Heat & Eat', 'Prêt à réchauffer'), sub: t('Fully cooked', 'Entièrement cuit') },
-              ].map(({ icon: Icon, label, sub }) => (
-                <div
-                  key={label}
-                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-2xl px-3 py-2 shadow-sm"
-                >
-                  <div className="w-7 h-7 rounded-full bg-brand-green-pale flex items-center justify-center">
-                    <Icon size={14} className="text-brand-green" />
-                  </div>
-
-                  <div>
-                    <div className="text-xs font-bold text-gray-800 leading-tight">
-                      {label}
-                    </div>
-                    <div className="text-xs text-gray-700 leading-tight">
-                      {sub}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
 
