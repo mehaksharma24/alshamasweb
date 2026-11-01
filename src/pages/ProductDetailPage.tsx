@@ -138,11 +138,11 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
             <Package size={20} className="text-brand-orange" />
             {t('Pack Sizes & Where to Buy', 'Formats et où acheter')}
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-200/70">
             {COLUMNS.map(col => {
               const packs = product.packs.filter(p => storeColumn(p) === col.id);
               return (
-                <div key={col.id} className="rounded-3xl bg-gray-50 border border-gray-100 p-4 sm:p-5 flex flex-col">
+                <div key={col.id} className="py-6 lg:py-0 lg:px-6 first:pt-0 lg:first:pl-0 last:pb-0 lg:last:pr-0 flex flex-col">
                   <div className="h-14 flex items-center justify-center gap-3 mb-4 border-b border-gray-200 pb-4">
                     {col.logo ? (
                       <img src={col.logo} alt={col.title.en} className="h-8 w-auto object-contain" />
