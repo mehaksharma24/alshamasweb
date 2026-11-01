@@ -256,9 +256,6 @@ export default function HomePage({ navigate }: HomePageProps) {
 
       {/* Brand Line */}
       <section className="py-16 bg-[#d7ecdf] relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#c4e2cf] rounded-full opacity-60"></div>
-        </div>
 
         <div className="max-w-3xl mx-auto px-4 text-center relative">
           <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-gray-800 leading-snug mb-4">
