@@ -9,6 +9,7 @@ const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen',
 // ONLY CHANGE: Hero banner now uses homebanner.png from images/products
 // Product line-up composed from the packaging photos (transparent background).
 const HERO_IMAGE = '/images/hero/hero-lineup.webp';
+const HERO_BG = '/images/recipes/chicken-samosa-platter-with-chutneys.jpg';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -57,39 +58,43 @@ export default function HomePage({ navigate }: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="relative lg:min-h-screen flex items-center overflow-hidden pt-28 lg:pt-24 bg-gradient-to-br from-brand-orange-pale via-white to-brand-red-pale/60">
-        {/* Decorative circles */}
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-green-pale rounded-full opacity-60 pointer-events-none"></div>
-        <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-brand-orange-pale rounded-full opacity-80 pointer-events-none"></div>
+      <section className="relative lg:min-h-screen flex items-center overflow-hidden pt-28 lg:pt-24 bg-[#1c1410]">
+        {/* Background food photo + dark overlay */}
+        <div
+          className="absolute inset-0 bg-cover bg-center scale-105 blur-[2px]"
+          style={{ backgroundImage: `url('${HERO_BG}')` }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1c1410]/95 via-[#1c1410]/80 to-[#1c1410]/45"></div>
+        <div className="absolute inset-x-0 bottom-0 h-1.5 bg-gradient-to-r from-brand-red via-brand-orange to-brand-green"></div>
 
         <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-10 lg:gap-6 items-center">
           <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
+            <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-brand-orange-light text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
               <Star size={12} fill="currentColor" />
               {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
             </div>
 
-            <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.08] mb-6">
+            <h1 className="font-serif text-5xl sm:text-6xl font-bold text-white leading-[1.08] mb-6 drop-shadow">
               {lang === 'fr' ? (
                 <>
                   Aliments
                   <br />
-                  <span className="text-brand-red">halal</span> surgelés
+                  <span className="text-brand-red-light">halal</span> surgelés
                   <br />
-                  <span className="text-brand-green">de qualité</span>
+                  <span className="text-brand-orange-light">de qualité</span>
                 </>
               ) : (
                 <>
                   Canada's Premium
                   <br />
-                  <span className="text-brand-red">Halal</span> Frozen
+                  <span className="text-brand-red-light">Halal</span> Frozen
                   <br />
-                  <span className="text-brand-green">Foods</span>
+                  <span className="text-brand-orange-light">Foods</span>
                 </>
               )}
             </h1>
 
-            <p className="text-gray-700 text-lg leading-relaxed mb-8">
+            <p className="text-white/85 text-lg leading-relaxed mb-8">
               {t(
                 'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
                 'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
@@ -106,7 +111,7 @@ export default function HomePage({ navigate }: HomePageProps) {
 
               <button
                 onClick={() => navigate('/about-us')}
-                className="flex items-center gap-2 px-7 py-3.5 bg-white text-gray-700 font-semibold rounded-full hover:bg-gray-50 transition-all border border-gray-200 text-sm"
+                className="flex items-center gap-2 px-7 py-3.5 bg-white/10 text-white font-semibold rounded-full hover:bg-white/20 transition-all border border-white/30 text-sm backdrop-blur-sm"
               >
                 {t('About Us', 'À propos de nous')}
               </button>
@@ -122,17 +127,17 @@ export default function HomePage({ navigate }: HomePageProps) {
               ].map(({ icon: Icon, label, sub }) => (
                 <div
                   key={label}
-                  className="flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-2xl px-3 py-2 shadow-sm"
+                  className="flex items-center gap-2 bg-white/10 border border-white/15 backdrop-blur-sm rounded-2xl px-3 py-2"
                 >
-                  <div className="w-7 h-7 rounded-full bg-brand-green-pale flex items-center justify-center">
-                    <Icon size={14} className="text-brand-green" />
+                  <div className="w-7 h-7 rounded-full bg-brand-orange/20 flex items-center justify-center">
+                    <Icon size={14} className="text-brand-orange-light" />
                   </div>
 
                   <div>
-                    <div className="text-xs font-bold text-gray-800 leading-tight">
+                    <div className="text-xs font-bold text-white leading-tight">
                       {label}
                     </div>
-                    <div className="text-xs text-gray-700 leading-tight">
+                    <div className="text-xs text-white/70 leading-tight">
                       {sub}
                     </div>
                   </div>
@@ -143,12 +148,11 @@ export default function HomePage({ navigate }: HomePageProps) {
 
           {/* Product line-up */}
           <div className="relative flex items-center justify-center">
-            <div className="absolute w-[88%] aspect-square rounded-full bg-gradient-to-br from-brand-orange-pale to-brand-red-pale pointer-events-none"></div>
-            <div className="absolute w-[62%] aspect-square rounded-full bg-white/60 blur-2xl pointer-events-none"></div>
+            <div className="absolute w-[80%] aspect-square rounded-full bg-brand-orange/25 blur-3xl pointer-events-none"></div>
             <img
               src={HERO_IMAGE}
               alt={t('Al-Shamas kebabs, samosas and spring rolls', 'Kebabs, samosas et rouleaux impériaux Al-Shamas')}
-              className="relative w-full max-w-[760px] h-auto drop-shadow-xl"
+              className="relative w-full max-w-[760px] h-auto drop-shadow-[0_25px_35px_rgba(0,0,0,0.45)]"
             />
           </div>
         </div>
