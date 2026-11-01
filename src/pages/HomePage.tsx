@@ -62,12 +62,11 @@ export default function HomePage({ navigate }: HomePageProps) {
           <img
             src={HERO_IMAGE}
             alt={t('Al-Shamas kebab, samosa and spring roll boxes on a table', 'Boîtes de kebabs, samosas et rouleaux impériaux Al-Shamas sur une table')}
-            className="absolute left-0 right-0 bottom-16 h-[300px] sm:h-[360px] lg:top-0 lg:bottom-0 lg:left-[30%] w-full lg:w-[70%] lg:h-full object-cover object-[78%_75%] lg:object-[100%_75%]"
+            className="absolute left-0 right-0 bottom-16 h-[300px] sm:h-[360px] lg:top-24 lg:bottom-12 lg:left-[42%] lg:right-0 w-full lg:w-[58%] lg:h-auto object-cover object-[60%_75%] lg:object-contain lg:object-center lg:[mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_94%,transparent_100%),linear-gradient(to_bottom,transparent_0%,black_14%,black_100%)] lg:[mask-composite:intersect] lg:[-webkit-mask-composite:source-in]"
           />
           {/* White fade behind the text (top on mobile, left on desktop) */}
           <div className="absolute inset-0 lg:hidden bg-[linear-gradient(180deg,#fff_0%,#fff_58%,rgba(255,255,255,0)_66%)]" />
-          <div className="absolute inset-0 hidden lg:block bg-[linear-gradient(90deg,#fff_0%,#fff_38%,rgba(255,255,255,0.85)_45%,rgba(255,255,255,0)_56%)]" />
-
+          
           {/* Red swooshes */}
           <svg className="absolute bottom-0 left-0 w-full h-28 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
@@ -75,12 +74,12 @@ export default function HomePage({ navigate }: HomePageProps) {
           </svg>
 
           {/* Text */}
-          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start lg:items-center pt-24 sm:pt-20 lg:pt-6">
-            <div className="w-full lg:w-[46%] max-w-[620px] mx-auto lg:mx-0 text-center">
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start lg:items-center pt-24 sm:pt-20 lg:pt-16">
+            <div className="w-full lg:w-[40%] max-w-[620px] mx-auto lg:mx-0 text-center lg:text-left">
               <p className="inline-block bg-brand-red-pale text-brand-red text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">
                 {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
               </p>
-              <h1 className="font-display font-black text-[#2b1410] leading-[1.02] tracking-tight text-[38px] sm:text-[54px] lg:text-[44px] xl:text-[52px] lg:whitespace-nowrap">
+              <h1 className="font-display font-black text-[#2b1410] leading-[1.02] tracking-tight text-[38px] sm:text-[54px] lg:text-[40px] xl:text-[48px] lg:whitespace-nowrap">
                 {lang === 'fr' ? (
                   <>
                     Aliments <span className="text-brand-red">halal</span>
@@ -95,13 +94,13 @@ export default function HomePage({ navigate }: HomePageProps) {
                   </>
                 )}
               </h1>
-              <p className={`font-script text-brand-red mt-4 leading-tight sm:whitespace-nowrap ${lang === 'fr' ? 'text-[19px] sm:text-[26px] lg:text-[22px] xl:text-[26px]' : 'text-[21px] sm:text-[32px] lg:text-[27px] xl:text-[32px]'}`}>
+              <p className={`font-script text-brand-red mt-4 leading-tight sm:whitespace-nowrap ${lang === 'fr' ? 'text-[19px] sm:text-[26px] lg:text-[19px] xl:text-[23px]' : 'text-[21px] sm:text-[32px] lg:text-[24px] xl:text-[29px]'}`}>
                 {t('Fully Cooked • Heat & Eat • Hand Made', 'Entièrement cuit • Prêt à réchauffer • Fait à la main')}
               </p>
-              <svg className="mx-auto mt-1 w-56 sm:w-72 h-4" viewBox="0 0 300 16" aria-hidden="true">
+              <svg className="mx-auto lg:mx-0 mt-1 w-56 sm:w-72 h-4" viewBox="0 0 300 16" aria-hidden="true">
                 <path d="M4 12 C80 2 200 2 296 8" fill="none" stroke="#C8102E" strokeWidth="4" strokeLinecap="round" />
               </svg>
-              <p className="mt-5 text-gray-700 text-base sm:text-lg leading-relaxed max-w-[520px] mx-auto">
+              <p className="mt-5 text-gray-700 text-base sm:text-lg leading-relaxed max-w-[520px] mx-auto lg:mx-0">
                 {t(
                   'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
                   'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
