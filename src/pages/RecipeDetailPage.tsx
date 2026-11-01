@@ -19,7 +19,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
 
   if (!recipe) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center">
+      <div className="min-h-screen pt-32 flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Recipe not found', 'Recette introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-orange hover:underline text-sm">
@@ -40,7 +40,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
   const category = product && PRODUCT_CATEGORIES.find(c => c.name === product.category);
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Back */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <button

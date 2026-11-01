@@ -15,7 +15,7 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
 
   if (!category) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center">
+      <div className="min-h-screen pt-32 flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Category not found', 'Catégorie introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-red hover:underline text-sm">
@@ -29,7 +29,7 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
   const products = PRODUCTS.filter(p => p.category === category.name);
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">

@@ -211,7 +211,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
   const { ref: revRef, isVis } = useReveal();
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Header */}
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="absolute top-10 left-10 w-56 h-56 bg-brand-red-pale rounded-full opacity-40 pointer-events-none"></div>

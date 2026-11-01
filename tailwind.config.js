@@ -21,6 +21,8 @@ export default {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         serif: ['Playfair Display', 'Georgia', 'serif'],
+        script: ['Kaushan Script', 'cursive'],
+        display: ['Montserrat', 'Arial Black', 'sans-serif'],
       },
       animation: {
         'spin-slow': 'spin 8s linear infinite',

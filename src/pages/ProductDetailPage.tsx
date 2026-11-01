@@ -19,7 +19,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
 
   if (!product) {
     return (
-      <div className="min-h-screen pt-24 flex items-center justify-center">
+      <div className="min-h-screen pt-32 flex items-center justify-center">
         <div className="text-center">
           <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Product not found', 'Produit introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-red hover:underline text-sm">
@@ -46,7 +46,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
       : related;
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <div className="flex items-center gap-2 text-xs text-gray-400">

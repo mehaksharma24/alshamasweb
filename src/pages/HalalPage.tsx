@@ -116,7 +116,7 @@ export default function HalalPage() {
   const { lang, t } = useLang();
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Header */}
       <section className="py-20 bg-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-brand-green-pale rounded-full -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none"></div>

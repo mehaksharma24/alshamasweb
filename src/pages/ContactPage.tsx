@@ -18,7 +18,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen pt-32">
       {/* Header */}
       <section className="py-16 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-72 h-72 bg-brand-red-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"></div>
