@@ -7,7 +7,7 @@ import { useLang } from '../i18n';
 const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
 
 // Product boxes on a sunlit table (composed from the packaging photos).
-const HERO_IMAGE = '/images/hero/hero-table.jpg';
+const HERO_IMAGE = '/images/hero/hero-table.webp';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -57,15 +57,15 @@ export default function HomePage({ navigate }: HomePageProps) {
     <div className="min-h-screen">
       {/* Hero — red & white, product boxes on a sunlit table */}
       <section className="relative pt-20 bg-white overflow-hidden">
-        <div className="relative h-[900px] sm:h-[820px] lg:h-[620px]">
+        <div className="relative h-[820px] sm:h-[780px] lg:h-[570px]">
           {/* Table scene */}
           <img
             src={HERO_IMAGE}
             alt={t('Al-Shamas kebab, samosa and spring roll boxes on a table', 'Boîtes de kebabs, samosas et rouleaux impériaux Al-Shamas sur une table')}
-            className="absolute left-0 right-0 bottom-16 h-[300px] sm:h-[360px] lg:top-24 lg:bottom-12 lg:left-[42%] lg:right-0 w-full lg:w-[58%] lg:h-auto object-cover object-[60%_75%] lg:object-contain lg:object-center lg:[mask-image:linear-gradient(to_right,transparent_0%,black_10%,black_94%,transparent_100%),linear-gradient(to_bottom,transparent_0%,black_14%,black_100%)] lg:[mask-composite:intersect] lg:[-webkit-mask-composite:source-in]"
+            className="absolute left-0 right-0 bottom-14 h-[300px] sm:h-[360px] lg:top-6 lg:bottom-14 lg:left-[41%] lg:right-0 w-full lg:w-[59%] lg:h-auto object-contain object-center"
           />
           {/* White fade behind the text (top on mobile, left on desktop) */}
-          <div className="absolute inset-0 lg:hidden bg-[linear-gradient(180deg,#fff_0%,#fff_58%,rgba(255,255,255,0)_66%)]" />
+          <div className="absolute inset-0 lg:hidden bg-[linear-gradient(180deg,#fff_0%,#fff_56%,rgba(255,255,255,0)_62%)]" />
           
           {/* Red swooshes */}
           <svg className="absolute bottom-0 left-0 w-full h-28 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
@@ -74,7 +74,7 @@ export default function HomePage({ navigate }: HomePageProps) {
           </svg>
 
           {/* Text */}
-          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start lg:items-center pt-24 sm:pt-20 lg:pt-16">
+          <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-start pt-20 sm:pt-16 lg:pt-[88px]">
             <div className="w-full lg:w-[40%] max-w-[620px] mx-auto lg:mx-0 text-center lg:text-left">
               <p className="inline-block bg-brand-red-pale text-brand-red text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">
                 {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}

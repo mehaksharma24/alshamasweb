@@ -106,9 +106,10 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
         </div>
 
         {/* Curved red edge under the bar (same on every page) */}
-        <svg className="absolute left-0 right-0 top-full w-full h-6 sm:h-8 pointer-events-none" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true">
+        <svg className="absolute left-0 right-0 top-full w-full h-9 sm:h-12 pointer-events-none overflow-visible" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
           <path d="M0 0 H1440 V4 C1100 18 760 2 520 14 C330 24 150 26 0 32 Z" fill="#C8102E" />
           <path d="M0 32 C150 26 330 24 520 14 C760 2 1100 18 1440 4" fill="none" stroke="#F5A04A" strokeWidth="2.5" opacity="0.7" />
+          <path d="M0 44 C150 38 330 36 520 26 C760 14 1100 30 1440 16" fill="none" stroke="#C8102E" strokeWidth="3" opacity="0.35" />
         </svg>
 
         {/* Mobile menu */}
