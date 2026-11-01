@@ -7,7 +7,8 @@ import { useLang } from '../i18n';
 const DIFFICULTY_FR: Record<string, string> = { Easy: 'Facile', Medium: 'Moyen', Hard: 'Difficile' };
 
 // ONLY CHANGE: Hero banner now uses homebanner.png from images/products
-const HERO_IMAGE = '/images/products/homebanner-lineup.jpg';
+// Product line-up composed from the packaging photos (transparent background).
+const HERO_IMAGE = '/images/hero/hero-lineup.webp';
 
 interface HomePageProps {
   navigate: (path: string) => void;
@@ -56,28 +57,19 @@ export default function HomePage({ navigate }: HomePageProps) {
   return (
     <div className="min-h-screen">
       {/* Hero */}
-      <section className="relative min-h-screen flex items-center overflow-hidden pt-24">
-        {/* Starts below the fixed navbar and anchors to the top so the top row of boxes isn't hidden. */}
-        <div
-          className="absolute inset-x-0 bottom-0 top-[109px] bg-cover bg-top"
-          style={{ backgroundImage: `url('${HERO_IMAGE}')` }}
-        />
-
-        <div className="absolute inset-0 bg-white/80"></div>
-
+      <section className="relative lg:min-h-screen flex items-center overflow-hidden pt-28 lg:pt-24 bg-gradient-to-br from-brand-orange-pale via-white to-brand-red-pale/60">
         {/* Decorative circles */}
-        <div className="absolute top-20 right-10 w-80 h-80 bg-brand-red-pale rounded-full opacity-50 pointer-events-none"></div>
-        <div className="absolute bottom-10 left-10 w-56 h-56 bg-brand-green-pale rounded-full opacity-50 pointer-events-none"></div>
-        <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-brand-orange-pale rounded-full opacity-70 pointer-events-none"></div>
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-brand-green-pale rounded-full opacity-60 pointer-events-none"></div>
+        <div className="absolute bottom-10 left-1/3 w-24 h-24 bg-brand-orange-pale rounded-full opacity-80 pointer-events-none"></div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-          <div className="max-w-2xl">
+        <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16 grid lg:grid-cols-[minmax(0,5fr)_minmax(0,6fr)] gap-10 lg:gap-6 items-center">
+          <div className="max-w-xl">
             <div className="inline-flex items-center gap-2 bg-brand-red-pale text-brand-red text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">
               <Star size={12} fill="currentColor" />
               {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
             </div>
 
-            <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-gray-900 leading-tight mb-6">
+            <h1 className="font-serif text-5xl sm:text-6xl font-bold text-gray-900 leading-[1.08] mb-6">
               {lang === 'fr' ? (
                 <>
                   Aliments
@@ -97,7 +89,7 @@ export default function HomePage({ navigate }: HomePageProps) {
               )}
             </h1>
 
-            <p className="text-gray-800 text-lg leading-relaxed mb-8 max-w-xl">
+            <p className="text-gray-700 text-lg leading-relaxed mb-8">
               {t(
                 'Proudly Canadian since 2013. High-quality halal kebabs, samosas, spring rolls and other ready-to-cook products — made with carefully selected ingredients and authentic recipes, and free from artificial colours.',
                 'Fièrement canadien depuis 2013. Des kebabs, samosas, rouleaux impériaux et autres produits prêts à cuire halal de grande qualité — préparés à partir d’ingrédients soigneusement sélectionnés et de recettes authentiques, sans colorants artificiels.'
@@ -121,7 +113,7 @@ export default function HomePage({ navigate }: HomePageProps) {
             </div>
 
             {/* Trust badges */}
-            <div className="flex flex-wrap gap-4 mt-10">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 gap-3 mt-10 max-w-md sm:max-w-none lg:max-w-md">
               {[
                 { icon: Award, label: t('Since 2013', 'Depuis 2013'), sub: t('Proudly Canadian', 'Fièrement canadien') },
                 { icon: ShieldCheck, label: t('HMA Halal', 'Halal HMA'), sub: t('Certified', 'Certifié') },
@@ -147,6 +139,17 @@ export default function HomePage({ navigate }: HomePageProps) {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* Product line-up */}
+          <div className="relative flex items-center justify-center">
+            <div className="absolute w-[88%] aspect-square rounded-full bg-gradient-to-br from-brand-orange-pale to-brand-red-pale pointer-events-none"></div>
+            <div className="absolute w-[62%] aspect-square rounded-full bg-white/60 blur-2xl pointer-events-none"></div>
+            <img
+              src={HERO_IMAGE}
+              alt={t('Al-Shamas kebabs, samosas and spring rolls', 'Kebabs, samosas et rouleaux impériaux Al-Shamas')}
+              className="relative w-full max-w-[760px] h-auto drop-shadow-xl"
+            />
           </div>
         </div>
       </section>
