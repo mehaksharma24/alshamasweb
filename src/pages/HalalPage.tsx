@@ -116,30 +116,34 @@ export default function HalalPage() {
   const { lang, t } = useLang();
 
   return (
-    <div className="min-h-screen pt-32">
-      {/* Header */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-brand-green-pale rounded-full -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-48 h-48 bg-brand-red-pale rounded-full translate-x-1/3 translate-y-1/3 opacity-30 pointer-events-none"></div>
-        <div
-          ref={ref('header')}
-          className={`max-w-3xl mx-auto px-4 text-center relative transition-all duration-700 ${isVis('header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
-        >
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-green mb-4 shadow-md">
-            <Shield size={24} className="text-white" />
+    <div className="min-h-screen pt-24">
+      {/* Banner */}
+      <section className="relative bg-white overflow-hidden">
+        <div className="relative pt-12 pb-24 sm:pb-28">
+          <div
+            ref={ref('header')}
+            className={`max-w-3xl mx-auto px-4 text-center transition-all duration-700 ${isVis('header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+          >
+            <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Halal • Food Safety • Compliance', 'Halal • Salubrité • Conformité')}</p>
+            <h1 className="font-display font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
+              {t('Certificates', 'Certificats')}
+            </h1>
+            <svg className="mx-auto mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
+              <path d="M4 12 C80 2 200 2 296 8" fill="none" stroke="#C8102E" strokeWidth="4" strokeLinecap="round" />
+            </svg>
+            <p className="mt-4 text-gray-700 text-lg leading-relaxed">
+              {t('Our commitment to halal is not a checkbox — it is the foundation of everything we do.', 'Notre engagement envers le halal n’est pas une simple formalité — c’est le fondement de tout ce que nous faisons.')}
+            </p>
           </div>
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-4">{t('Halal & Certifications', 'Halal et certifications')}</h1>
-          <p className="text-gray-500 text-lg leading-relaxed">
-            {t('Our commitment to halal is not a checkbox — it is the foundation of everything we do.', 'Notre engagement envers le halal n’est pas une simple formalité — c’est le fondement de tout ce que nous faisons.')}
-          </p>
+          <svg className="absolute bottom-0 left-0 w-full h-16 sm:h-20 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
+            <path d="M0 24 C260 96 560 98 820 64 C1060 32 1260 40 1440 78" fill="none" stroke="#C8102E" strokeWidth="4" opacity="0.35" />
+          </svg>
         </div>
       </section>
 
       {/* Commitment */}
-      <section className="py-14 bg-gray-50 relative overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] bg-brand-green-pale rounded-full opacity-20"></div>
-        </div>
+      <section className="py-14 bg-[#d7ecdf] relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             ref={ref('commit-title')}
@@ -149,7 +153,7 @@ export default function HalalPage() {
           </div>
           <div
             ref={ref('commit-body')}
-            className={`bg-white rounded-3xl p-8 shadow-sm border border-gray-100 transition-all duration-700 ${isVis('commit-body') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+            className={`bg-white rounded-3xl p-8 shadow-md transition-all duration-700 ${isVis('commit-body') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
             style={{ transitionDelay: '150ms' }}
           >
             <p className="text-gray-600 leading-relaxed mb-5">
@@ -169,8 +173,7 @@ export default function HalalPage() {
       </section>
 
       {/* Certifications grid */}
-      <section className="py-20 bg-white relative overflow-hidden">
-        <div className="absolute top-10 right-10 w-48 h-48 bg-brand-orange-pale rounded-full opacity-30 pointer-events-none"></div>
+      <section className="py-16 bg-[#fff8f1] relative overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             ref={ref('cert-title')}
@@ -185,7 +188,7 @@ export default function HalalPage() {
               <div
                 key={name.en}
                 ref={ref(`cert-${i}`)}
-                className={`flex flex-col bg-white rounded-3xl p-6 border border-gray-100 hover:shadow-xl transition-all duration-500 group ${
+                className={`flex flex-col bg-white rounded-3xl p-6 shadow-sm border-t-4 border-brand-red hover:shadow-xl transition-all duration-500 group ${
                   isVis(`cert-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
@@ -227,21 +230,20 @@ export default function HalalPage() {
       </section>
 
       {/* Practices */}
-      <section className="py-16 bg-gray-50 relative overflow-hidden">
-        <div className="absolute left-0 bottom-0 w-56 h-56 bg-brand-green-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-40 pointer-events-none"></div>
+      <section className="py-14 bg-brand-red relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             ref={ref('prac-title')}
             className={`text-center mb-10 transition-all duration-700 ${isVis('prac-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
-            <h2 className="font-serif text-3xl font-bold text-gray-900">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
+            <h2 className="font-serif text-3xl font-bold text-white">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {PRACTICES.map((practice, i) => (
               <div
                 key={i}
                 ref={ref(`prac-${i}`)}
-                className={`flex items-start gap-3 bg-white rounded-2xl p-4 border border-gray-100 shadow-sm transition-all duration-500 ${
+                className={`flex items-start gap-3 bg-white rounded-2xl p-4 shadow-md transition-all duration-500 ${
                   isVis(`prac-${i}`) ? 'opacity-100 translate-x-0' : i % 2 === 0 ? 'opacity-0 -translate-x-5' : 'opacity-0 translate-x-5'
                 }`}
                 style={{ transitionDelay: `${i * 60}ms` }}
