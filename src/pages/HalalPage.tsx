@@ -125,7 +125,7 @@ export default function HalalPage() {
             className={`max-w-3xl mx-auto px-4 text-center transition-all duration-700 ${isVis('header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
             <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Halal • Food Safety • Compliance', 'Halal • Salubrité • Conformité')}</p>
-            <h1 className="font-display font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
+            <h1 className="font-serif font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
               {t('Certificates', 'Certificats')}
             </h1>
             <svg className="mx-auto mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
