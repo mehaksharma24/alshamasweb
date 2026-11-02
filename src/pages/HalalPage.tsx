@@ -137,7 +137,6 @@ export default function HalalPage() {
           </div>
           <svg className="absolute bottom-0 left-0 w-full h-16 sm:h-20 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
             <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
-            <path d="M0 24 C260 96 560 98 820 64 C1060 32 1260 40 1440 78" fill="none" stroke="#C8102E" strokeWidth="4" opacity="0.35" />
           </svg>
         </div>
       </section>
