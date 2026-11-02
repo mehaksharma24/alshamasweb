@@ -119,7 +119,7 @@ export default function HalalPage() {
     <div className="min-h-screen pt-24">
       {/* Banner */}
       <section className="relative bg-white overflow-hidden">
-        <div className="relative pt-12 pb-24 sm:pb-28">
+        <div className="relative pt-12 pb-10">
           <div
             ref={ref('header')}
             className={`max-w-3xl mx-auto px-4 text-center transition-all duration-700 ${isVis('header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
@@ -135,9 +135,6 @@ export default function HalalPage() {
               {t('Our commitment to halal is not a checkbox — it is the foundation of everything we do.', 'Notre engagement envers le halal n’est pas une simple formalité — c’est le fondement de tout ce que nous faisons.')}
             </p>
           </div>
-          <svg className="absolute bottom-0 left-0 w-full h-16 sm:h-20 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
-          </svg>
         </div>
       </section>
 
