@@ -79,7 +79,7 @@ export default function HomePage({ navigate }: HomePageProps) {
               <p className="inline-block bg-brand-red-pale text-brand-red text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-5">
                 {t('Canada’s Halal Frozen Foods', 'Aliments halal surgelés du Canada')}
               </p>
-              <h1 className="font-display font-black text-[#2b1410] leading-[1.02] tracking-tight text-[38px] sm:text-[54px] lg:text-[40px] xl:text-[48px] lg:whitespace-nowrap">
+              <h1 className="font-serif font-black text-[#2b1410] leading-[1.02] tracking-tight text-[38px] sm:text-[54px] lg:text-[40px] xl:text-[48px] lg:whitespace-nowrap">
                 {lang === 'fr' ? (
                   <>
                     Aliments <span className="text-brand-red">halal</span>

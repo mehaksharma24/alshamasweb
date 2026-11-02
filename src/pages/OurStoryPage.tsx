@@ -217,7 +217,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="relative pt-12 pb-24 sm:pb-28">
           <div className="max-w-3xl mx-auto px-4 text-center">
             <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Since 2013', 'Depuis 2013')}</p>
-            <h1 className="font-display font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
+            <h1 className="font-serif font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
               {t('About Us', 'À propos de nous')}
             </h1>
             <svg className="mx-auto mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
