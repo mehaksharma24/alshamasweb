@@ -13,7 +13,7 @@ const NAV_LINKS = [
   { label: 'Products', fr: 'Produits', path: '/products' },
   { label: 'About Us', fr: 'À propos', path: '/about-us' },
   { label: 'Where to Buy', fr: 'Où acheter', path: '/locations' },
-  { label: 'Halal', fr: 'Halal', path: '/halal' },
+  { label: 'Certificates', fr: 'Certificats', path: '/halal' },
   { label: 'Contact Us', fr: 'Nous joindre', path: '/contact' },
 ];
 
