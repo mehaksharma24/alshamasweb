@@ -61,7 +61,7 @@ export default function LocationsPage() {
       </section>
 
       {/* Search & Filter */}
-      <section className="bg-white border-b border-gray-100 shadow-sm sticky top-24 z-30 py-5">
+      <section className="bg-white border-b border-gray-100 shadow-sm py-5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center flex-wrap">
             <div className="relative">
