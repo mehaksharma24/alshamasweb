@@ -2,6 +2,7 @@ import { ArrowRight, UtensilsCrossed } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
+import PageBanner from '../components/PageBanner';
 
 interface ProductsPageProps {
   navigate: (path: string) => void;
@@ -10,21 +11,8 @@ interface ProductsPageProps {
 export default function ProductsPage({ navigate }: ProductsPageProps) {
   const { lang, t } = useLang();
   return (
-    <div className="min-h-screen pt-32">
-      {/* Header */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-brand-orange-pale rounded-full -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none"></div>
-        <div className="absolute bottom-0 right-0 w-48 h-48 bg-brand-red-pale rounded-full translate-x-1/3 translate-y-1/3 opacity-40 pointer-events-none"></div>
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <h1 className="font-serif text-5xl font-black text-gray-900 mb-3">{t('Our Products', 'Nos produits')}</h1>
-          <p className="text-gray-500 text-base leading-relaxed">
-            {t(
-              'Halal frozen foods — handmade with carefully selected ingredients and authentic recipes.',
-              'Aliments halal surgelés — faits à la main avec des ingrédients soigneusement sélectionnés et des recettes authentiques.'
-            )}
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen pt-24">
+      <PageBanner script={t('Halal • Handmade • Authentic', 'Halal • Fait à la main • Authentique')} title={t('Our Products', 'Nos produits')} sub={t('Halal frozen foods — handmade with carefully selected ingredients and authentic recipes.', 'Aliments halal surgelés — faits à la main avec des ingrédients soigneusement sélectionnés et des recettes authentiques.')} />
 
       {/* Categories */}
       <section className="pb-20 bg-white">

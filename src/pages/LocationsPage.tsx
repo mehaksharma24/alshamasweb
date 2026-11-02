@@ -4,6 +4,7 @@ import { STORES } from '../data';
 import { RETAILER_LOGOS } from '../assets';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { useLang } from '../i18n';
+import PageBanner from '../components/PageBanner';
 
 const PROVINCES = ['All', 'ON', 'QC', 'BC', 'AB', 'MB'];
 const CHAINS = ['All', ...Array.from(new Set(STORES.map(s => s.chain)))];
@@ -47,18 +48,8 @@ export default function LocationsPage() {
   }, [search, province, chain]);
 
   return (
-    <div className="min-h-screen pt-32">
-      {/* Header */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-64 h-64 bg-brand-green-pale rounded-full -translate-x-1/2 -translate-y-1/2 opacity-40 pointer-events-none"></div>
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <div className="inline-block bg-brand-green-pale text-brand-green text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
-            {t('Find Us', 'Où nous trouver')}
-          </div>
-          <h1 className="font-serif text-5xl font-black text-gray-900 mb-3">{t('Store Locator', 'Localisateur de magasins')}</h1>
-          <p className="text-gray-500 text-base">{t('Find Al-Shamas products at a store near you.', 'Trouvez les produits Al-Shamas dans un magasin près de chez vous.')}</p>
-        </div>
-      </section>
+    <div className="min-h-screen pt-24">
+      <PageBanner script={t('Find Us', 'Où nous trouver')} title={t('Store Locator', 'Localisateur de magasins')} sub={t('Find Al-Shamas products at a store near you.', 'Trouvez les produits Al-Shamas dans un magasin près de chez vous.')} />
 
       {/* Search & Filter */}
       <section className="bg-white border-b border-gray-100 shadow-sm py-5">

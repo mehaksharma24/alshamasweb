@@ -4,6 +4,7 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { STORY_COVER_IMAGE, CERTIFICATION_LOGOS } from '../assets';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
+import PageBanner from '../components/PageBanner';
 
 interface OurStoryPageProps {
   navigate: (path: string) => void;
@@ -212,27 +213,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
 
   return (
     <div className="min-h-screen pt-24">
-      {/* Banner */}
-      <section className="relative bg-white overflow-hidden">
-        <div className="relative pt-12 pb-24 sm:pb-28">
-          <div className="max-w-3xl mx-auto px-4 text-center">
-            <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Since 2013', 'Depuis 2013')}</p>
-            <h1 className="font-serif font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
-              {t('About Us', 'À propos de nous')}
-            </h1>
-            <svg className="mx-auto mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
-              <path d="M4 12 C80 2 200 2 296 8" fill="none" stroke="#C8102E" strokeWidth="4" strokeLinecap="round" />
-            </svg>
-            <p className="mt-4 text-gray-700 text-lg leading-relaxed">
-              {t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')}
-            </p>
-          </div>
-          <svg className="absolute bottom-0 left-0 w-full h-16 sm:h-20 pointer-events-none" viewBox="0 0 1440 112" preserveAspectRatio="none" aria-hidden="true">
-            <path d="M0 40 C260 110 560 112 820 78 C1060 46 1260 54 1440 92 V112 H0 Z" fill="#C8102E" />
-            <path d="M0 24 C260 96 560 98 820 64 C1060 32 1260 40 1440 78" fill="none" stroke="#C8102E" strokeWidth="4" opacity="0.35" />
-          </svg>
-        </div>
-      </section>
+      <PageBanner script={t('Since 2013', 'Depuis 2013')} title={t('About Us', 'À propos de nous')} sub={t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')} />
 
       {/* Company Profile (catalogue) */}
       <section className="py-14 bg-white relative overflow-hidden">

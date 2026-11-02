@@ -3,6 +3,7 @@ import { MapPin, Phone, Mail, Send, Clock } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
+import PageBanner from '../components/PageBanner';
 
 const MAP_SRC = 'https://www.google.com/maps?q=2244+Drew+Road,+Mississauga,+ON+L5S+1B1&output=embed';
 
@@ -18,15 +19,8 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pt-32">
-      {/* Header */}
-      <section className="py-16 bg-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-72 h-72 bg-brand-red-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"></div>
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <h1 className="font-serif text-5xl font-black text-gray-900 mb-3">{t('Contact Us', 'Nous joindre')}</h1>
-          <p className="text-gray-500 text-base">{t('We’d love to hear from you — questions, orders, wholesale enquiries.', 'Nous serions ravis de vous lire — questions, commandes, demandes de vente en gros.')}</p>
-        </div>
-      </section>
+    <div className="min-h-screen pt-24">
+      <PageBanner script={t('Get in Touch', 'Écrivez-nous')} title={t('Contact Us', 'Nous joindre')} sub={t('We’d love to hear from you — questions, orders, wholesale enquiries.', 'Nous serions ravis de vous lire — questions, commandes, demandes de vente en gros.')} />
 
       <section className="py-12 bg-gray-50 relative overflow-hidden">
         <div className="absolute bottom-0 left-0 w-56 h-56 bg-brand-green-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-40 pointer-events-none"></div>
