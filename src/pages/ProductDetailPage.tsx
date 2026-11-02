@@ -125,7 +125,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
           <p className="text-brand-green text-xs font-semibold uppercase tracking-widest mb-2">
             {categoryLabel(category, lang)}
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gray-900 mb-2">{name}</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl font-black text-gray-900 mb-2">{name}</h1>
           {product.subtitle && <p className="text-gray-500 italic mb-4">{product.subtitle[lang]}</p>}
           <p className="text-gray-500 leading-relaxed max-w-xl mx-auto mt-3">{product.description[lang]}</p>
         </div>

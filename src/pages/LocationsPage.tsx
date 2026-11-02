@@ -55,7 +55,7 @@ export default function LocationsPage() {
           <div className="inline-block bg-brand-green-pale text-brand-green text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
             {t('Find Us', 'Où nous trouver')}
           </div>
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Store Locator', 'Localisateur de magasins')}</h1>
+          <h1 className="font-serif text-5xl font-black text-gray-900 mb-3">{t('Store Locator', 'Localisateur de magasins')}</h1>
           <p className="text-gray-500 text-base">{t('Find Al-Shamas products at a store near you.', 'Trouvez les produits Al-Shamas dans un magasin près de chez vous.')}</p>
         </div>
       </section>

@@ -84,7 +84,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
               {lang === 'fr' ? DIFFICULTY_FR[recipe.difficulty] ?? recipe.difficulty : recipe.difficulty}
             </span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-gray-900 mb-4">{title}</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl font-black text-gray-900 mb-4">{title}</h1>
           <p className="text-gray-500 leading-relaxed max-w-xl mx-auto">{description}</p>
         </div>
       </section>

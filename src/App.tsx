@@ -55,7 +55,7 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
-          <h1 className="font-serif text-4xl text-gray-800 mb-4">{t('Page Not Found', 'Page introuvable')}</h1>
+          <h1 className="font-serif font-black text-4xl text-gray-800 mb-4">{t('Page Not Found', 'Page introuvable')}</h1>
           <button onClick={() => navigate('/')} className="text-brand-red hover:underline">{t('Go Home', 'Retour à l’accueil')}</button>
         </div>
       </div>

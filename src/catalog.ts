@@ -68,7 +68,7 @@ export interface NutritionFacts {
   vitaminC?: Nutrient;
 }
 
-export type CategoryName = 'Kababs' | 'Samosas' | 'Spring Rolls' | 'Wings & Drumsticks' | 'Burgers' | 'Breads';
+export type CategoryName = 'Kebabs' | 'Samosas' | 'Spring Rolls' | 'Wings & Drumsticks' | 'Burgers' | 'Breads';
 
 export interface ProductCategory {
   name: CategoryName;
@@ -178,7 +178,7 @@ const NFT = {
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = [
   {
-    name: "Kababs",
+    name: "Kebabs",
     slug: "kababs",
     nameFr: "Kebabs",
     tagline: {
@@ -274,7 +274,7 @@ export const PRODUCTS: Product[] = [
       en: "Chicken Charcoal Kebab",
       fr: "Kebab de poulet au charbon de bois"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-ChickenCharcoalKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -490,7 +490,7 @@ export const PRODUCTS: Product[] = [
       en: "Beef Charcoal Kebab",
       fr: "Kebab de bœuf au charbon de bois"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-BeefCharcoalKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -686,7 +686,7 @@ export const PRODUCTS: Product[] = [
       en: "Tandoori Chicken Charcoal Kebab",
       fr: "Kebab de poulet tandoori au charbon"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/packs/tandoori-chicken-charcoal-kebab/main.png",
     photo: false,
     tagline: {
@@ -842,7 +842,7 @@ export const PRODUCTS: Product[] = [
       en: "Mutton & Chicken",
       fr: "Mouton et poulet"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/packs/lamb-charcoal-kebab/main.png",
     photo: false,
     tagline: {
@@ -1015,7 +1015,7 @@ export const PRODUCTS: Product[] = [
       en: "Meat Charcoal Kebab",
       fr: "Kebab de viande au charbon"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-MeatCharcoalKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -1097,7 +1097,7 @@ export const PRODUCTS: Product[] = [
       en: "Chicken Sheekh Kebab",
       fr: "Sheekh kebab au poulet"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-ChickenSheekhKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -1224,7 +1224,7 @@ export const PRODUCTS: Product[] = [
       en: "Beef Sheekh Kebab",
       fr: "Sheekh kebab au bœuf"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-BeefSheekhKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -1348,7 +1348,7 @@ export const PRODUCTS: Product[] = [
       en: "Lamb Sheekh Kebab",
       fr: "Sheekh kebab d’agneau"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/packs/lamb-sheekh-kebab/main.png",
     photo: false,
     tagline: {
@@ -1482,7 +1482,7 @@ export const PRODUCTS: Product[] = [
       en: "Meat Sheekh Kebab",
       fr: "Sheekh kebab à la viande"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/packs/meat-sheekh-kebab/main.png",
     photo: false,
     tagline: {
@@ -1538,7 +1538,7 @@ export const PRODUCTS: Product[] = [
       en: "Also sold as Chicken Chappal Kebab",
       fr: "Aussi vendu sous le nom Chappal kebab au poulet"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-ChickenChapliKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -1689,7 +1689,7 @@ export const PRODUCTS: Product[] = [
       en: "Also sold as Beef Chappal Kebab",
       fr: "Aussi vendu sous le nom Chappal kebab au bœuf"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-BeefChapliKebab_8Pcs.png",
     photo: true,
     tagline: {
@@ -1832,7 +1832,7 @@ export const PRODUCTS: Product[] = [
       en: "Mutton Chapli Kebab",
       fr: "Chapli kebab de mouton"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/packs/mutton-chapli-kebab/main.png",
     photo: false,
     tagline: {
@@ -1966,7 +1966,7 @@ export const PRODUCTS: Product[] = [
       en: "Chicken Kafta Kebab",
       fr: "Kebab kafta au poulet"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-ChickenKaftaKebab_10Pcs.png",
     photo: true,
     tagline: {
@@ -2079,7 +2079,7 @@ export const PRODUCTS: Product[] = [
       en: "Beef Kafta Kebab",
       fr: "Kebab kafta au bœuf"
     },
-    category: "Kababs",
+    category: "Kebabs",
     image: "/images/products/3D Box-Alshamas-BeefKaftaKebab_10Pcs.png",
     photo: true,
     tagline: {

@@ -44,7 +44,7 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
       {/* Category intro */}
       <section className="pt-10 pb-6 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="font-serif text-4xl sm:text-5xl font-bold text-brand-red mb-3">{categoryLabel(category, lang)}</h1>
+          <h1 className="font-serif text-4xl sm:text-5xl font-black text-brand-red mb-3">{categoryLabel(category, lang)}</h1>
           <p className="text-gray-700 italic mb-4">{category.tagline[lang]}</p>
           <p className="text-gray-600 leading-relaxed max-w-3xl">{category.description[lang]}</p>
         </div>

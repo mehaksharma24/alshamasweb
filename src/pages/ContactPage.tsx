@@ -23,7 +23,7 @@ export default function ContactPage() {
       <section className="py-16 bg-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-72 h-72 bg-brand-red-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none"></div>
         <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <h1 className="font-serif text-5xl font-bold text-gray-900 mb-3">{t('Contact Us', 'Nous joindre')}</h1>
+          <h1 className="font-serif text-5xl font-black text-gray-900 mb-3">{t('Contact Us', 'Nous joindre')}</h1>
           <p className="text-gray-500 text-base">{t('We’d love to hear from you — questions, orders, wholesale enquiries.', 'Nous serions ravis de vous lire — questions, commandes, demandes de vente en gros.')}</p>
         </div>
       </section>
