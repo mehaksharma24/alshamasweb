@@ -132,7 +132,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
       </section>
 
       {/* Pack sizes by where they are sold */}
-      <section className="pb-14 bg-white">
+      <section className="pb-6 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="flex items-center justify-center gap-2 font-serif text-2xl font-semibold text-gray-900 mb-6">
             <Package size={20} className="text-brand-orange" />
@@ -168,7 +168,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
               );
             })}
           </div>
-          <div className="text-center mt-8">
+          <div className="text-center mt-6">
             <button
               onClick={() => navigate('/locations')}
               className="inline-flex items-center gap-1.5 px-5 py-2.5 bg-brand-red text-white text-sm font-semibold rounded-full hover:bg-brand-red-light transition-colors"
@@ -181,7 +181,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
       </section>
 
       {/* Nutrition + ingredients */}
-      <section className="py-12 bg-gray-50 relative overflow-hidden">
+      <section className="pt-6 pb-10 bg-gray-50 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-48 h-48 bg-brand-red-pale rounded-full -translate-x-1/3 translate-y-1/3 opacity-30 pointer-events-none" />
 
