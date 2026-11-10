@@ -2,7 +2,9 @@ import { useEffect, useState } from 'react';
 import { useLang } from '../i18n';
 
 const B = '/images/products-banner/';
-const SLIDES: { file: string; en: string; fr: string }[] = [
+type Slide = { file: string; en: string; fr: string };
+
+const ALL_SLIDES: Slide[] = [
   { file: 'chicken-charcoal-kebab', en: 'Chicken charcoal kebabs', fr: 'Kebabs de poulet au charbon' },
   { file: 'chicken-samosa', en: 'Chicken samosas', fr: 'Samosas au poulet' },
   { file: 'beef-spring-rolls', en: 'Beef spring rolls', fr: 'Rouleaux impériaux au bœuf' },
@@ -15,10 +17,15 @@ const SLIDES: { file: string; en: string; fr: string }[] = [
   { file: 'beef-sheekh-kebab', en: 'Beef sheekh kebabs', fr: 'Sheekh kebabs au bœuf' },
 ];
 
+/** Kebab category page: kebab photos only */
+export const KEBAB_SLIDES = ['chicken-charcoal-kebab', 'chapli-kebabs', 'beef-charcoal-kebab', 'chicken-sheekh-kebab', 'meat-charcoal-kebab', 'beef-sheekh-kebab']
+  .map(f => ALL_SLIDES.find(s => s.file === f)!);
+
 const INTERVAL = 5000;
 
-/** Products page banner: photos that change automatically (same fade as Home), no text. */
-export default function ProductsBannerSlider() {
+/** Products / category page banner: photos that change automatically (same fade as Home), no text. */
+export default function ProductsBannerSlider({ slides = ALL_SLIDES }: { slides?: Slide[] }) {
+  const SLIDES = slides;
   const { lang, t } = useLang();
   const [index, setIndex] = useState(0);
 

@@ -2,6 +2,7 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
+import ProductsBannerSlider, { KEBAB_SLIDES } from '../components/ProductsBannerSlider';
 
 interface ProductCategoryPageProps {
   slug: string;
@@ -26,9 +27,12 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
   }
 
   const products = PRODUCTS.filter(p => p.category === category.name);
+  // Photo banners per category (others keep the plain header)
+  const slides = category.name === 'Kebabs' ? KEBAB_SLIDES : null;
 
   return (
-    <div className="min-h-screen pt-40">
+    <div className={`min-h-screen ${slides ? '' : 'pt-40'}`}>
+      {slides && <ProductsBannerSlider slides={slides} />}
       {/* Breadcrumb */}
       <div className="bg-gray-50 border-b border-gray-100">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
