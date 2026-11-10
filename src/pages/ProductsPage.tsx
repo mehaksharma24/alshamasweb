@@ -4,6 +4,7 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
+import ProductsBannerSlider from '../components/ProductsBannerSlider';
 
 interface ProductsPageProps {
   navigate: (path: string) => void;
@@ -12,7 +13,8 @@ interface ProductsPageProps {
 export default function ProductsPage({ navigate }: ProductsPageProps) {
   const { lang, t } = useLang();
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen">
+      <ProductsBannerSlider />
       <PageBanner script={t('Halal • Handmade • Authentic', 'Halal • Fait à la main • Authentique')} title={t('Our Products', 'Nos produits')} sub={t('Halal frozen foods — handmade with carefully selected ingredients and authentic recipes.', 'Aliments halal surgelés — faits à la main avec des ingrédients soigneusement sélectionnés et des recettes authentiques.')} />
 
       {/* Categories */}
