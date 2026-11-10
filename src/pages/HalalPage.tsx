@@ -139,7 +139,7 @@ export default function HalalPage() {
       </section>
 
       {/* Commitment */}
-      <section className="py-14 bg-[#d7ecdf] relative overflow-hidden">
+      <section className="py-14 bg-brand-orange-deep relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             ref={ref('commit-title')}
@@ -226,13 +226,13 @@ export default function HalalPage() {
       </section>
 
       {/* Practices */}
-      <section className="py-14 bg-brand-red relative overflow-hidden">
+      <section className="py-14 bg-brand-blue-soft relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div
             ref={ref('prac-title')}
             className={`text-center mb-10 transition-all duration-700 ${isVis('prac-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
-            <h2 className="font-heading text-3xl font-bold text-white">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
+            <h2 className="font-heading text-3xl font-bold text-gray-900">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {PRACTICES.map((practice, i) => (
@@ -244,7 +244,7 @@ export default function HalalPage() {
                 }`}
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
-                <div className="w-6 h-6 rounded-full bg-brand-green flex items-center justify-center shrink-0 mt-0.5">
+                <div className="w-6 h-6 rounded-full bg-brand-blue-deep flex items-center justify-center shrink-0 mt-0.5">
                   <CheckCircle2 size={14} className="text-white" />
                 </div>
                 <p className="text-gray-600 text-sm leading-relaxed">{practice[lang]}</p>
