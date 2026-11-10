@@ -218,7 +218,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <img
           src={SPLASH_BG_IMAGE}
           alt={t('Al-Shamas product range', 'La gamme de produits Al-Shamas')}
-          className="w-full h-[240px] sm:h-[420px] lg:h-[600px] object-cover object-[center_35%]"
+          className="block w-full h-auto"
         />
       </section>
       <PageBanner script={t('Since 2013', 'Depuis 2013')} title={t('About Us', 'À propos de nous')} sub={t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')} />
