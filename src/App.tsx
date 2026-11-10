@@ -7,6 +7,8 @@ import HomePage from './pages/HomePage';
 import OurStoryPage from './pages/OurStoryPage';
 import ProductsPage from './pages/ProductsPage';
 import ProductCategoryPage from './pages/ProductCategoryPage';
+import FoodServicePage from './pages/FoodServicePage';
+import PrivateLabelPage from './pages/PrivateLabelPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import RecipeDetailPage from './pages/RecipeDetailPage';
 import LocationsPage from './pages/LocationsPage';
@@ -49,6 +51,8 @@ export default function App() {
     if (path === '/products') return <ProductsPage navigate={navigate} />;
     if (path.startsWith('/products/category/')) return <ProductCategoryPage slug={path.replace('/products/category/', '')} navigate={navigate} />;
     if (path.startsWith('/products/')) return <ProductDetailPage slug={path.replace('/products/', '')} navigate={navigate} />;
+    if (path === '/food-service') return <FoodServicePage navigate={navigate} />;
+    if (path === '/private-label') return <PrivateLabelPage navigate={navigate} />;
     if (path === '/recipes') return <RecipesPage navigate={navigate} />;
     if (path.startsWith('/recipes/')) return <RecipeDetailPage slug={path.replace('/recipes/', '')} navigate={navigate} />;
     if (path === '/locations') return <LocationsPage />;

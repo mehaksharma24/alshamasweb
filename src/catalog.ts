@@ -176,7 +176,7 @@ const NFT = {
   },
 } satisfies Record<string, NutritionFacts>;
 
-export const PRODUCT_CATEGORIES: ProductCategory[] = [
+const ALL_CATEGORIES: ProductCategory[] = [
   {
     name: "Kebabs",
     slug: "kababs",
@@ -263,7 +263,7 @@ export const PRODUCT_CATEGORIES: ProductCategory[] = [
   }
 ];
 
-export const PRODUCTS: Product[] = [
+const ALL_PRODUCTS: Product[] = [
   {
     id: "5",
     slug: "chicken-charcoal-kebab",
@@ -4633,6 +4633,16 @@ export const PRODUCTS: Product[] = [
     packs: []
   }
 ];
+
+/** Categories not shown on the site (data kept so they can be brought back). */
+const HIDDEN_CATEGORIES: CategoryName[] = ['Wings & Drumsticks', 'Burgers', 'Breads'];
+/** Individual products not shown on the site. */
+const HIDDEN_PRODUCT_SLUGS = ['tandoori-chicken-charcoal-kebab'];
+
+export const PRODUCT_CATEGORIES: ProductCategory[] = ALL_CATEGORIES.filter(c => !HIDDEN_CATEGORIES.includes(c.name));
+export const PRODUCTS: Product[] = ALL_PRODUCTS.filter(
+  p => !HIDDEN_CATEGORIES.includes(p.category) && !HIDDEN_PRODUCT_SLUGS.includes(p.slug),
+);
 
 /** Find a product by its current or any previous URL slug. */
 export function findProduct(slug: string): Product | undefined {

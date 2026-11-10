@@ -1,4 +1,4 @@
-import { Menu, X } from 'lucide-react';
+import { ChevronDown, Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import logo from '../logo-badge.png';
 import { useLang } from '../i18n';
@@ -18,9 +18,18 @@ const NAV_LINKS = [
   { label: 'Contact Us', fr: 'Nous joindre', path: '/contact' },
 ];
 
+/** Products dropdown */
+const PRODUCT_LINKS = [
+  { label: 'Kebabs', fr: 'Kebabs', path: '/products/category/kababs' },
+  { label: 'Samosa', fr: 'Samosas', path: '/products/category/samosas' },
+  { label: 'Spring Rolls', fr: 'Rouleaux impériaux', path: '/products/category/spring-rolls' },
+  { label: 'Food Service', fr: 'Restauration', path: '/food-service' },
+  { label: 'Private Label', fr: 'Marque privée', path: '/private-label' },
+];
+
 function isActive(current: string, path: string) {
   if (path === '/') return current === '/';
-  if (path === '/products') return current.startsWith('/products');
+  if (path === '/products') return current.startsWith('/products') || current === '/food-service' || current === '/private-label';
   if (path === '/recipes') return current.startsWith('/recipes');
   return current === path || (path === '/about-us' && current === '/our-story');
 }
@@ -72,21 +81,40 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
           <div className="hidden lg:flex items-center gap-1 xl:gap-3">
             {NAV_LINKS.map(link => {
               const active = isActive(currentPath, link.path);
+              const isProducts = link.path === '/products';
               return (
+                <div key={link.path} className="relative group">
                 <button
-                  key={link.path}
                   onClick={() => go(link.path)}
-                  className={`relative px-3 py-2 text-[13px] xl:text-sm font-extrabold uppercase tracking-wide transition-colors ${
+                  aria-haspopup={isProducts ? 'true' : undefined}
+                  className={`relative flex items-center gap-1 px-3 py-2 text-[13px] xl:text-sm font-extrabold uppercase tracking-wide transition-colors ${
                     active ? 'text-[#2b1410]' : 'text-[#2b1410]/80 hover:text-[#2b1410]'
                   }`}
                 >
                   {t(link.label, link.fr)}
+                  {isProducts && <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />}
                   <span
                     className={`absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-[#2b1410] transition-transform origin-left ${
                       active ? 'scale-x-100' : 'scale-x-0'
                     }`}
                   />
                 </button>
+                {isProducts && (
+                  <div className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all z-30">
+                    <div className="min-w-[200px] bg-white rounded-xl shadow-xl border-t-4 border-brand-orange-deep py-2">
+                      {PRODUCT_LINKS.map(sub => (
+                        <button
+                          key={sub.path}
+                          onClick={() => go(sub.path)}
+                          className={`block w-full text-left px-5 py-2.5 text-sm font-bold text-[#333333] hover:bg-brand-orange-soft/40 ${currentPath === sub.path ? 'bg-brand-orange-soft/40' : ''}`}
+                        >
+                          {t(sub.label, sub.fr)}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+                </div>
               );
             })}
             <div className="ml-3">
@@ -127,7 +155,15 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                 >
                   {t(link.label, link.fr)}
                 </button>
-              ))}
+              )).flatMap((el, i) => NAV_LINKS[i].path === '/products' ? [el, ...PRODUCT_LINKS.map(sub => (
+                <button
+                  key={sub.path}
+                  onClick={() => go(sub.path)}
+                  className={`w-full text-left pl-10 pr-4 py-2 text-sm font-bold ${currentPath === sub.path ? 'bg-[#2b1410] text-white' : 'text-[#2b1410]/85 hover:bg-white/20'}`}
+                >
+                  {t(sub.label, sub.fr)}
+                </button>
+              ))] : [el])}
             </div>
           </div>
         )}
