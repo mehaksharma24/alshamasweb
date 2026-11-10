@@ -58,7 +58,7 @@ export default function HomeHeroSlider({ navigate }: { navigate: (path: string) 
                 </>
               )}
             </h1>
-            <p className="font-serif italic text-brand-red text-[21px] sm:text-[24px] mt-3">
+            <p className={`font-script text-brand-red text-[22px] sm:text-[24px] mt-3 leading-tight ${lang === 'en' ? 'sm:whitespace-nowrap' : ''}`}>
               {t('Authentic · High Quality · Flavourful', 'Authentique · Grande qualité · Savoureux')}
             </p>
             <p className="mt-3 text-gray-700 text-sm sm:text-[15px] leading-relaxed">
