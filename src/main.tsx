@@ -7,6 +7,8 @@ import '@fontsource/montserrat/800.css';
 import '@fontsource/montserrat/900.css';
 import '@fontsource/playfair-display/900.css';
 import '@fontsource/playfair-display/400-italic.css';
+import '@fontsource/barlow/500.css';
+import '@fontsource/barlow/600.css';
 import '@fontsource/barlow/700.css';
 import './index.css';
 

@@ -22,7 +22,7 @@ export default function Footer({ navigate }: FooterProps) {
   };
 
   return (
-    <footer className="relative overflow-hidden" style={{ backgroundColor: '#F7941D' }}>
+    <footer className="relative overflow-hidden font-heading font-medium text-[#333333]" style={{ backgroundColor: '#F7941D' }}>
       {/* Top accent bar */}
       <div className="h-1 bg-brand-orange-soft"></div>
 
@@ -40,7 +40,7 @@ export default function Footer({ navigate }: FooterProps) {
               />
             </div>
 
-            <p className="text-gray-800 text-sm leading-relaxed mb-5">
+            <p className="text-[15px] leading-relaxed mb-5">
               {t(
                 'Canadian manufacturer of high-quality halal frozen foods since 2013. Halal certified by the Halal Monitoring Authority (HMA).',
                 'Fabricant canadien d’aliments halal surgelés de grande qualité depuis 2013. Certifié halal par la Halal Monitoring Authority (HMA).'
@@ -62,7 +62,7 @@ export default function Footer({ navigate }: FooterProps) {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-gray-900 font-heading font-bold mb-4 flex items-center gap-2">
+            <h4 className="text-[#1f1f1f] text-lg font-bold uppercase tracking-wide mb-4 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-gray-800 inline-block"></span>
               {t('Quick Links', 'Liens rapides')}
             </h4>
@@ -76,7 +76,7 @@ export default function Footer({ navigate }: FooterProps) {
                 <li key={link.path}>
                   <button
                     onClick={() => navigate(link.path)}
-                    className="text-gray-800 text-sm hover:text-gray-950 hover:underline transition-colors"
+                    className="text-[15px] font-semibold hover:text-black hover:underline transition-colors"
                   >
                     {link.label}
                   </button>
@@ -87,27 +87,27 @@ export default function Footer({ navigate }: FooterProps) {
 
           {/* Contact */}
           <div>
-            <h4 className="text-gray-900 font-heading font-bold mb-4 flex items-center gap-2">
+            <h4 className="text-[#1f1f1f] text-lg font-bold uppercase tracking-wide mb-4 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-gray-800 inline-block"></span>
               {t('Contact', 'Nous joindre')}
             </h4>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-gray-800">
+              <li className="flex items-start gap-2 text-[15px]">
                 <MapPin size={14} className="mt-0.5 text-gray-800 shrink-0" />
                 <span>{ADDRESS_FULL}</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-800">
+              <li className="flex items-center gap-2 text-[15px]">
                 <Phone size={14} className="text-gray-800 shrink-0" />
                 <a href={COMPANY.phoneHref} className="hover:text-gray-950 hover:underline">{COMPANY.phone}</a>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-800">
+              <li className="flex items-center gap-2 text-[15px]">
                 <Mail size={14} className="text-gray-800 shrink-0" />
                 <span>{COMPANY.email}</span>
               </li>
             </ul>
             <div className="mt-5 flex flex-wrap gap-2">
               {[t('HMA Halal', 'Halal HMA'), t('SQF Certified', 'Certifié SQF'), 'SMETA'].map(cert => (
-                <span key={cert} className="text-xs px-2.5 py-1 rounded-full border border-gray-800/40 text-gray-800 font-medium">
+                <span key={cert} className="text-xs px-2.5 py-1 rounded-full border border-gray-800/40 font-semibold tracking-wide">
                   {cert}
                 </span>
               ))}
@@ -116,11 +116,11 @@ export default function Footer({ navigate }: FooterProps) {
 
           {/* Newsletter */}
           <div>
-            <h4 className="text-gray-900 font-heading font-bold mb-2 flex items-center gap-2">
+            <h4 className="text-[#1f1f1f] text-lg font-bold uppercase tracking-wide mb-2 flex items-center gap-2">
               <span className="w-4 h-0.5 bg-gray-800 inline-block"></span>
               {t('Stay in the Loop', 'Restez informé')}
             </h4>
-            <p className="text-gray-800 text-sm mb-4">{t('New products, recipes, and exclusive offers.', 'Nouveaux produits, recettes et offres exclusives.')}</p>
+            <p className="text-[15px] mb-4">{t('New products, recipes, and exclusive offers.', 'Nouveaux produits, recettes et offres exclusives.')}</p>
             {submitted ? (
               <div className="bg-white/40 text-gray-900 text-sm rounded-xl px-4 py-3 border border-gray-800/20">
                 {t('Thank you for subscribing!', 'Merci de votre abonnement !')}
@@ -147,10 +147,10 @@ export default function Footer({ navigate }: FooterProps) {
         </div>
 
         <div className="mt-10 pt-6 border-t border-gray-800/20 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-gray-700 text-xs">
+          <p className="text-sm">
             &copy; {new Date().getFullYear()} Al-Shamas Food Products. {t('All rights reserved.', 'Tous droits réservés.')}
           </p>
-          <p className="text-gray-700 text-xs">
+          <p className="text-sm">
             {t('Proudly Canadian • Since 2013 • HMA Halal Certified', 'Fièrement canadien • Depuis 2013 • Certifié halal HMA')}
           </p>
         </div>
