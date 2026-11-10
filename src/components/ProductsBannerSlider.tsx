@@ -15,10 +15,16 @@ const ALL_SLIDES: Slide[] = [
   { file: 'chicken-sheekh-kebab', en: 'Chicken sheekh kebabs', fr: 'Sheekh kebabs au poulet' },
   { file: 'meat-charcoal-kebab', en: 'Meat charcoal kebabs', fr: 'Kebabs de viande au charbon' },
   { file: 'beef-sheekh-kebab', en: 'Beef sheekh kebabs', fr: 'Sheekh kebabs au bœuf' },
+  { file: 'chicken-kafta-kebab', en: 'Chicken kafta kebabs', fr: 'Kafta kebabs au poulet' },
+  { file: 'beef-kafta-kebab', en: 'Beef kafta kebabs', fr: 'Kafta kebabs au bœuf' },
 ];
 
+/** Products page order: mix kebabs, samosas and spring rolls */
+const PRODUCTS_ORDER = ['chicken-charcoal-kebab', 'chicken-samosa', 'chapli-kebabs', 'beef-spring-rolls', 'chicken-kafta-kebab', 'beef-charcoal-kebab', 'beef-samosa', 'chicken-sheekh-kebab', 'meat-charcoal-kebab', 'chicken-spring-rolls', 'beef-kafta-kebab', 'beef-sheekh-kebab'];
+const PRODUCTS_SLIDES = PRODUCTS_ORDER.map(f => ALL_SLIDES.find(s => s.file === f)!);
+
 /** Kebab category page: kebab photos only */
-export const KEBAB_SLIDES = ['chicken-charcoal-kebab', 'chapli-kebabs', 'beef-charcoal-kebab', 'chicken-sheekh-kebab', 'meat-charcoal-kebab', 'beef-sheekh-kebab']
+export const KEBAB_SLIDES = ['chicken-charcoal-kebab', 'chapli-kebabs', 'beef-charcoal-kebab', 'chicken-sheekh-kebab', 'chicken-kafta-kebab', 'meat-charcoal-kebab', 'beef-sheekh-kebab', 'beef-kafta-kebab']
   .map(f => ALL_SLIDES.find(s => s.file === f)!);
 
 /** Samosa category page */
@@ -30,7 +36,7 @@ export const SPRING_ROLL_SLIDES = ['chicken-spring-rolls', 'beef-spring-rolls'].
 const INTERVAL = 5000;
 
 /** Products / category page banner: photos that change automatically (same fade as Home), no text. */
-export default function ProductsBannerSlider({ slides = ALL_SLIDES }: { slides?: Slide[] }) {
+export default function ProductsBannerSlider({ slides = PRODUCTS_SLIDES }: { slides?: Slide[] }) {
   const SLIDES = slides;
   const { lang, t } = useLang();
   const [index, setIndex] = useState(0);

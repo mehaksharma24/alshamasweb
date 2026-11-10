@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Building2, Factory, Globe2, MapPin, Phone, ShieldCheck, Sparkles } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { STORY_COVER_IMAGE, CERTIFICATION_LOGOS, SPLASH_BG_IMAGE } from '../assets';
+import { STORY_COVER_IMAGE, SPLASH_BG_IMAGE } from '../assets';
+import { CertificationLogos } from '../components/CertSections';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
@@ -123,16 +124,6 @@ const MILESTONES: { year: Bi; text: Bi }[] = [
   },
 ];
 
-// ── Certifications — catalogue text, word for word ──────────────
-const CERTIFICATIONS: { logo: string; en: string; fr: string }[] = [
-  { logo: CERTIFICATION_LOGOS.hma, en: 'HMA Certified', fr: 'Certifié HMA' },
-  { logo: CERTIFICATION_LOGOS.sqf, en: 'SQF Certified', fr: 'Certifié SQF' },
-  { logo: CERTIFICATION_LOGOS.gmp, en: '3rd party GMP Audited', fr: 'Vérifié BPF par un tiers' },
-  { logo: CERTIFICATION_LOGOS.codeOfConduct, en: 'Code of Conduct Audited', fr: 'Audit du code de conduite' },
-  { logo: CERTIFICATION_LOGOS.smeta, en: 'SMETA 4-Pillar Audited', fr: 'Audit SMETA à 4 piliers' },
-  { logo: CERTIFICATION_LOGOS.supplyChain, en: 'Supply Chain Security Audited', fr: 'Audit de la sécurité de la chaîne d’approvisionnement' },
-];
-
 // ── Proudly Canadian — cities served (catalogue) ────────────────
 const PROVINCES: { name: Bi; cities: string[] }[] = [
   { name: { en: 'Nova Scotia', fr: 'Nouvelle-Écosse' }, cities: ['Halifax'] },
@@ -228,9 +219,6 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <div className="inline-block bg-brand-red text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
-                {t('Company Profile', 'Profil de l’entreprise')}
-              </div>
               <h2 className="font-heading text-3xl font-bold text-gray-900 mb-5">{pick(PROFILE_HEADING)}</h2>
               {PROFILE_PARAGRAPHS.map((p, i) => (
                 <p key={i} className="text-gray-600 leading-relaxed mb-4">{pick(p)}</p>
@@ -328,39 +316,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         </div>
       </section>
 
-      {/* Certifications (catalogue) */}
-      <section className="py-14 bg-white">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-10">
-            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Certifications', 'Certifications')}</h2>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {CERTIFICATIONS.map((c, i) => (
-              <div
-                key={c.en}
-                ref={revRef(`cert-${i}`)}
-                className={`flex flex-col items-center text-center bg-white rounded-3xl p-5 border border-gray-100 hover:shadow-lg transition-all duration-500 ${
-                  isVis(`cert-${i}`) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                <div className="h-20 flex items-center justify-center mb-3">
-                  <img src={c.logo} alt="" className="max-h-20 max-w-[120px] object-contain" />
-                </div>
-                <p className="font-semibold text-gray-900 text-sm">{t(c.en, c.fr)}</p>
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-8">
-            <button
-              onClick={() => navigate('/halal')}
-              className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red-light transition-all text-sm"
-            >
-              {t('View Halal & Certifications', 'Voir Halal et certifications')}
-            </button>
-          </div>
-        </div>
-      </section>
+      <CertificationLogos navigate={navigate} />
 
       {/* Proudly Canadian (catalogue) */}
       <section className="py-14 bg-brand-orange-deep relative overflow-hidden">
