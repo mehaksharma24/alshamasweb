@@ -193,30 +193,37 @@ export default function HomePage({ navigate }: HomePageProps) {
         </div>
       </section>
 
-      {/* Brand Line */}
-      <section className="py-16 bg-[#d7ecdf] relative overflow-hidden">
-
-        <div className="max-w-3xl mx-auto px-4 text-center relative">
-          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-gray-800 leading-snug mb-4">
-            {lang === 'fr' ? (
-              <>
-                « De notre cuisine à la vôtre —{' '}
-                <span className="text-brand-red italic">l’authenticité</span> à chaque bouchée. »
-              </>
-            ) : (
-              <>
-                "From our kitchen to yours —{' '}
-                <span className="text-brand-red italic">authenticity</span> in every bite."
-              </>
-            )}
-          </h2>
-
-          <p className="text-gray-500 text-sm leading-relaxed">
-            {t(
-              'Al-Shamas proves that frozen can taste just as fresh. Inspired by home-style recipes passed down through generations, every bite brings authentic flavour to your table.',
-              'Avec Al-Shamas, le surgelé peut être aussi bon que le frais. Inspirées de recettes maison transmises de génération en génération, nos créations apportent une touche authentique à votre table.'
-            )}
-          </p>
+      {/* Our Halal Commitment (same text as the Certificates page) */}
+      <section className="py-16 bg-brand-blue-soft/30">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center gap-2 bg-brand-blue-deep text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-3">
+              <ShieldCheck size={14} /> {t('HMA Halal Certified', 'Certifié halal HMA')}
+            </div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900">{t('Our Halal Commitment', 'Notre engagement halal')}</h2>
+          </div>
+          <div className="bg-white rounded-3xl p-8 shadow-md border-t-4 border-brand-blue-deep">
+            <p className="text-gray-600 leading-relaxed mb-5">
+              {t(
+                'Since our founding in 2013, halal integrity has been non-negotiable. Every piece of meat we use comes from certified halal suppliers. Our facility is structured to prevent any cross-contamination between halal and non-halal products at every stage of production.',
+                'Depuis notre fondation en 2013, l’intégrité halal est non négociable. Toute la viande que nous utilisons provient de fournisseurs halal certifiés. Notre installation est organisée pour prévenir toute contamination croisée entre produits halal et non halal, à chaque étape de la production.'
+              )}
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              {t(
+                'We maintain full traceability from farm to freezer — knowing exactly where every ingredient comes from and verifying halal status at every step. Our halal certification is renewed annually, audited by third-party accrediting bodies, and displayed on every product we sell.',
+                'Nous assurons une traçabilité complète, de la ferme au congélateur : nous savons exactement d’où provient chaque ingrédient et vérifions son statut halal à chaque étape. Notre certification halal est renouvelée chaque année, vérifiée par des organismes d’accréditation tiers et affichée sur chacun de nos produits.'
+              )}
+            </p>
+            <div className="mt-6 text-center">
+              <button
+                onClick={() => navigate('/halal')}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-brand-blue-deep text-white font-semibold rounded-full hover:brightness-110 transition text-sm"
+              >
+                {t('View Our Certificates', 'Voir nos certificats')} <ArrowRight size={15} />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -292,6 +299,33 @@ export default function HomePage({ navigate }: HomePageProps) {
               {t('View More Recipes', 'Voir plus de recettes')} <ArrowRight size={15} />
             </button>
           </div>
+        </div>
+      </section>
+
+      {/* Brand Line */}
+      <section className="py-16 bg-brand-orange-soft relative overflow-hidden">
+
+        <div className="max-w-3xl mx-auto px-4 text-center relative">
+          <h2 className="font-serif text-3xl sm:text-4xl font-semibold text-gray-800 leading-snug mb-4">
+            {lang === 'fr' ? (
+              <>
+                « De notre cuisine à la vôtre —{' '}
+                <span className="text-brand-red italic">l’authenticité</span> à chaque bouchée. »
+              </>
+            ) : (
+              <>
+                "From our kitchen to yours —{' '}
+                <span className="text-brand-red italic">authenticity</span> in every bite."
+              </>
+            )}
+          </h2>
+
+          <p className="text-gray-800 text-sm leading-relaxed">
+            {t(
+              'Al-Shamas proves that frozen can taste just as fresh. Inspired by home-style recipes passed down through generations, every bite brings authentic flavour to your table.',
+              'Avec Al-Shamas, le surgelé peut être aussi bon que le frais. Inspirées de recettes maison transmises de génération en génération, nos créations apportent une touche authentique à votre table.'
+            )}
+          </p>
         </div>
       </section>
 

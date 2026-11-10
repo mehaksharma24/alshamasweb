@@ -14,6 +14,12 @@ export default {
           orange: '#E87722',
           // CMYK 0 50 100 0
           'orange-deep': '#F7941D',
+          // CMYK 0 25 50 0
+          'orange-soft': '#FDBF87',
+          // CMYK 85 30 25 0
+          'blue-deep': '#0089A8',
+          // CMYK 50 10 10 0
+          'blue-soft': '#80C3D8',
           'orange-light': '#F5A04A',
           'orange-pale': '#FEF6EE',
           gold: '#c8a84b',
