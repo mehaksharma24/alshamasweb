@@ -20,8 +20,8 @@ const PROFILE_HEADING: Bi = {
 
 const PROFILE_PARAGRAPHS: Bi[] = [
   {
-    en: '… and the story is just getting started. For nearly a decade, we’ve been bringing delicious halal frozen foods to Canadian families.',
-    fr: '… et l’histoire ne fait que commencer. Depuis près d’une décennie, nous offrons aux familles canadiennes de savoureux aliments halal surgelés.',
+    en: '… and our story is just getting started. For nearly a decade, we’ve been bringing delicious halal frozen foods to Canadian families.',
+    fr: '… et notre histoire ne fait que commencer. Depuis près d’une décennie, nous offrons aux familles canadiennes de savoureux aliments halal surgelés.',
   },
   {
     en: 'Our mission is simple: deliver high-quality, great-tasting food that makes everyday meals easier. Crafted with care and made with thoughtfully selected ingredients, our products are free from artificial colours.',
@@ -192,11 +192,11 @@ function TimelineItem({ year, text, index, visible }: { year: string; text: stri
     <div className={`flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10 transition-all duration-700 ease-out ${visible ? 'opacity-100 translate-x-0' : even ? 'opacity-0 -translate-x-8' : 'opacity-0 translate-x-8'} ${even ? 'lg:flex-row' : 'lg:flex-row-reverse'}`} style={{ transitionDelay: `${index * 80}ms` }}>
       <div className={`lg:w-1/2 ${even ? 'lg:text-right' : 'lg:text-left'}`}>
         <div className={`bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-lg transition-shadow inline-block text-left ${even ? 'lg:ml-auto' : 'lg:mr-auto'} max-w-sm w-full`}>
-          <div className="text-brand-red font-serif font-bold text-2xl mb-2">{year}</div>
-          <p className="text-gray-600 text-sm leading-relaxed">{text}</p>
+          <div className="text-brand-orange-deep font-heading font-bold text-2xl mb-2">{year}</div>
+          <p className="text-[#333333] text-sm leading-relaxed">{text}</p>
         </div>
       </div>
-      <div className="hidden lg:flex relative z-10 w-10 h-10 rounded-full bg-brand-red items-center justify-center shadow-md shrink-0">
+      <div className="hidden lg:flex relative z-10 w-10 h-10 rounded-full bg-brand-orange-deep items-center justify-center shadow-md shrink-0">
         <div className="w-3 h-3 rounded-full bg-white"></div>
       </div>
       <div className="lg:w-1/2"></div>
@@ -237,20 +237,13 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
                   className="w-full h-auto object-cover"
                 />
               </div>
-              <div className="absolute -bottom-5 -left-5 bg-white rounded-2xl p-4 shadow-lg">
-                <div className="text-brand-red font-serif font-bold text-3xl">2013</div>
-                <div className="text-gray-500 text-sm">{t('Established in Canada', 'Fondée au Canada')}</div>
-              </div>
-              <div className="absolute -top-5 -right-5 bg-white rounded-2xl p-2 shadow-lg">
-                <img src={CERTIFICATION_LOGOS.hma} alt={t('HMA Halal certified', 'Certifié halal HMA')} className="w-20 h-20 object-contain" />
-              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Company at a glance */}
-      <section className="py-14 bg-[#d7ecdf]">
+      <section className="py-14 bg-brand-blue-soft">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Company at a Glance', 'L’entreprise en bref')}</h2>
@@ -265,18 +258,18 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
                 }`}
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
-                <div className="w-12 h-12 rounded-2xl bg-brand-green-pale flex items-center justify-center mb-4">
-                  <Icon size={22} className="text-brand-green" />
+                <div className="w-12 h-12 rounded-2xl bg-brand-blue-soft/30 flex items-center justify-center mb-4">
+                  <Icon size={22} className="text-brand-blue-deep" />
                 </div>
                 <h3 className="text-xs font-semibold tracking-widest uppercase text-brand-red mb-2">{pick(label)}</h3>
-                <p className="text-gray-700 text-sm leading-relaxed">{pick(value)}</p>
+                <p className="text-[#333333] text-sm leading-relaxed">{pick(value)}</p>
               </div>
             ))}
 
             {/* Facilities & office */}
             <div
               ref={revRef('fact-loc')}
-              className={`bg-brand-green rounded-3xl p-6 text-white transition-all duration-500 ${
+              className={`bg-brand-blue-deep rounded-3xl p-6 text-white transition-all duration-500 ${
                 isVis('fact-loc') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
               }`}
               style={{ transitionDelay: `${FACTS.length * 80}ms` }}
@@ -313,11 +306,11 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
             <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Company Milestones & Accomplishments', 'Jalons et réalisations')}</h2>
-            <p className="text-gray-500 text-sm">{t('Our journey since 2013.', 'Notre parcours depuis 2013.')}</p>
+            <p className="text-[#333333] text-sm">{t('Our journey since 2013.', 'Notre parcours depuis 2013.')}</p>
           </div>
 
           <div className="relative" ref={timelineRef}>
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-red/30 to-transparent -translate-x-1/2"></div>
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-brand-orange-deep/50 to-transparent -translate-x-1/2"></div>
             <div className="space-y-10">
               {MILESTONES.map((m, i) => (
                 <TimelineItem key={m.year.en} year={pick(m.year)} text={pick(m.text)} index={i} visible={timelineVisible} />
