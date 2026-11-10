@@ -24,6 +24,9 @@ export const KEBAB_SLIDES = ['chicken-charcoal-kebab', 'chapli-kebabs', 'beef-ch
 /** Samosa category page */
 export const SAMOSA_SLIDES = ['chicken-samosa', 'beef-samosa'].map(f => ALL_SLIDES.find(s => s.file === f)!);
 
+/** Spring rolls category page */
+export const SPRING_ROLL_SLIDES = ['chicken-spring-rolls', 'beef-spring-rolls'].map(f => ALL_SLIDES.find(s => s.file === f)!);
+
 const INTERVAL = 5000;
 
 /** Products / category page banner: photos that change automatically (same fade as Home), no text. */
