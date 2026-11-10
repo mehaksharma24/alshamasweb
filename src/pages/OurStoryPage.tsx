@@ -355,13 +355,13 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       </section>
 
       {/* Proudly Canadian (catalogue) */}
-      <section className="py-14 bg-brand-red relative overflow-hidden">
+      <section className="py-14 bg-brand-orange-deep relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-10">
-            <h2 className="font-heading text-4xl font-bold text-white mb-3">
+            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">
               {t('Proudly Canadian.', 'Fièrement canadien.')}
               <br />
-              <span className="font-script font-normal text-[#FFE7C2]">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>
+              <span className="font-script font-normal text-white">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 bg-white rounded-3xl p-8 shadow-lg">
