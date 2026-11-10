@@ -20,7 +20,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
     return (
       <div className="min-h-screen pt-40 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Recipe not found', 'Recette introuvable')}</h2>
+          <h2 className="font-heading text-2xl text-gray-800 mb-4">{t('Recipe not found', 'Recette introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-orange hover:underline text-sm">
             {t('Back to Products', 'Retour aux produits')}
           </button>
@@ -43,13 +43,11 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
       {/* Back */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
         <button
-          onClick={() => navigate(product ? `/products/${product.slug}` : '/products')}
+          onClick={() => navigate('/recipes')}
           className="flex items-center gap-2 text-gray-400 hover:text-brand-orange text-sm transition-colors"
         >
           <ArrowLeft size={14} />
-          {product
-            ? t(`Back to ${product.name.en}`, `Retour à : ${product.name.fr}`)
-            : t('Back to Products', 'Retour aux produits')}
+          {t('All Recipes', 'Toutes les recettes')}
         </button>
       </div>
 
@@ -84,7 +82,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
               {lang === 'fr' ? DIFFICULTY_FR[recipe.difficulty] ?? recipe.difficulty : recipe.difficulty}
             </span>
           </div>
-          <h1 className="font-serif text-4xl sm:text-5xl font-black text-[#2b1410] tracking-tight mb-4">{title}</h1>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-[#2b1410] tracking-tight mb-4">{title}</h1>
           <p className="text-gray-500 leading-relaxed max-w-xl mx-auto">{description}</p>
         </div>
       </section>
@@ -98,7 +96,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
             {/* Ingredients */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-              <h3 className="font-serif text-lg font-semibold text-gray-900 mb-3">{t('Ingredients', 'Ingrédients')}</h3>
+              <h3 className="font-heading text-lg font-bold text-gray-900 mb-3">{t('Ingredients', 'Ingrédients')}</h3>
               <ul className="space-y-2">
                 {ingredients.map((ing, i) => (
                   <li key={`${ing}-${i}`} className="flex items-start gap-2 text-sm text-gray-600">
@@ -111,7 +109,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
 
             {/* Instructions */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-              <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">{t('Instructions', 'Préparation')}</h2>
+              <h2 className="font-heading text-xl font-bold text-gray-900 mb-4">{t('Instructions', 'Préparation')}</h2>
               <ol className="space-y-4">
                 {instructions.map((step, i) => (
                   <li key={`${step}-${i}`} className="flex gap-3">
@@ -126,7 +124,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
 
             {/* Product used + its pack sizes */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-              <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+              <h2 className="font-heading text-xl font-bold text-gray-900 mb-4">
                 {t('Al-Shamas Product Used', 'Produit Al-Shamas utilisé')}
               </h2>
 
@@ -142,7 +140,7 @@ export default function RecipeDetailPage({ slug, navigate }: RecipeDetailPagePro
                   <p className="text-xs text-brand-green font-semibold uppercase tracking-wider mb-1">
                     {categoryLabel(category, lang)}
                   </p>
-                  <h3 className="font-serif font-semibold text-gray-900 mb-1">{product.name[lang]}</h3>
+                  <h3 className="font-heading font-bold text-gray-900 mb-1">{product.name[lang]}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed">{product.description[lang]}</p>
 
                   {product.packs.length > 0 && (

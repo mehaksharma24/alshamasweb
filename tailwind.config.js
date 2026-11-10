@@ -12,6 +12,8 @@ export default {
           'green-light': '#40916C',
           'green-pale': '#F0FAF5',
           orange: '#E87722',
+          // CMYK 0 50 100 0
+          'orange-deep': '#F7941D',
           'orange-light': '#F5A04A',
           'orange-pale': '#FEF6EE',
           gold: '#c8a84b',
@@ -22,6 +24,7 @@ export default {
         sans: ['Inter', 'system-ui', 'sans-serif'],
         serif: ['Playfair Display', 'Georgia', 'serif'],
         script: ['Kaushan Script', 'cursive'],
+        heading: ['Barlow', 'Arial', 'sans-serif'],
         display: ['Montserrat', 'Arial Black', 'sans-serif'],
       },
       animation: {

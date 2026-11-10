@@ -25,7 +25,7 @@ export default function NewsletterBanner() {
           <div className="inline-block bg-brand-orange-pale text-brand-orange text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
             {t('Newsletter', 'Infolettre')}
           </div>
-          <h2 className="font-serif text-2xl font-semibold text-gray-800 mb-2">
+          <h2 className="font-heading text-2xl font-bold text-gray-800 mb-2">
             {t('Recipes, Offers & New Arrivals', 'Recettes, offres et nouveautés')}
           </h2>
           <p className="text-gray-400 mb-6 text-sm leading-relaxed">

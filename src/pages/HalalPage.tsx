@@ -125,7 +125,7 @@ export default function HalalPage() {
             className={`max-w-3xl mx-auto px-4 text-center transition-all duration-700 ${isVis('header') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
           >
             <p className="font-script text-brand-red text-3xl sm:text-4xl">{t('Halal • Food Safety • Compliance', 'Halal • Salubrité • Conformité')}</p>
-            <h1 className="font-serif font-black text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
+            <h1 className="font-heading font-bold text-[#2b1410] leading-none tracking-tight text-5xl sm:text-6xl mt-2">
               {t('Certificates', 'Certificats')}
             </h1>
             <svg className="mx-auto mt-3 w-48 h-4" viewBox="0 0 300 16" aria-hidden="true">
@@ -145,7 +145,7 @@ export default function HalalPage() {
             ref={ref('commit-title')}
             className={`text-center mb-10 transition-all duration-700 ${isVis('commit-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
-            <h2 className="font-serif text-3xl font-semibold text-gray-900 mb-3">{t('Our Halal Commitment', 'Notre engagement halal')}</h2>
+            <h2 className="font-heading text-3xl font-bold text-gray-900 mb-3">{t('Our Halal Commitment', 'Notre engagement halal')}</h2>
           </div>
           <div
             ref={ref('commit-body')}
@@ -175,7 +175,7 @@ export default function HalalPage() {
             ref={ref('cert-title')}
             className={`text-center mb-12 transition-all duration-700 ${isVis('cert-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Our Certifications', 'Nos certifications')}</h2>
+            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Our Certifications', 'Nos certifications')}</h2>
             <p className="text-gray-500 text-sm">{t('View or download our current halal, food safety and compliance certificates.', 'Consultez ou téléchargez nos certificats actuels de halal, de salubrité alimentaire et de conformité.')}</p>
           </div>
 
@@ -194,7 +194,7 @@ export default function HalalPage() {
                     <Icon size={26} className={`text-${color}`} />
                   </div>
                   <div>
-                    <h3 className="font-serif font-bold text-gray-900 leading-tight">{name[lang]}</h3>
+                    <h3 className="font-heading font-bold text-gray-900 leading-tight">{name[lang]}</h3>
                     <p className={`text-xs text-${color} font-medium mt-0.5`}>{body[lang]}</p>
                   </div>
                 </div>
@@ -232,7 +232,7 @@ export default function HalalPage() {
             ref={ref('prac-title')}
             className={`text-center mb-10 transition-all duration-700 ${isVis('prac-title') ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-5'}`}
           >
-            <h2 className="font-serif text-3xl font-bold text-white">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
+            <h2 className="font-heading text-3xl font-bold text-white">{t('Our Standards & Practices', 'Nos normes et pratiques')}</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {PRACTICES.map((practice, i) => (

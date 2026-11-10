@@ -223,7 +223,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
               <div className="inline-block bg-brand-red text-white text-xs font-semibold tracking-widest uppercase px-4 py-1.5 rounded-full mb-4">
                 {t('Company Profile', 'Profil de l’entreprise')}
               </div>
-              <h2 className="font-serif text-3xl font-semibold text-gray-900 mb-5">{pick(PROFILE_HEADING)}</h2>
+              <h2 className="font-heading text-3xl font-bold text-gray-900 mb-5">{pick(PROFILE_HEADING)}</h2>
               {PROFILE_PARAGRAPHS.map((p, i) => (
                 <p key={i} className="text-gray-600 leading-relaxed mb-4">{pick(p)}</p>
               ))}
@@ -253,7 +253,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       <section className="py-14 bg-[#d7ecdf]">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company at a Glance', 'L’entreprise en bref')}</h2>
+            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Company at a Glance', 'L’entreprise en bref')}</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {FACTS.map(({ icon: Icon, label, value }, i) => (
@@ -312,7 +312,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
         <div className="absolute top-0 left-0 w-40 h-40 bg-brand-red-pale rounded-full -translate-x-1/2 opacity-40 pointer-events-none"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-14">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Company Milestones & Accomplishments', 'Jalons et réalisations')}</h2>
+            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Company Milestones & Accomplishments', 'Jalons et réalisations')}</h2>
             <p className="text-gray-500 text-sm">{t('Our journey since 2013.', 'Notre parcours depuis 2013.')}</p>
           </div>
 
@@ -331,7 +331,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       <section className="py-14 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-gray-900 mb-3">{t('Certifications', 'Certifications')}</h2>
+            <h2 className="font-heading text-4xl font-bold text-gray-900 mb-3">{t('Certifications', 'Certifications')}</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
             {CERTIFICATIONS.map((c, i) => (
@@ -365,7 +365,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
       <section className="py-14 bg-brand-red relative overflow-hidden">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="text-center mb-10">
-            <h2 className="font-serif text-4xl font-bold text-white mb-3">
+            <h2 className="font-heading text-4xl font-bold text-white mb-3">
               {t('Proudly Canadian.', 'Fièrement canadien.')}
               <br />
               <span className="font-script font-normal text-[#FFE7C2]">{t('Serving families across Canada.', 'Au service des familles partout au Canada.')}</span>

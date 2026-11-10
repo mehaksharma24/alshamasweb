@@ -12,6 +12,7 @@ import RecipeDetailPage from './pages/RecipeDetailPage';
 import LocationsPage from './pages/LocationsPage';
 import HalalPage from './pages/HalalPage';
 import ContactPage from './pages/ContactPage';
+import RecipesPage from './pages/RecipesPage';
 import { useLang } from './i18n';
 
 function getPath() {
@@ -48,6 +49,7 @@ export default function App() {
     if (path === '/products') return <ProductsPage navigate={navigate} />;
     if (path.startsWith('/products/category/')) return <ProductCategoryPage slug={path.replace('/products/category/', '')} navigate={navigate} />;
     if (path.startsWith('/products/')) return <ProductDetailPage slug={path.replace('/products/', '')} navigate={navigate} />;
+    if (path === '/recipes') return <RecipesPage navigate={navigate} />;
     if (path.startsWith('/recipes/')) return <RecipeDetailPage slug={path.replace('/recipes/', '')} navigate={navigate} />;
     if (path === '/locations') return <LocationsPage />;
     if (path === '/halal') return <HalalPage />;
@@ -55,7 +57,7 @@ export default function App() {
     return (
       <div className="min-h-screen flex items-center justify-center pt-16">
         <div className="text-center">
-          <h1 className="font-serif font-black text-4xl text-gray-800 mb-4">{t('Page Not Found', 'Page introuvable')}</h1>
+          <h1 className="font-heading font-bold text-4xl text-gray-800 mb-4">{t('Page Not Found', 'Page introuvable')}</h1>
           <button onClick={() => navigate('/')} className="text-brand-red hover:underline">{t('Go Home', 'Retour à l’accueil')}</button>
         </div>
       </div>

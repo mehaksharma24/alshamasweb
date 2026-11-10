@@ -39,7 +39,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
     return (
       <div className="min-h-screen pt-40 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Product not found', 'Produit introuvable')}</h2>
+          <h2 className="font-heading text-2xl text-gray-800 mb-4">{t('Product not found', 'Produit introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-red hover:underline text-sm">
             {t('Back to Products', 'Retour aux produits')}
           </button>
@@ -125,7 +125,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
           <p className="text-brand-green text-xs font-semibold uppercase tracking-widest mb-2">
             {categoryLabel(category, lang)}
           </p>
-          <h1 className="font-serif text-4xl sm:text-5xl font-black text-[#2b1410] tracking-tight mb-2">{name}</h1>
+          <h1 className="font-heading text-4xl sm:text-5xl font-bold text-[#2b1410] tracking-tight mb-2">{name}</h1>
           {product.subtitle && <p className="text-gray-500 italic mb-4">{product.subtitle[lang]}</p>}
           <p className="text-gray-500 leading-relaxed max-w-xl mx-auto mt-3">{product.description[lang]}</p>
         </div>
@@ -189,7 +189,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
             {/* Nutrition */}
             <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-              <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+              <h2 className="font-heading text-xl font-bold text-gray-900 mb-4">
                 {t('Nutrition', 'Valeur nutritive')}
               </h2>
               {product.nutritionFacts ? (
@@ -218,7 +218,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
               {/* Heating / cooking / storage */}
               {instructions.length > 0 && (
                 <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm">
-                  <h2 className="font-serif text-xl font-semibold text-gray-900 mb-4">
+                  <h2 className="font-heading text-xl font-bold text-gray-900 mb-4">
                     {t('Preparation & Storage', 'Préparation et conservation')}
                   </h2>
                   <CatalogueText paras={instructions} lang={lang} />
@@ -233,7 +233,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
       {recipes.length > 0 && (
         <section className="py-12 bg-white">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-6 text-center">
+            <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6 text-center">
               {t('Recipe Ideas', 'Idées recettes')}
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
@@ -252,7 +252,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-serif font-semibold text-gray-900 text-sm leading-tight group-hover:text-brand-orange transition-colors">
+                    <h3 className="font-heading font-bold text-gray-900 text-sm leading-tight group-hover:text-brand-orange transition-colors">
                       {lang === 'fr' ? RECIPES_FR[recipe.slug]?.title ?? recipe.title : recipe.title}
                     </h3>
                   </div>
@@ -267,7 +267,7 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
       {others.length > 0 && (
         <section className="py-12 bg-gray-50">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-6">
+            <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6">
               {t('You May Also Like', 'Vous aimerez aussi')}
             </h2>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

@@ -16,7 +16,7 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
     return (
       <div className="min-h-screen pt-40 flex items-center justify-center">
         <div className="text-center">
-          <h2 className="font-serif text-2xl text-gray-800 mb-4">{t('Category not found', 'Catégorie introuvable')}</h2>
+          <h2 className="font-heading text-2xl text-gray-800 mb-4">{t('Category not found', 'Catégorie introuvable')}</h2>
           <button onClick={() => navigate('/products')} className="text-brand-red hover:underline text-sm">
             {t('Back to Products', 'Retour aux produits')}
           </button>

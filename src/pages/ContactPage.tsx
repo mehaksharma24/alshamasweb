@@ -29,7 +29,7 @@ export default function ContactPage() {
           <div className="grid lg:grid-cols-2 gap-10">
             {/* Form */}
             <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100">
-              <h2 className="font-serif text-2xl font-semibold text-gray-900 mb-6">{t('Send a Message', 'Envoyez-nous un message')}</h2>
+              <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6">{t('Send a Message', 'Envoyez-nous un message')}</h2>
 
               {submitted ? (
                 <div className="bg-brand-green-pale text-brand-green rounded-2xl p-6 text-center">

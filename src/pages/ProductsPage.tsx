@@ -26,7 +26,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
                   className="group flex items-center gap-6 text-left py-6 border-b border-gray-200 hover:border-brand-red transition-colors"
                 >
                   <div className="flex-1 min-w-0">
-                    <h2 className="font-serif text-3xl font-bold text-brand-red mb-2">{categoryLabel(category, lang)}</h2>
+                    <h2 className="font-heading text-3xl font-bold text-brand-red mb-2">{categoryLabel(category, lang)}</h2>
                     <p className="text-sm italic text-gray-600">{category.tagline[lang]}</p>
                     <ArrowRight size={18} className="mt-3 text-gray-400 group-hover:text-brand-red group-hover:translate-x-1 transition-all" />
                   </div>

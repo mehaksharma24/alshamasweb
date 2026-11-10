@@ -12,6 +12,7 @@ const NAV_LINKS = [
   { label: 'Home', fr: 'Accueil', path: '/' },
   { label: 'Products', fr: 'Produits', path: '/products' },
   { label: 'About Us', fr: 'À propos', path: '/about-us' },
+  { label: 'Recipes', fr: 'Recettes', path: '/recipes' },
   { label: 'Where to Buy', fr: 'Où acheter', path: '/locations' },
   { label: 'Certificates', fr: 'Certificats', path: '/halal' },
   { label: 'Contact Us', fr: 'Nous joindre', path: '/contact' },
@@ -19,7 +20,8 @@ const NAV_LINKS = [
 
 function isActive(current: string, path: string) {
   if (path === '/') return current === '/';
-  if (path === '/products') return current.startsWith('/products') || current.startsWith('/recipes');
+  if (path === '/products') return current.startsWith('/products');
+  if (path === '/recipes') return current.startsWith('/recipes');
   return current === path || (path === '/about-us' && current === '/our-story');
 }
 
@@ -32,7 +34,7 @@ function LangBox() {
       type="button"
       onClick={() => setLang(next)}
       aria-label={next === 'fr' ? 'Français' : 'English'}
-      className="h-9 min-w-9 px-2 border-2 border-white text-white text-sm font-extrabold tracking-wide hover:bg-white hover:text-brand-red transition-colors"
+      className="h-9 min-w-9 px-2 border-2 border-[#2b1410] text-[#2b1410] text-sm font-extrabold tracking-wide hover:bg-[#2b1410] hover:text-white transition-colors"
     >
       {next.toUpperCase()}
     </button>
@@ -50,7 +52,7 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
 
   return (
     <header className="absolute top-0 left-0 right-0 z-50">
-      <nav className="relative bg-brand-red">
+      <nav className="relative bg-brand-orange-deep">
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
           {/* Logo badge — hangs below the bar like the mockup */}
@@ -75,12 +77,12 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
                   key={link.path}
                   onClick={() => go(link.path)}
                   className={`relative px-3 py-2 text-[13px] xl:text-sm font-extrabold uppercase tracking-wide transition-colors ${
-                    active ? 'text-white' : 'text-white/85 hover:text-white'
+                    active ? 'text-[#2b1410]' : 'text-[#2b1410]/80 hover:text-[#2b1410]'
                   }`}
                 >
                   {t(link.label, link.fr)}
                   <span
-                    className={`absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-white transition-transform origin-left ${
+                    className={`absolute left-3 right-3 -bottom-0.5 h-[3px] rounded-full bg-[#2b1410] transition-transform origin-left ${
                       active ? 'scale-x-100' : 'scale-x-0'
                     }`}
                   />
@@ -98,30 +100,29 @@ export default function Navbar({ currentPath, navigate }: NavbarProps) {
             <button
               onClick={() => setOpen(!open)}
               aria-label={open ? t('Close menu', 'Fermer le menu') : t('Open menu', 'Ouvrir le menu')}
-              className="w-10 h-10 flex items-center justify-center text-white border-2 border-white/0 hover:border-white transition-colors"
+              className="w-10 h-10 flex items-center justify-center text-[#2b1410] border-2 border-transparent hover:border-[#2b1410] transition-colors"
             >
               {open ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Curved red edge under the bar (same on every page) */}
-        <svg className="absolute left-0 right-0 top-full w-full h-9 sm:h-12 pointer-events-none overflow-visible" viewBox="0 0 1440 48" preserveAspectRatio="none" aria-hidden="true">
-          <path d="M0 0 H1440 V4 C1100 18 760 2 520 14 C330 24 150 26 0 32 Z" fill="#C8102E" />
-          <path d="M0 32 C150 26 330 24 520 14 C760 2 1100 18 1440 4" fill="none" stroke="#F5A04A" strokeWidth="2.5" opacity="0.7" />
-          <path d="M0 44 C150 38 330 36 520 26 C760 14 1100 30 1440 16" fill="none" stroke="#C8102E" strokeWidth="3" opacity="0.35" />
+        {/* Curved orange edge with a thin white line (same on every page) */}
+        <svg className="absolute left-0 right-0 top-full w-full h-6 sm:h-8 pointer-events-none overflow-visible" viewBox="0 0 1440 32" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M0 0 H1440 V2 C1180 8 900 0 640 6 C400 12 180 16 0 18 Z" fill="#F7941D" />
+          <path d="M0 26 C180 24 400 20 640 14 C900 8 1180 16 1440 10" fill="none" stroke="#ffffff" strokeWidth="3" />
         </svg>
 
         {/* Mobile menu */}
         {open && (
-          <div className="lg:hidden relative z-10 bg-brand-red border-t border-white/20 shadow-lg">
+          <div className="lg:hidden relative z-10 bg-brand-orange-deep border-t border-[#2b1410]/15 shadow-lg">
             <div className="px-4 pt-14 pb-4 space-y-1">
               {NAV_LINKS.map(link => (
                 <button
                   key={link.path}
                   onClick={() => go(link.path)}
                   className={`w-full text-left px-4 py-3 text-sm font-extrabold uppercase tracking-wide ${
-                    isActive(currentPath, link.path) ? 'bg-white text-brand-red' : 'text-white hover:bg-white/10'
+                    isActive(currentPath, link.path) ? 'bg-[#2b1410] text-white' : 'text-[#2b1410] hover:bg-white/20'
                   }`}
                 >
                   {t(link.label, link.fr)}
