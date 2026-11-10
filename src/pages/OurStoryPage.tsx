@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Building2, Factory, Globe2, MapPin, Phone, ShieldCheck, Sparkles } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { STORY_COVER_IMAGE, CERTIFICATION_LOGOS } from '../assets';
+import { STORY_COVER_IMAGE, CERTIFICATION_LOGOS, SPLASH_BG_IMAGE } from '../assets';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
@@ -212,7 +212,15 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
   const { ref: revRef, isVis } = useReveal();
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen">
+      {/* Banner photo (same image as the splash screen) */}
+      <section className="pt-20 bg-white">
+        <img
+          src={SPLASH_BG_IMAGE}
+          alt={t('Al-Shamas product range', 'La gamme de produits Al-Shamas')}
+          className="w-full h-[240px] sm:h-[420px] lg:h-[600px] object-cover object-[center_35%]"
+        />
+      </section>
       <PageBanner script={t('Since 2013', 'Depuis 2013')} title={t('About Us', 'À propos de nous')} sub={t('Proudly Canadian. Serving families across Canada.', 'Fièrement canadien. Au service des familles partout au Canada.')} />
 
       {/* Company Profile (catalogue) */}
