@@ -21,6 +21,9 @@ const ALL_SLIDES: Slide[] = [
 export const KEBAB_SLIDES = ['chicken-charcoal-kebab', 'chapli-kebabs', 'beef-charcoal-kebab', 'chicken-sheekh-kebab', 'meat-charcoal-kebab', 'beef-sheekh-kebab']
   .map(f => ALL_SLIDES.find(s => s.file === f)!);
 
+/** Samosa category page */
+export const SAMOSA_SLIDES = ['chicken-samosa', 'beef-samosa'].map(f => ALL_SLIDES.find(s => s.file === f)!);
+
 const INTERVAL = 5000;
 
 /** Products / category page banner: photos that change automatically (same fade as Home), no text. */
