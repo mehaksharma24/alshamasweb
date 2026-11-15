@@ -33,32 +33,61 @@ export function packLabel(pack: Pack, lang: 'en' | 'fr') {
 }
 
 export function PackStores({ pack }: { pack: Pack }) {
+  const { t } = useLang();
   if (!pack.stores?.length) return null;
   return (
     <div className="mt-2 flex flex-col items-center gap-1">
       {pack.stores.map(s => (
-        <div key={`${s.name}-${s.sku}`} className="flex items-center gap-2">
+        <div key={`${s.name}-${s.sku}`} className="flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5">
           {s.name.startsWith('Costco') ? (
             <img src={COSTCO_LOGO} alt="Costco" className="h-5 w-auto object-contain" />
           ) : (
-            <span className="text-xs font-bold text-gray-700">{s.name === 'A1 Cash & Carry' ? 'A1' : s.name}</span>
+            <span className="text-xs font-bold text-gray-700">{s.name}</span>
           )}
-          <span className="text-xs text-gray-600">
-            {s.name === 'Costco BC' ? 'BC · ' : ''}
-            {s.sku ? (s.name === 'A1 Cash & Carry' ? `Code ${s.sku}` : `SKU ${s.sku}`) : ''}
-          </span>
+          {s.name === 'Costco Business Centre' && (
+            <span className="text-xs font-semibold text-gray-700">{t('Business Centre', 'Centre d’affaires')}</span>
+          )}
+          {s.sku && <span className="text-xs text-gray-600">{t(`Item # ${s.sku}`, `Article no ${s.sku}`)}</span>}
         </div>
       ))}
     </div>
   );
 }
 
-/** One pack size: image (click to enlarge), name, pieces/weight, packaging and where it's sold. */
+/** Small thumbnails of the packaging panels (ingredients, nutrition facts, instructions) — click to enlarge. */
+export function PackPanels({ pack }: { pack: Pack }) {
+  const { t } = useLang();
+  if (!pack.panels) return null;
+  const items = [
+    { src: pack.panels.ingredients, label: t('Ingredients', 'Ingrédients') },
+    { src: pack.panels.nutrition, label: t('Nutrition', 'Nutrition') },
+    { src: pack.panels.instructions, label: t('Instructions', 'Instructions') },
+  ];
+  return (
+    <div className="mt-3 grid grid-cols-3 gap-2">
+      {items.map(i => (
+        <div key={i.src} className="flex flex-col items-center gap-1">
+          <div className="w-full aspect-square rounded-lg border border-gray-200 bg-white overflow-hidden">
+            <ZoomableImage src={i.src} alt={i.label} className="w-full h-full object-cover object-top" loading="lazy" />
+          </div>
+          <span className="text-[11px] text-gray-500 leading-tight">{i.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** One pack size: image (click to enlarge), name, pieces/weight, packaging, where it's sold and its packaging panels. */
 export default function PackCard({ product, pack, compact = false }: { product: Product; pack: Pack; compact?: boolean }) {
-  const { lang } = useLang();
+  const { lang, t } = useLang();
   const name = product.name[lang];
   return (
-    <div className={`bg-white rounded-3xl border border-gray-100 shadow-sm flex flex-col text-center ${compact ? 'p-3' : 'p-4'}`}>
+    <div className={`relative bg-white rounded-3xl border border-gray-100 shadow-sm flex flex-col text-center ${compact ? 'p-3' : 'p-4'}`}>
+      {pack.foodService && (
+        <span className="absolute top-3 left-3 z-10 bg-brand-blue-deep text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">
+          {t('Food Service', 'Restauration')}
+        </span>
+      )}
       <div className={`aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center ${compact ? 'mb-3' : 'mb-4'}`}>
         <ZoomableImage
           src={pack.image}
@@ -67,10 +96,12 @@ export default function PackCard({ product, pack, compact = false }: { product: 
           loading="lazy"
         />
       </div>
-      <p className="font-serif font-semibold text-gray-900 leading-tight">{name}</p>
+      <p className="font-heading font-bold text-gray-900 leading-tight">{name}</p>
       <p className="text-brand-red font-semibold text-sm mt-1">{packLabel(pack, lang)}</p>
       <p className="text-xs text-gray-500 mt-0.5">{pack.detail[lang]}</p>
       <PackStores pack={pack} />
+      {pack.upc && <p className="text-[11px] text-gray-400 mt-1">UPC {pack.upc}</p>}
+      <PackPanels pack={pack} />
     </div>
   );
 }

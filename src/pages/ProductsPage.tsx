@@ -23,7 +23,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-6">
             {[
               ...PRODUCT_CATEGORIES.map(c => ({ key: c.slug, path: `/products/category/${c.slug}`, title: categoryLabel(c, lang), tagline: c.tagline[lang], image: c.image })),
-              { key: 'food-service', path: '/food-service', title: t('Food Service', 'Restauration'), tagline: t('Larger formats for restaurants & distributors', 'Grands formats pour restaurants et distributeurs'), image: '/images/products/3D Box-Alshamas-BeefSamosa_40Pcs.png' },
+              { key: 'food-service', path: '/food-service', title: t('Food Service', 'Restauration'), tagline: t('Larger formats for restaurants & distributors', 'Grands formats pour restaurants et distributeurs'), image: '/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs.webp' },
               { key: 'private-label', path: '/private-label', title: t('Private Label', 'Marque privée'), tagline: t('Our halal products, packed under your brand', 'Nos produits halal, emballés sous votre marque'), image: '' },
             ].map(item => (
               <button

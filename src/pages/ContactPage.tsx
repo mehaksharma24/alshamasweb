@@ -19,7 +19,15 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen pt-24">
+    <div className="min-h-screen">
+      {/* Banner photo: our office */}
+      <section className="pt-20 bg-white">
+        <img
+          src="/images/contact/office.jpg"
+          alt={t('Al-Shamas Food Products office, 2244 Drew Road, Mississauga', 'Bureau d’Al-Shamas Food Products, 2244 Drew Road, Mississauga')}
+          className="block w-full h-auto"
+        />
+      </section>
       <PageBanner script={t('Get in Touch', 'Écrivez-nous')} title={t('Contact Us', 'Nous joindre')} sub={t('We’d love to hear from you — questions, orders, wholesale enquiries.', 'Nous serions ravis de vous lire — questions, commandes, demandes de vente en gros.')} />
 
       <section className="py-12 bg-gray-50 relative overflow-hidden">

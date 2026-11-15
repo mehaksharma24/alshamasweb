@@ -22,7 +22,8 @@ export interface Para {
 }
 
 export interface PackStore {
-  name: 'Costco' | 'Costco BC' | 'A1 Cash & Carry' | 'Sysco / Dot Foods';
+  name: 'Costco' | 'Costco Business Centre' | 'A1 Cash & Carry';
+  /** Costco item number */
   sku?: string;
 }
 
@@ -39,6 +40,12 @@ export interface Pack {
   source: 'master' | 'packaging';
   /** true when this pack's photo is the product's main photo */
   main?: boolean;
+  /** Food Service pack (restaurants / caterers / wholesale) */
+  foodService?: boolean;
+  /** retail barcode (UPC) */
+  upc?: string;
+  /** packaging panels: ingredients, nutrition facts, heating/cooking instructions */
+  panels?: { ingredients: string; nutrition: string; instructions: string };
 }
 
 interface Nutrient {
@@ -68,6 +75,8 @@ export interface NutritionFacts {
   vitaminC?: Nutrient;
 }
 
+export type KebabType = 'Charcoal' | 'Chapli' | 'Kafta' | 'Sheekh';
+
 export type CategoryName = 'Kebabs' | 'Samosas' | 'Spring Rolls' | 'Wings & Drumsticks' | 'Burgers' | 'Breads';
 
 export interface ProductCategory {
@@ -87,6 +96,8 @@ export interface Product {
   name: Bi;
   subtitle?: Bi;
   category: CategoryName;
+  /** Kebab type (Kebabs only) */
+  kebabType?: KebabType;
   image: string;
   /** false = main image is a blue placeholder */
   photo: boolean;
@@ -186,10 +197,10 @@ const ALL_CATEGORIES: ProductCategory[] = [
       fr: "Kebabs faits à la main — entièrement cuits, prêts à réchauffer"
     },
     description: {
-      en: "Charcoal, sheekh, chapli and kafta kebabs made with halal chicken, beef, lamb and mutton — fully cooked and ready in minutes.",
+      en: "Charcoal, sheekh, chapli and kafta kebabs made with halal chicken, beef and lamb — fully cooked and ready in minutes.",
       fr: "Kebabs au charbon, sheekh, chapli et kafta préparés avec du poulet, du bœuf, de l’agneau et du mouton halal — entièrement cuits et prêts en quelques minutes."
     },
-    image: "/images/products/3D Box-Alshamas-BeefCharcoalKebab_8Pcs.png"
+    image: "/images/packs/beef-charcoal-kebab/8-pcs-344g.webp"
   },
   {
     name: "Samosas",
@@ -200,10 +211,10 @@ const ALL_CATEGORIES: ProductCategory[] = [
       fr: "Pâte croustillante et garniture savoureuse"
     },
     description: {
-      en: "Handmade samosas with chicken, beef, mutton or vegetable fillings — cook from frozen.",
+      en: "Handmade samosas with chicken, beef, lamb or vegetable fillings — cook from frozen.",
       fr: "Samosas faits à la main, garnis de poulet, de bœuf, de mouton ou de légumes — à cuire directement congelés."
     },
-    image: "/images/products/3D Box-Alshamas-ChickenSamosa_40Pcs.png"
+    image: "/images/packs/chicken-samosa/40-pcs-1-2kg.webp"
   },
   {
     name: "Spring Rolls",
@@ -214,10 +225,10 @@ const ALL_CATEGORIES: ProductCategory[] = [
       fr: "Rouleaux minces et croustillants à la garniture savoureuse"
     },
     description: {
-      en: "Handmade spring rolls with chicken, beef, mutton or vegetable fillings — cook from frozen.",
+      en: "Handmade spring rolls with chicken, beef, lamb or vegetable fillings — cook from frozen.",
       fr: "Rouleaux faits à la main, garnis de poulet, de bœuf, de mouton ou de légumes — à cuire directement congelés."
     },
-    image: "/images/products/3D Box-Alshamas-ChickenSpringRoll_40Pcs.png"
+    image: "/images/packs/chicken-spring-roll/40-pcs-1-2kg.webp"
   },
   {
     name: "Wings & Drumsticks",
@@ -275,7 +286,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Kebab de poulet au charbon de bois"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-ChickenCharcoalKebab_8Pcs.png",
+    kebabType: "Charcoal",
+    image: "/images/packs/chicken-charcoal-kebab/8-pcs-344g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -360,123 +372,108 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenSheekhCharcoalKebab,
     packs: [
       {
+        key: "8-pcs-344g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "344 g",
+        image: "/images/packs/chicken-charcoal-kebab/8-pcs-344g.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "8-pcs-344g-box",
-        source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/8-pcs-344g-box.png",
-        photo: true
+        upc: "628250350609",
+        panels: {
+          ingredients: "/images/packs/chicken-charcoal-kebab/8-pcs-344g-ingredients.webp",
+          nutrition: "/images/packs/chicken-charcoal-kebab/8-pcs-344g-nutrition.webp",
+          instructions: "/images/packs/chicken-charcoal-kebab/8-pcs-344g-instructions.webp"
+        }
       },
       {
-        title: {
-          en: "13 pieces",
-          fr: "13 morceaux"
-        },
-        detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "13-pcs-box",
-        source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/13-pcs-box.png",
-        photo: false
-      },
-      {
+        key: "costco-20-pcs",
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
         },
         detail: {
-          en: "Bulk bag · 10 per case",
-          fr: "Sac en vrac · 10 par caisse"
+          en: "Box · 6 per case",
+          fr: "Boîte · 6 par caisse"
         },
-        key: "20-pcs-bulk-bag",
+        weight: "860 g",
+        image: "/images/packs/chicken-charcoal-kebab/costco-20-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/20-pcs-bulk-bag.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "40 pieces",
-          fr: "40 morceaux"
-        },
-        detail: {
-          en: "Foodservice box · 2 per case",
-          fr: "Boîte pour la restauration · 2 par caisse"
-        },
-        key: "40-pcs-foodservice-box",
-        source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/40-pcs-foodservice-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "Costco case",
-          fr: "Caisse Costco"
-        },
-        detail: {
-          en: "Case",
-          fr: "Caisse"
-        },
-        key: "costco-sku-1768778",
         stores: [
           {
             name: "Costco",
             sku: "1768778"
           }
         ],
-        source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/costco-sku-1768778.png",
-        photo: false
+        upc: "628250350999",
+        panels: {
+          ingredients: "/images/packs/chicken-charcoal-kebab/costco-20-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-charcoal-kebab/costco-20-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-charcoal-kebab/costco-20-pcs-instructions.webp"
+        }
       },
       {
+        key: "costco-business-centre-40-pcs",
         title: {
-          en: "Costco case",
-          fr: "Caisse Costco"
+          en: "40 pieces",
+          fr: "40 morceaux"
         },
         detail: {
-          en: "Case",
-          fr: "Caisse"
+          en: "Box · 4 per case",
+          fr: "Boîte · 4 par caisse"
         },
-        key: "costco-bc-sku-2768779",
+        weight: "2.4 kg",
+        image: "/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs.webp",
+        photo: true,
+        source: "master",
         stores: [
           {
-            name: "Costco BC",
-            sku: "2768779"
+            name: "Costco Business Centre",
+            sku: "2768778"
           }
         ],
-        source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/costco-bc-sku-2768779.png",
-        photo: false
+        foodService: true,
+        upc: "628250350968",
+        panels: {
+          ingredients: "/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs-instructions.webp"
+        }
       },
       {
+        key: "a1-40-pcs",
         title: {
-          en: "2 kg",
-          fr: "2 kg"
+          en: "40 pieces",
+          fr: "40 morceaux"
         },
         detail: {
-          en: "Case of 2 × 2 kg",
-          fr: "Caisse de 2 × 2 kg"
+          en: "Box · 2 per case",
+          fr: "Boîte · 2 par caisse"
         },
         weight: "2 kg",
-        key: "a1-2kg-case",
+        image: "/images/packs/chicken-charcoal-kebab/a1-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-charcoal-kebab/a1-2kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "MEA081"
+            name: "A1 Cash & Carry"
           }
-        ]
+        ],
+        foodService: true,
+        upc: "628250350746",
+        panels: {
+          ingredients: "/images/packs/chicken-charcoal-kebab/a1-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-charcoal-kebab/a1-40-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-charcoal-kebab/a1-40-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -491,7 +488,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Kebab de bœuf au charbon de bois"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-BeefCharcoalKebab_8Pcs.png",
+    kebabType: "Charcoal",
+    image: "/images/packs/beef-charcoal-kebab/8-pcs-344g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -576,103 +574,81 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.beefSheekhCharcoalKebab,
     packs: [
       {
+        key: "8-pcs-344g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "344 g",
+        image: "/images/packs/beef-charcoal-kebab/8-pcs-344g.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "8-pcs-344g-box",
-        source: "master",
-        image: "/images/packs/beef-charcoal-kebab/8-pcs-344g-box.png",
-        photo: true
+        upc: "628250350623",
+        panels: {
+          ingredients: "/images/packs/beef-charcoal-kebab/8-pcs-344g-ingredients.webp",
+          nutrition: "/images/packs/beef-charcoal-kebab/8-pcs-344g-nutrition.webp",
+          instructions: "/images/packs/beef-charcoal-kebab/8-pcs-344g-instructions.webp"
+        }
       },
       {
-        title: {
-          en: "13 pieces",
-          fr: "13 morceaux"
-        },
-        detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "13-pcs-box",
-        source: "master",
-        image: "/images/packs/beef-charcoal-kebab/13-pcs-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "20 pieces",
-          fr: "20 morceaux"
-        },
-        detail: {
-          en: "Bulk bag · 10 per case",
-          fr: "Sac en vrac · 10 par caisse"
-        },
-        key: "20-pcs-bulk-bag",
-        source: "master",
-        image: "/images/packs/beef-charcoal-kebab/20-pcs-bulk-bag.png",
-        photo: false
-      },
-      {
+        key: "costco-business-centre-40-pcs",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
         },
         detail: {
-          en: "Foodservice box · 2 per case",
-          fr: "Boîte pour la restauration · 2 par caisse"
+          en: "Box · 4 per case",
+          fr: "Boîte · 4 par caisse"
         },
-        key: "40-pcs-foodservice-box",
+        weight: "2.4 kg",
+        image: "/images/packs/beef-charcoal-kebab/costco-business-centre-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-charcoal-kebab/40-pcs-foodservice-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "Costco case",
-          fr: "Caisse Costco"
-        },
-        detail: {
-          en: "Case",
-          fr: "Caisse"
-        },
-        key: "costco-bc-sku-4768778",
         stores: [
           {
-            name: "Costco BC",
+            name: "Costco Business Centre",
             sku: "4768778"
           }
         ],
-        source: "master",
-        image: "/images/packs/beef-charcoal-kebab/costco-bc-sku-4768778.png",
-        photo: false
+        foodService: true,
+        upc: "628250350975",
+        panels: {
+          ingredients: "/images/packs/beef-charcoal-kebab/costco-business-centre-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/beef-charcoal-kebab/costco-business-centre-40-pcs-nutrition.webp",
+          instructions: "/images/packs/beef-charcoal-kebab/costco-business-centre-40-pcs-instructions.webp"
+        }
       },
       {
+        key: "a1-40-pcs",
         title: {
-          en: "2 kg",
-          fr: "2 kg"
+          en: "40 pieces",
+          fr: "40 morceaux"
         },
         detail: {
-          en: "Case of 2 × 2 kg",
-          fr: "Caisse de 2 × 2 kg"
+          en: "Box · 2 per case",
+          fr: "Boîte · 2 par caisse"
         },
         weight: "2 kg",
-        key: "a1-2kg-case",
+        image: "/images/packs/beef-charcoal-kebab/a1-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-charcoal-kebab/a1-2kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "MEA080"
+            name: "A1 Cash & Carry"
           }
-        ]
+        ],
+        foodService: true,
+        upc: "628250350753",
+        panels: {
+          ingredients: "/images/packs/beef-charcoal-kebab/a1-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/beef-charcoal-kebab/a1-40-pcs-nutrition.webp",
+          instructions: "/images/packs/beef-charcoal-kebab/a1-40-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -843,8 +819,9 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Mouton et poulet"
     },
     category: "Kebabs",
-    image: "/images/packs/lamb-charcoal-kebab/main.png",
-    photo: false,
+    kebabType: "Charcoal",
+    image: "/images/packs/lamb-charcoal-kebab/a1-40-pcs.webp",
+    photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
       fr: "Entièrement cuit • Fait à la main • Prêt à réchauffer"
@@ -969,39 +946,32 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "a1-40-pcs",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
         },
         detail: {
-          en: "Foodservice box · 2 per case",
-          fr: "Boîte pour la restauration · 2 par caisse"
-        },
-        key: "40-pcs-foodservice-box",
-        source: "master",
-        image: "/images/packs/lamb-charcoal-kebab/40-pcs-foodservice-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "2 kg",
-          fr: "2 kg"
-        },
-        detail: {
-          en: "Case of 2 × 2 kg",
-          fr: "Caisse de 2 × 2 kg"
+          en: "Box · 2 per case",
+          fr: "Boîte · 2 par caisse"
         },
         weight: "2 kg",
-        key: "a1-2kg-case",
+        image: "/images/packs/lamb-charcoal-kebab/a1-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/lamb-charcoal-kebab/a1-2kg-case.png",
-        photo: false,
+        main: true,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "MEA082"
+            name: "A1 Cash & Carry"
           }
-        ]
+        ],
+        foodService: true,
+        upc: "628250350432",
+        panels: {
+          ingredients: "/images/packs/lamb-charcoal-kebab/a1-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/lamb-charcoal-kebab/a1-40-pcs-nutrition.webp",
+          instructions: "/images/packs/lamb-charcoal-kebab/a1-40-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -1016,7 +986,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Kebab de viande au charbon"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-MeatCharcoalKebab_8Pcs.png",
+    kebabType: "Charcoal",
+    image: "/images/packs/meat-charcoal-kebab/8-pcs-344g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -1042,48 +1013,26 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.meatCharcoalKebab,
     packs: [
       {
+        key: "8-pcs-344g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "344 g",
+        image: "/images/packs/meat-charcoal-kebab/8-pcs-344g.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "8-pcs-344g-box",
-        source: "packaging",
-        image: "/images/packs/meat-charcoal-kebab/8-pcs-344g-box.png",
-        photo: true
-      },
-      {
-        title: {
-          en: "13 pieces",
-          fr: "13 morceaux"
-        },
-        detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "13-pcs-box",
-        source: "master",
-        image: "/images/packs/meat-charcoal-kebab/13-pcs-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "20 pieces",
-          fr: "20 morceaux"
-        },
-        detail: {
-          en: "Bulk bag · 10 per case",
-          fr: "Sac en vrac · 10 par caisse"
-        },
-        key: "20-pcs-bulk-bag",
-        source: "master",
-        image: "/images/packs/meat-charcoal-kebab/20-pcs-bulk-bag.png",
-        photo: false
+        upc: "628250350739",
+        panels: {
+          ingredients: "/images/packs/meat-charcoal-kebab/8-pcs-344g-ingredients.webp",
+          nutrition: "/images/packs/meat-charcoal-kebab/8-pcs-344g-nutrition.webp",
+          instructions: "/images/packs/meat-charcoal-kebab/8-pcs-344g-instructions.webp"
+        }
       }
     ]
   },
@@ -1098,7 +1047,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Sheekh kebab au poulet"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-ChickenSheekhKebab_8Pcs.png",
+    kebabType: "Sheekh",
+    image: "/images/packs/chicken-sheekh-kebab/8-pcs-344g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -1183,34 +1133,26 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenSheekhCharcoalKebab,
     packs: [
       {
+        key: "8-pcs-344g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "344 g",
-        main: true,
-        key: "8-pcs-344g-box",
-        source: "packaging",
-        image: "/images/packs/chicken-sheekh-kebab/8-pcs-344g-box.png",
-        photo: true
-      },
-      {
-        title: {
-          en: "13 pieces",
-          fr: "13 morceaux"
-        },
-        detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "13-pcs-box",
+        image: "/images/packs/chicken-sheekh-kebab/8-pcs-344g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-sheekh-kebab/13-pcs-box.png",
-        photo: false
+        main: true,
+        upc: "628250350616",
+        panels: {
+          ingredients: "/images/packs/chicken-sheekh-kebab/8-pcs-344g-ingredients.webp",
+          nutrition: "/images/packs/chicken-sheekh-kebab/8-pcs-344g-nutrition.webp",
+          instructions: "/images/packs/chicken-sheekh-kebab/8-pcs-344g-instructions.webp"
+        }
       }
     ]
   },
@@ -1225,7 +1167,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Sheekh kebab au bœuf"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-BeefSheekhKebab_8Pcs.png",
+    kebabType: "Sheekh",
+    image: "/images/packs/beef-sheekh-kebab/8-pcs-344g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -1309,34 +1252,26 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.beefSheekhCharcoalKebab,
     packs: [
       {
+        key: "8-pcs-344g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "344 g",
-        main: true,
-        key: "8-pcs-344g-box",
-        source: "packaging",
-        image: "/images/packs/beef-sheekh-kebab/8-pcs-344g-box.png",
-        photo: true
-      },
-      {
-        title: {
-          en: "13 pieces",
-          fr: "13 morceaux"
-        },
-        detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "13-pcs-box",
+        image: "/images/packs/beef-sheekh-kebab/8-pcs-344g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-sheekh-kebab/13-pcs-box.png",
-        photo: false
+        main: true,
+        upc: "628250350036",
+        panels: {
+          ingredients: "/images/packs/beef-sheekh-kebab/8-pcs-344g-ingredients.webp",
+          nutrition: "/images/packs/beef-sheekh-kebab/8-pcs-344g-nutrition.webp",
+          instructions: "/images/packs/beef-sheekh-kebab/8-pcs-344g-instructions.webp"
+        }
       }
     ]
   },
@@ -1539,7 +1474,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Aussi vendu sous le nom Chappal kebab au poulet"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-ChickenChapliKebab_8Pcs.png",
+    kebabType: "Chapli",
+    image: "/images/packs/chicken-chapli-kebab/8-pcs-400g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -1622,55 +1558,79 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenChapliKebab,
     packs: [
       {
+        key: "8-pcs-400g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "400 g",
+        image: "/images/packs/chicken-chapli-kebab/8-pcs-400g.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "8-pcs-400g-box",
-        source: "master",
-        image: "/images/packs/chicken-chapli-kebab/8-pcs-400g-box.png",
-        photo: true
+        upc: "628250350319",
+        panels: {
+          ingredients: "/images/packs/chicken-chapli-kebab/8-pcs-400g-ingredients.webp",
+          nutrition: "/images/packs/chicken-chapli-kebab/8-pcs-400g-nutrition.webp",
+          instructions: "/images/packs/chicken-chapli-kebab/8-pcs-400g-instructions.webp"
+        }
       },
       {
+        key: "costco-40-pcs",
         title: {
-          en: "6 pieces",
-          fr: "6 morceaux"
+          en: "40 pieces",
+          fr: "40 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 1 per case",
+          fr: "Boîte · 1 par caisse"
         },
-        key: "6-pcs-box",
+        weight: "2 kg",
+        image: "/images/packs/chicken-chapli-kebab/costco-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-chapli-kebab/6-pcs-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "1 kg",
-          fr: "1 kg"
-        },
-        detail: {
-          en: "Case of 2 × 1 kg",
-          fr: "Caisse de 2 × 1 kg"
-        },
-        weight: "1 kg",
-        key: "a1-1kg-case",
-        source: "master",
-        image: "/images/packs/chicken-chapli-kebab/a1-1kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "CHK237"
+            name: "Costco",
+            sku: "5768778"
           }
-        ]
+        ],
+        upc: "628250350364",
+        panels: {
+          ingredients: "/images/packs/chicken-chapli-kebab/costco-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-chapli-kebab/costco-40-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-chapli-kebab/costco-40-pcs-instructions.webp"
+        }
+      },
+      {
+        key: "a1-20-pcs",
+        title: {
+          en: "20 pieces",
+          fr: "20 morceaux"
+        },
+        detail: {
+          en: "Box · 2 per case",
+          fr: "Boîte · 2 par caisse"
+        },
+        weight: "1 kg",
+        image: "/images/packs/chicken-chapli-kebab/a1-20-pcs.webp",
+        photo: true,
+        source: "master",
+        stores: [
+          {
+            name: "A1 Cash & Carry"
+          }
+        ],
+        upc: "628250350869",
+        panels: {
+          ingredients: "/images/packs/chicken-chapli-kebab/a1-20-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-chapli-kebab/a1-20-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-chapli-kebab/a1-20-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -1690,7 +1650,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Aussi vendu sous le nom Chappal kebab au bœuf"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-BeefChapliKebab_8Pcs.png",
+    kebabType: "Chapli",
+    image: "/images/packs/beef-chapli-kebab/8-pcs-400g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -1772,55 +1733,52 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.beefChapliKebab,
     packs: [
       {
+        key: "8-pcs-400g",
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "400 g",
+        image: "/images/packs/beef-chapli-kebab/8-pcs-400g.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "8-pcs-400g-box",
-        source: "master",
-        image: "/images/packs/beef-chapli-kebab/8-pcs-400g-box.png",
-        photo: true
+        upc: "628250350326",
+        panels: {
+          ingredients: "/images/packs/beef-chapli-kebab/8-pcs-400g-ingredients.webp",
+          nutrition: "/images/packs/beef-chapli-kebab/8-pcs-400g-nutrition.webp",
+          instructions: "/images/packs/beef-chapli-kebab/8-pcs-400g-instructions.webp"
+        }
       },
       {
+        key: "a1-40-pcs",
         title: {
-          en: "6 pieces",
-          fr: "6 morceaux"
+          en: "40 pieces",
+          fr: "40 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
-        },
-        key: "6-pcs-box",
-        source: "master",
-        image: "/images/packs/beef-chapli-kebab/6-pcs-box.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "1 kg",
-          fr: "1 kg"
-        },
-        detail: {
-          en: "Case of 2 × 1 kg",
-          fr: "Caisse de 2 × 1 kg"
+          en: "Box · 2 per case",
+          fr: "Boîte · 2 par caisse"
         },
         weight: "1 kg",
-        key: "a1-1kg-case",
+        image: "/images/packs/beef-chapli-kebab/a1-40-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-chapli-kebab/a1-1kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "MEA440"
+            name: "A1 Cash & Carry"
           }
-        ]
+        ],
+        upc: "628250350876",
+        panels: {
+          ingredients: "/images/packs/beef-chapli-kebab/a1-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/beef-chapli-kebab/a1-40-pcs-nutrition.webp",
+          instructions: "/images/packs/beef-chapli-kebab/a1-40-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -1967,7 +1925,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Kebab kafta au poulet"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-ChickenKaftaKebab_10Pcs.png",
+    kebabType: "Kafta",
+    image: "/images/packs/chicken-kafta-kebab/10-pcs-400g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -2054,20 +2013,26 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenKaftaKebab,
     packs: [
       {
+        key: "10-pcs-400g",
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "400 g",
-        main: true,
-        key: "10-pcs-box",
+        image: "/images/packs/chicken-kafta-kebab/10-pcs-400g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-kafta-kebab/10-pcs-box.png",
-        photo: true
+        main: true,
+        upc: "628250350937",
+        panels: {
+          ingredients: "/images/packs/chicken-kafta-kebab/10-pcs-400g-ingredients.webp",
+          nutrition: "/images/packs/chicken-kafta-kebab/10-pcs-400g-nutrition.webp",
+          instructions: "/images/packs/chicken-kafta-kebab/10-pcs-400g-instructions.webp"
+        }
       }
     ]
   },
@@ -2080,7 +2045,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Kebab kafta au bœuf"
     },
     category: "Kebabs",
-    image: "/images/products/3D Box-Alshamas-BeefKaftaKebab_10Pcs.png",
+    kebabType: "Kafta",
+    image: "/images/packs/beef-kafta-kebab/10-pcs-400g.webp",
     photo: true,
     tagline: {
       en: "Fully Cooked • Handmade • Heat & Eat",
@@ -2207,20 +2173,26 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "10-pcs-400g",
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
         },
         detail: {
-          en: "Box · 12 per case",
-          fr: "Boîte · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "400 g",
-        main: true,
-        key: "10-pcs-box",
+        image: "/images/packs/beef-kafta-kebab/10-pcs-400g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-kafta-kebab/10-pcs-box.png",
-        photo: true
+        main: true,
+        upc: "628250350944",
+        panels: {
+          ingredients: "/images/packs/beef-kafta-kebab/10-pcs-400g-ingredients.webp",
+          nutrition: "/images/packs/beef-kafta-kebab/10-pcs-400g-nutrition.webp",
+          instructions: "/images/packs/beef-kafta-kebab/10-pcs-400g-instructions.webp"
+        }
       }
     ]
   },
@@ -2235,7 +2207,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Samosa au poulet"
     },
     category: "Samosas",
-    image: "/images/products/3D Box-Alshamas-ChickenSamosa_40Pcs.png",
+    image: "/images/packs/chicken-samosa/10-pcs-300g.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -2311,35 +2283,50 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenSamosa,
     packs: [
       {
+        key: "10-pcs-300g",
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
         },
         detail: {
-          en: "Bag · 12 per case",
-          fr: "Sachet · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "300 g",
-        key: "10-pcs-bag",
+        image: "/images/packs/chicken-samosa/10-pcs-300g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-samosa/10-pcs-bag.png",
-        photo: true
+        main: true,
+        upc: "628250350203",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/10-pcs-300g-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/10-pcs-300g-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/10-pcs-300g-instructions.webp"
+        }
       },
       {
+        key: "20-pcs-600g",
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
         },
         detail: {
-          en: "Box · 6 per case",
-          fr: "Boîte · 6 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
-        key: "20-pcs-box",
+        weight: "600 g",
+        image: "/images/packs/chicken-samosa/20-pcs-600g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-samosa/20-pcs-box.png",
-        photo: false
+        upc: "628250350081",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/20-pcs-600g-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/20-pcs-600g-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/20-pcs-600g-instructions.webp"
+        }
       },
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2349,128 +2336,97 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
-        main: true,
-        key: "40-pcs-container",
+        image: "/images/packs/chicken-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-samosa/40-pcs-container.png",
-        photo: true
+        upc: "628250350142",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       },
       {
-        title: {
-          en: "25 pieces",
-          fr: "25 morceaux"
-        },
-        detail: {
-          en: "Restaurant bag · 10 per case (250 pieces)",
-          fr: "Sac pour restaurants · 10 par caisse (250 morceaux)"
-        },
-        key: "25-pcs-restaurant-bag",
-        source: "master",
-        image: "/images/packs/chicken-samosa/25-pcs-restaurant-bag.png",
-        photo: false
-      },
-      {
+        key: "costco-50-pcs",
         title: {
           en: "50 pieces",
           fr: "50 morceaux"
         },
         detail: {
-          en: "Case",
-          fr: "Caisse"
+          en: "Box · 4 per case",
+          fr: "Boîte · 4 par caisse"
         },
-        key: "costco-50-pcs",
+        weight: "1.5 kg",
+        image: "/images/packs/chicken-samosa/costco-50-pcs.webp",
+        photo: true,
+        source: "master",
         stores: [
           {
             name: "Costco",
             sku: "3768778"
           }
         ],
-        source: "master",
-        image: "/images/packs/chicken-samosa/costco-50-pcs.png",
-        photo: false
+        upc: "628250350906",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/costco-50-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/costco-50-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/costco-50-pcs-instructions.webp"
+        }
       },
       {
+        key: "costco-business-centre-100-pcs",
         title: {
-          en: "100 pieces · 3 kg",
-          fr: "100 morceaux · 3 kg"
+          en: "100 pieces",
+          fr: "100 morceaux"
         },
         detail: {
-          en: "Case · 4 × 25",
-          fr: "Caisse · 4 × 25"
+          en: "Box · 1 per case",
+          fr: "Boîte · 1 par caisse"
         },
-        key: "costco-bc-100-pcs-3kg",
+        weight: "3 kg",
+        image: "/images/packs/chicken-samosa/costco-business-centre-100-pcs.webp",
+        photo: true,
+        source: "master",
         stores: [
           {
-            name: "Costco BC",
+            name: "Costco Business Centre",
             sku: "3778778"
           }
         ],
-        source: "master",
-        image: "/images/packs/chicken-samosa/costco-bc-100-pcs-3kg.png",
-        photo: false
+        foodService: true,
+        upc: "628250350982",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/costco-business-centre-100-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/costco-business-centre-100-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/costco-business-centre-100-pcs-instructions.webp"
+        }
       },
       {
+        key: "a1-50-pcs",
         title: {
-          en: "3 kg",
-          fr: "3 kg"
+          en: "50 pieces",
+          fr: "50 morceaux"
         },
         detail: {
-          en: "Case · 40 g samosas",
-          fr: "Caisse · samosas de 40 g"
-        },
-        weight: "3 kg",
-        key: "sysco-3kg-case",
-        source: "master",
-        image: "/images/packs/chicken-samosa/sysco-3kg-case.png",
-        photo: false,
-        stores: [
-          {
-            name: "Sysco / Dot Foods",
-            sku: "7398471"
-          }
-        ]
-      },
-      {
-        title: {
-          en: "1.2 kg",
-          fr: "1,2 kg"
-        },
-        detail: {
-          en: "Case of 6 × 1.2 kg",
-          fr: "Caisse de 6 × 1,2 kg"
-        },
-        weight: "1.2 kg",
-        key: "a1-1-2kg-case",
-        source: "master",
-        image: "/images/packs/chicken-samosa/a1-1-2kg-case.png",
-        photo: false,
-        stores: [
-          {
-            name: "A1 Cash & Carry",
-            sku: "CHK223"
-          }
-        ]
-      },
-      {
-        title: {
-          en: "Jumbo · 1.5 kg",
-          fr: "Jumbo · 1,5 kg"
-        },
-        detail: {
-          en: "Case of 2 × 1.5 kg",
-          fr: "Caisse de 2 × 1,5 kg"
+          en: "Box · 10 per case",
+          fr: "Boîte · 10 par caisse"
         },
         weight: "1.5 kg",
-        key: "a1-jumbo-1-5kg-case",
+        image: "/images/packs/chicken-samosa/a1-50-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-samosa/a1-jumbo-1-5kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "A1 Cash & Carry",
-            sku: "CHK238"
+            name: "A1 Cash & Carry"
           }
-        ]
+        ],
+        foodService: true,
+        upc: "628250350883",
+        panels: {
+          ingredients: "/images/packs/chicken-samosa/a1-50-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-samosa/a1-50-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-samosa/a1-50-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -2483,7 +2439,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Samosa au bœuf"
     },
     category: "Samosas",
-    image: "/images/products/3D Box-Alshamas-BeefSamosa_40Pcs.png",
+    image: "/images/packs/beef-samosa/10-pcs-300g.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -2600,35 +2556,50 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "10-pcs-300g",
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
         },
         detail: {
-          en: "Bag · 12 per case",
-          fr: "Sachet · 12 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
         weight: "300 g",
-        key: "10-pcs-bag",
+        image: "/images/packs/beef-samosa/10-pcs-300g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-samosa/10-pcs-bag.png",
-        photo: true
+        main: true,
+        upc: "628250350210",
+        panels: {
+          ingredients: "/images/packs/beef-samosa/10-pcs-300g-ingredients.webp",
+          nutrition: "/images/packs/beef-samosa/10-pcs-300g-nutrition.webp",
+          instructions: "/images/packs/beef-samosa/10-pcs-300g-instructions.webp"
+        }
       },
       {
+        key: "20-pcs-600g",
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
         },
         detail: {
-          en: "Box · 6 per case",
-          fr: "Boîte · 6 par caisse"
+          en: "Box · 8 per case",
+          fr: "Boîte · 8 par caisse"
         },
-        key: "20-pcs-box",
+        weight: "600 g",
+        image: "/images/packs/beef-samosa/20-pcs-600g.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-samosa/20-pcs-box.png",
-        photo: false
+        upc: "628250350272",
+        panels: {
+          ingredients: "/images/packs/beef-samosa/20-pcs-600g-ingredients.webp",
+          nutrition: "/images/packs/beef-samosa/20-pcs-600g-nutrition.webp",
+          instructions: "/images/packs/beef-samosa/20-pcs-600g-instructions.webp"
+        }
       },
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2638,67 +2609,42 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
-        main: true,
-        key: "40-pcs-container",
+        image: "/images/packs/beef-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-samosa/40-pcs-container.png",
-        photo: true
+        upc: "628250350296",
+        panels: {
+          ingredients: "/images/packs/beef-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/beef-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/beef-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       },
       {
+        key: "a1-50-pcs",
         title: {
-          en: "25 pieces",
-          fr: "25 morceaux"
+          en: "50 pieces",
+          fr: "50 morceaux"
         },
         detail: {
-          en: "Restaurant bag · 10 per case (250 pieces)",
-          fr: "Sac pour restaurants · 10 par caisse (250 morceaux)"
+          en: "Box · 10 per case",
+          fr: "Boîte · 10 par caisse"
         },
-        key: "25-pcs-restaurant-bag",
+        weight: "1.5 kg",
+        image: "/images/packs/beef-samosa/a1-50-pcs.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/beef-samosa/25-pcs-restaurant-bag.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "3 kg",
-          fr: "3 kg"
-        },
-        detail: {
-          en: "Case · 40 g samosas",
-          fr: "Caisse · samosas de 40 g"
-        },
-        weight: "3 kg",
-        key: "sysco-3kg-case",
-        source: "master",
-        image: "/images/packs/beef-samosa/sysco-3kg-case.png",
-        photo: false,
         stores: [
           {
-            name: "Sysco / Dot Foods",
-            sku: "7398463"
+            name: "A1 Cash & Carry"
           }
-        ]
-      },
-      {
-        title: {
-          en: "1.2 kg",
-          fr: "1,2 kg"
-        },
-        detail: {
-          en: "Case of 6 × 1.2 kg",
-          fr: "Caisse de 6 × 1,2 kg"
-        },
-        weight: "1.2 kg",
-        key: "a1-1-2kg-case",
-        source: "master",
-        image: "/images/packs/beef-samosa/a1-1-2kg-case.png",
-        photo: false,
-        stores: [
-          {
-            name: "A1 Cash & Carry",
-            sku: "MEA420"
-          }
-        ]
+        ],
+        foodService: true,
+        upc: "628250350890",
+        panels: {
+          ingredients: "/images/packs/beef-samosa/a1-50-pcs-ingredients.webp",
+          nutrition: "/images/packs/beef-samosa/a1-50-pcs-nutrition.webp",
+          instructions: "/images/packs/beef-samosa/a1-50-pcs-instructions.webp"
+        }
       }
     ]
   },
@@ -2711,7 +2657,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Samosa au poulet tandoori"
     },
     category: "Samosas",
-    image: "/images/products/3D Box-Alshamas-ChickenTandooriSamosa_40Pcs.png",
+    image: "/images/packs/chicken-tandoori-samosa/40-pcs-1-2kg.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -2829,6 +2775,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2838,11 +2785,16 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
-        main: true,
-        key: "40-pcs-container",
+        image: "/images/packs/chicken-tandoori-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-tandoori-samosa/40-pcs-container.png",
-        photo: true
+        main: true,
+        upc: "628250350500",
+        panels: {
+          ingredients: "/images/packs/chicken-tandoori-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/chicken-tandoori-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/chicken-tandoori-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -2855,7 +2807,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Samosa au poulet tikka"
     },
     category: "Samosas",
-    image: "/images/products/3D Box-Alshamas-ChickenTikkaSamosa_40Pcs.png",
+    image: "/images/packs/chicken-tikka-samosa/40-pcs-1-2kg.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -2972,6 +2924,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2981,31 +2934,38 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
-        main: true,
-        key: "40-pcs-container",
+        image: "/images/packs/chicken-tikka-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/chicken-tikka-samosa/40-pcs-container.png",
-        photo: true
+        main: true,
+        upc: "628250350579",
+        panels: {
+          ingredients: "/images/packs/chicken-tikka-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/chicken-tikka-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/chicken-tikka-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
   {
     id: "34",
-    slug: "mutton-samosa",
-    oldSlugs: [],
+    slug: "meat-samosa",
+    oldSlugs: [
+      "mutton-samosa"
+    ],
     name: {
-      en: "Mutton Samosa",
-      fr: "Samosa au mouton"
+      en: "Meat Samosa",
+      fr: "Samosa à la viande"
     },
     category: "Samosas",
-    image: "/images/packs/mutton-samosa/main.png",
-    photo: false,
+    image: "/images/packs/meat-samosa/40-pcs-1-2kg.webp",
+    photo: true,
     tagline: {
       en: "Uncooked • Handmade",
       fr: "Non cuit • Fait à la main"
     },
     description: {
-      en: "Handmade samosas with a crisp pastry and a spiced halal mutton filling. Cook from frozen.",
+      en: "Handmade samosas with a crisp pastry and a spiced halal lamb filling. Cook from frozen.",
       fr: "Samosas faits à la main, pâte croustillante et garniture au mouton halal épicée. À cuire directement congelés."
     },
     tags: [
@@ -3115,6 +3075,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3123,10 +3084,17 @@ const ALL_PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
-        key: "40-pcs-container",
+        weight: "1.2 kg",
+        image: "/images/packs/meat-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/mutton-samosa/40-pcs-container.png",
-        photo: false
+        main: true,
+        upc: "628250350135",
+        panels: {
+          ingredients: "/images/packs/meat-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/meat-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/meat-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -3139,8 +3107,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Samosa aux légumes"
     },
     category: "Samosas",
-    image: "/images/packs/vegetable-samosa/main.png",
-    photo: false,
+    image: "/images/packs/vegetable-samosa/40-pcs-1-2kg.webp",
+    photo: true,
     tagline: {
       en: "Uncooked • Handmade",
       fr: "Non cuit • Fait à la main"
@@ -3254,6 +3222,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3262,45 +3231,17 @@ const ALL_PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
-        key: "40-pcs-container",
+        weight: "1.2 kg",
+        image: "/images/packs/vegetable-samosa/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/vegetable-samosa/40-pcs-container.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "25 pieces",
-          fr: "25 morceaux"
-        },
-        detail: {
-          en: "Restaurant bag · 10 per case (250 pieces)",
-          fr: "Sac pour restaurants · 10 par caisse (250 morceaux)"
-        },
-        key: "25-pcs-restaurant-bag",
-        source: "master",
-        image: "/images/packs/vegetable-samosa/25-pcs-restaurant-bag.png",
-        photo: false
-      },
-      {
-        title: {
-          en: "3 kg",
-          fr: "3 kg"
-        },
-        detail: {
-          en: "Case · 40 g samosas",
-          fr: "Caisse · samosas de 40 g"
-        },
-        weight: "3 kg",
-        key: "sysco-3kg-case",
-        source: "master",
-        image: "/images/packs/vegetable-samosa/sysco-3kg-case.png",
-        photo: false,
-        stores: [
-          {
-            name: "Sysco / Dot Foods",
-            sku: "7398494"
-          }
-        ]
+        main: true,
+        upc: "628250350159",
+        panels: {
+          ingredients: "/images/packs/vegetable-samosa/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/vegetable-samosa/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/vegetable-samosa/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -3313,7 +3254,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Rouleau impérial au poulet"
     },
     category: "Spring Rolls",
-    image: "/images/products/3D Box-Alshamas-ChickenSpringRoll_40Pcs.png",
+    image: "/images/packs/chicken-spring-roll/40-pcs-1-2kg.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -3389,6 +3330,7 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.chickenSpringRoll,
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3398,25 +3340,16 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        image: "/images/packs/chicken-spring-roll/40-pcs-1-2kg.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "40-pcs-container",
-        source: "master",
-        image: "/images/packs/chicken-spring-roll/40-pcs-container.png",
-        photo: true
-      },
-      {
-        title: {
-          en: "10 pieces",
-          fr: "10 morceaux"
-        },
-        detail: {
-          en: "Bag · 12 per case",
-          fr: "Sachet · 12 par caisse"
-        },
-        key: "10-pcs-bag",
-        source: "master",
-        image: "/images/packs/chicken-spring-roll/10-pcs-bag.png",
-        photo: false
+        upc: "628250350173",
+        panels: {
+          ingredients: "/images/packs/chicken-spring-roll/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/chicken-spring-roll/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/chicken-spring-roll/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -3429,7 +3362,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Rouleau impérial au bœuf"
     },
     category: "Spring Rolls",
-    image: "/images/products/3D Box-Alshamas-BeefSpringRoll_40Pcs.png",
+    image: "/images/packs/beef-spring-roll/40-pcs-1-2kg.webp",
     photo: true,
     tagline: {
       en: "Uncooked • Handmade",
@@ -3505,6 +3438,7 @@ const ALL_PRODUCTS: Product[] = [
     nutritionFacts: NFT.beefSpringRoll,
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3514,39 +3448,32 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Contenant · 6 par caisse"
         },
         weight: "1.2 kg",
+        image: "/images/packs/beef-spring-roll/40-pcs-1-2kg.webp",
+        photo: true,
+        source: "master",
         main: true,
-        key: "40-pcs-container",
-        source: "master",
-        image: "/images/packs/beef-spring-roll/40-pcs-container.png",
-        photo: true
-      },
-      {
-        title: {
-          en: "10 pieces",
-          fr: "10 morceaux"
-        },
-        detail: {
-          en: "Bag · 12 per case",
-          fr: "Sachet · 12 par caisse"
-        },
-        key: "10-pcs-bag",
-        source: "master",
-        image: "/images/packs/beef-spring-roll/10-pcs-bag.png",
-        photo: false
+        upc: "628250350302",
+        panels: {
+          ingredients: "/images/packs/beef-spring-roll/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/beef-spring-roll/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/beef-spring-roll/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
   {
     id: "25",
-    slug: "mutton-spring-roll",
-    oldSlugs: [],
+    slug: "meat-spring-roll",
+    oldSlugs: [
+      "mutton-spring-roll"
+    ],
     name: {
-      en: "Mutton Spring Roll",
-      fr: "Rouleau de printemps au mouton"
+      en: "Meat Spring Roll",
+      fr: "Rouleau impérial à la viande"
     },
     category: "Spring Rolls",
-    image: "/images/packs/mutton-spring-roll/main.png",
-    photo: false,
+    image: "/images/packs/meat-spring-roll/40-pcs-1-2kg.webp",
+    photo: true,
     tagline: {
       en: "Uncooked • Handmade",
       fr: "Non cuit • Fait à la main"
@@ -3662,6 +3589,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3670,10 +3598,17 @@ const ALL_PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
-        key: "40-pcs-container",
+        weight: "1.2 kg",
+        image: "/images/packs/meat-spring-roll/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/mutton-spring-roll/40-pcs-container.png",
-        photo: false
+        main: true,
+        upc: "628250350166",
+        panels: {
+          ingredients: "/images/packs/meat-spring-roll/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/meat-spring-roll/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/meat-spring-roll/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -3686,8 +3621,8 @@ const ALL_PRODUCTS: Product[] = [
       fr: "Rouleau impérial aux légumes"
     },
     category: "Spring Rolls",
-    image: "/images/packs/vegetable-spring-roll/main.png",
-    photo: false,
+    image: "/images/packs/vegetable-spring-roll/40-pcs-1-2kg.webp",
+    photo: true,
     tagline: {
       en: "Uncooked • Handmade",
       fr: "Non cuit • Fait à la main"
@@ -3801,6 +3736,7 @@ const ALL_PRODUCTS: Product[] = [
     },
     packs: [
       {
+        key: "40-pcs-1-2kg",
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3809,10 +3745,17 @@ const ALL_PRODUCTS: Product[] = [
           en: "Container · 6 per case",
           fr: "Contenant · 6 par caisse"
         },
-        key: "40-pcs-container",
+        weight: "1.2 kg",
+        image: "/images/packs/vegetable-spring-roll/40-pcs-1-2kg.webp",
+        photo: true,
         source: "master",
-        image: "/images/packs/vegetable-spring-roll/40-pcs-container.png",
-        photo: false
+        main: true,
+        upc: "628250350180",
+        panels: {
+          ingredients: "/images/packs/vegetable-spring-roll/40-pcs-1-2kg-ingredients.webp",
+          nutrition: "/images/packs/vegetable-spring-roll/40-pcs-1-2kg-nutrition.webp",
+          instructions: "/images/packs/vegetable-spring-roll/40-pcs-1-2kg-instructions.webp"
+        }
       }
     ]
   },
@@ -4637,7 +4580,7 @@ const ALL_PRODUCTS: Product[] = [
 /** Categories not shown on the site (data kept so they can be brought back). */
 const HIDDEN_CATEGORIES: CategoryName[] = ['Wings & Drumsticks', 'Burgers', 'Breads'];
 /** Individual products not shown on the site. */
-const HIDDEN_PRODUCT_SLUGS = ['tandoori-chicken-charcoal-kebab'];
+const HIDDEN_PRODUCT_SLUGS = ['tandoori-chicken-charcoal-kebab', 'lamb-sheekh-kebab', 'meat-sheekh-kebab', 'mutton-chapli-kebab'];
 
 export const PRODUCT_CATEGORIES: ProductCategory[] = ALL_CATEGORIES.filter(c => !HIDDEN_CATEGORIES.includes(c.name));
 export const PRODUCTS: Product[] = ALL_PRODUCTS.filter(

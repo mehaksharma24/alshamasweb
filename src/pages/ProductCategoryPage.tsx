@@ -1,5 +1,6 @@
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
+import type { KebabType } from '../catalog';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
 import ProductsBannerSlider, { KEBAB_SLIDES, SAMOSA_SLIDES, SPRING_ROLL_SLIDES } from '../components/ProductsBannerSlider';
@@ -27,6 +28,18 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
   }
 
   const products = PRODUCTS.filter(p => p.category === category.name);
+  // Kebabs are grouped by type (Charcoal, Chapli, Kafta, Sheekh); other categories are one list.
+  const KEBAB_TYPES: { key: KebabType; en: string; fr: string }[] = [
+    { key: 'Charcoal', en: 'Charcoal Kebabs', fr: 'Kebabs au charbon' },
+    { key: 'Chapli', en: 'Chapli Kebabs', fr: 'Chapli kebabs' },
+    { key: 'Kafta', en: 'Kafta Kebabs', fr: 'Kafta kebabs' },
+    { key: 'Sheekh', en: 'Sheekh Kebabs', fr: 'Sheekh kebabs' },
+  ];
+  const groups =
+    category.name === 'Kebabs'
+      ? KEBAB_TYPES.map(k => ({ key: k.key, title: lang === 'fr' ? k.fr : k.en, items: products.filter(p => p.kebabType === k.key) })).filter(g => g.items.length)
+      : [{ key: 'all', title: '', items: products }];
+
   // Photo banners per category (others keep the plain header)
   const slides = category.name === 'Kebabs' ? KEBAB_SLIDES : category.name === 'Samosas' ? SAMOSA_SLIDES : category.name === 'Spring Rolls' ? SPRING_ROLL_SLIDES : null;
 
@@ -51,38 +64,47 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
       {/* Products */}
       <section className="pt-6 pb-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
-            {products.map(product => {
-              const name = product.name[lang];
-              return (
-                <div key={product.id} className="group flex flex-col items-center text-center">
-                  <div className="relative w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
-                    <button
-                      type="button"
-                      onClick={() => navigate(`/products/${product.slug}`)}
-                      aria-label={name}
-                      className="absolute inset-0 w-full h-full cursor-pointer"
-                    >
-                      <img
-                        src={product.image}
-                        alt={name}
-                        loading="lazy"
-                        className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
-                      />
-                    </button>
-                  </div>
+          {groups.map(group => (
+            <div key={group.key} className="mb-14 last:mb-0">
+              {group.title && (
+                <h2 className="font-heading text-2xl sm:text-3xl font-bold text-[#333333] mb-6 pb-3 border-b-2 border-brand-orange-deep">
+                  {group.title}
+                </h2>
+              )}
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
+                {group.items.map(product => {
+                  const name = product.name[lang];
+                  return (
+                    <div key={product.id} className="group flex flex-col items-center text-center">
+                      <div className="relative w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
+                        <button
+                          type="button"
+                          onClick={() => navigate(`/products/${product.slug}`)}
+                          aria-label={name}
+                          className="absolute inset-0 w-full h-full cursor-pointer"
+                        >
+                          <img
+                            src={product.image}
+                            alt={name}
+                            loading="lazy"
+                            className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
+                          />
+                        </button>
+                      </div>
 
-                  <button
-                    onClick={() => navigate(`/products/${product.slug}`)}
-                    className="font-medium text-brand-red hover:underline"
-                  >
-                    {name}
-                  </button>
+                      <button
+                        onClick={() => navigate(`/products/${product.slug}`)}
+                        className="font-medium text-brand-red hover:underline"
+                      >
+                        {name}
+                      </button>
 
-                </div>
-              );
-            })}
-          </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 
