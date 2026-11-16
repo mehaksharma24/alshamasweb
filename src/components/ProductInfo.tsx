@@ -10,6 +10,7 @@ export default function ProductInfo({ product, pack }: { product: Product; pack?
   // A pack page shows that pack's own ingredients/instructions (from its packaging).
   const ingredients = (pack?.ingredients ?? product.ingredients)[lang];
   const instructions = (pack?.instructions ?? product.instructions)[lang];
+  const facts = pack?.nutritionFacts ?? product.nutritionFacts;
   return (
     <section className="pt-6 pb-10 bg-gray-50 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none" />
@@ -22,8 +23,8 @@ export default function ProductInfo({ product, pack }: { product: Product; pack?
             <h2 className="font-heading text-xl font-bold text-gray-900 mb-4">
               {t('Nutrition', 'Valeur nutritive')}
             </h2>
-            {product.nutritionFacts ? (
-              <NutritionLabel facts={product.nutritionFacts} />
+            {facts ? (
+              <NutritionLabel facts={facts} />
             ) : (
               <p className="text-sm text-gray-400">
                 {t('Nutrition information coming soon.', 'Valeur nutritive à venir.')}
