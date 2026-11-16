@@ -54,6 +54,10 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
   const prev = PRODUCTS[idx - 1];
   const next = PRODUCTS[idx + 1];
 
+  // Only show the store columns this product is actually sold in.
+  const activeCols = COLUMNS.filter(col => product.packs.some(p => storeColumn(p) === col.id));
+  const colsClass = activeCols.length === 3 ? 'lg:grid-cols-3' : activeCols.length === 2 ? 'lg:grid-cols-2' : '';
+
   const related = PRODUCTS.filter(p => p.category === product.category && p.id !== product.id).slice(0, 4);
   const others =
     related.length < 4
@@ -135,8 +139,8 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
             <Package size={20} className="text-brand-orange" />
             {t('Pack Sizes & Where to Buy', 'Formats et où acheter')}
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-3 divide-y lg:divide-y-0 lg:divide-x divide-gray-200/70">
-            {COLUMNS.map(col => {
+          <div className={`grid grid-cols-1 ${colsClass} divide-y lg:divide-y-0 lg:divide-x divide-gray-200/70 ${activeCols.length === 1 ? 'max-w-4xl mx-auto' : activeCols.length === 2 ? 'max-w-5xl mx-auto' : ''}`}>
+            {activeCols.map(col => {
               const packs = product.packs.filter(p => storeColumn(p) === col.id);
               return (
                 <div key={col.id} className="py-6 lg:py-0 lg:px-6 first:pt-0 lg:first:pl-0 last:pb-0 lg:last:pr-0 flex flex-col">
@@ -148,19 +152,11 @@ export default function ProductDetailPage({ slug, navigate }: ProductDetailPageP
                     )}
                     <h3 className="font-display font-extrabold uppercase tracking-wide text-gray-900 text-base">{col.title[lang]}</h3>
                   </div>
-                  {packs.length ? (
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-                      {packs.map(pack => (
-                        <PackCard key={pack.key} product={product} pack={pack} compact onOpen={() => navigate(`/products/${product.slug}/${pack.key}`)} />
-                      ))}
-                    </div>
-                  ) : (
-                    <p className="flex-1 flex items-center justify-center text-center text-sm text-gray-400 py-8">
-                      {col.id === 'retail'
-                        ? t('Retail pack sizes coming soon.', 'Formats de détail à venir.')
-                        : t('Not currently available here.', 'Non offert actuellement ici.')}
-                    </p>
-                  )}
+                  <div className="flex flex-wrap justify-center gap-3 [&>*]:w-[calc(50%-0.375rem)] sm:[&>*]:w-[10.5rem]">
+                    {packs.map(pack => (
+                      <PackCard key={pack.key} product={product} pack={pack} compact onOpen={() => navigate(`/products/${product.slug}/${pack.key}`)} />
+                    ))}
+                  </div>
                 </div>
               );
             })}
