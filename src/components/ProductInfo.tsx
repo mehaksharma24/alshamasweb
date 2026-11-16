@@ -1,14 +1,15 @@
 import { Leaf } from 'lucide-react';
 import CatalogueText from './CatalogueText';
 import NutritionLabel from './NutritionLabel';
-import type { Product } from '../catalog';
+import type { Pack, Product } from '../catalog';
 import { useLang } from '../i18n';
 
 /** Nutrition Facts + Ingredients + Preparation — used on product and pack pages. */
-export default function ProductInfo({ product }: { product: Product }) {
+export default function ProductInfo({ product, pack }: { product: Product; pack?: Pack }) {
   const { lang, t } = useLang();
-  const ingredients = product.ingredients[lang];
-  const instructions = product.instructions[lang];
+  // A pack page shows that pack's own ingredients/instructions (from its packaging).
+  const ingredients = (pack?.ingredients ?? product.ingredients)[lang];
+  const instructions = (pack?.instructions ?? product.instructions)[lang];
   return (
     <section className="pt-6 pb-10 bg-gray-50 relative overflow-hidden">
       <div className="absolute top-0 right-0 w-64 h-64 bg-brand-orange-pale rounded-full translate-x-1/2 -translate-y-1/2 opacity-30 pointer-events-none" />

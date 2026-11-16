@@ -152,7 +152,7 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
       </section>
 
       {/* Same Nutrition / Ingredients / Preparation section as the product page */}
-      <ProductInfo product={product} />
+      <ProductInfo product={product} pack={pack} />
 
       {/* Other pack sizes of this product */}
       {otherPacks.length > 0 && (

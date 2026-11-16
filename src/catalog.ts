@@ -44,6 +44,9 @@ export interface Pack {
   foodService?: boolean;
   /** retail barcode (UPC) */
   upc?: string;
+  /** this pack's ingredients and heating/cooking instructions (from its packaging) */
+  ingredients?: { en: Para[]; fr: Para[] };
+  instructions?: { en: Para[]; fr: Para[] };
   /** packaging panels: ingredients, nutrition facts, heating/cooking instructions */
   panels?: { ingredients: string; nutrition: string; instructions: string };
 }
@@ -307,21 +310,29 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Enriched wheat flour."
+          text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
           label: "Ingrédients",
-          text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de blé enrichie"
+          text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir : Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -336,11 +347,23 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "BBQ Grill",
-          text: "For best results and that smokey charcoal flavour, grill the kebabs on BBQ till the internal temperature reaches 74°C (165°F)."
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -349,23 +372,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils individuels peuvent varier ; ce ne sont que des lignes directrices."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
           label: "Barbecue",
-          text: "Pour de meilleurs résultats et une saveur fumée au charbon de bois, faites griller les kebabs au BBQ jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -373,6 +408,104 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-344g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -395,6 +528,104 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-20-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
@@ -422,6 +653,104 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-business-centre-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -450,6 +779,104 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -509,7 +936,7 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder, carom seeds), Salt, Enriched wheat flour."
+          text: "Halal beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
@@ -519,7 +946,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients",
-          text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge, graines d’ajowan), Sel, Farine de blé enrichie."
+          text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
@@ -538,11 +965,23 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "BBQ Grill",
-          text: "For best results and that smokey charcoal flavour, grill the kebabs on BBQ till the internal temperature reaches 74°C (165°F)."
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -551,23 +990,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils individuels peuvent varier ; ce ne sont que des lignes directrices."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
           label: "Barbecue",
-          text: "Pour de meilleurs résultats et une saveur fumée au charbon de bois, faites griller les kebabs au BBQ jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -575,6 +1026,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-344g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -597,6 +1138,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-business-centre-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -625,6 +1256,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -840,21 +1561,29 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal mutton, halal chicken, onion, water, spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, thai chilli, crushed chilli, red chilli powder & carom seeds), salt, wheat flour."
+          text: "Halal lamb, Wheat flour, Gram flour, Onion, Salt, Garlic, Ginger, Green chilli, Coriander, Fenugreek, Herbs and spices (red chilli, black pepper, cinnamon, cardamom seeds, cloves & cumin)."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
           label: "Ingrédients",
-          text: "Mouton halal, poulet halal, farine de blé, farine de pois chiche, oignon, sel, ail, gingembre, piment vert, coriandre, fenugrec, herbes et épices (piment rouge, poivre noir, cannelle, graines de cardamome, clous de girofle, cumin et gingembre sec)."
+          text: "Agneau halal, Farine de blé, Farine de pois chiches, Oignon, Sel, Ail, Gingembre, Piment vert, Coriandre, Fenugrec, Fines herbes et épices (piment rouge, poivre noir, cannelle, graines de cardamome, clous de girofle et cumin)."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir : Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -869,11 +1598,23 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "BBQ Grill",
-          text: "For best results and that smokey charcoal flavour, grill the kebabs on BBQ till the internal temperature reaches 74°C (165°F)."
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -882,23 +1623,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils individuels peuvent varier ; ce ne sont que des lignes directrices."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
           label: "Barbecue",
-          text: "Pour de meilleurs résultats et une saveur fumée au charbon de bois, faites griller les kebabs au BBQ jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -947,6 +1700,104 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "a1-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal lamb, Wheat flour, Gram flour, Onion, Salt, Garlic, Ginger, Green chilli, Coriander, Fenugreek, Herbs and spices (red chilli, black pepper, cinnamon, cardamom seeds, cloves & cumin)."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Agneau halal, Farine de blé, Farine de pois chiches, Oignon, Sel, Ail, Gingembre, Piment vert, Coriandre, Fenugrec, Fines herbes et épices (piment rouge, poivre noir, cannelle, graines de cardamome, clous de girofle et cumin)."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -1003,17 +1854,205 @@ const ALL_PRODUCTS: Product[] = [
     ],
     cataloguePage: null,
     ingredients: {
-      en: [],
-      fr: []
+      en: [
+        {
+          label: "Ingredients",
+          text: "Halal lamb, Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+        },
+        {
+          label: "Contains",
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
+        }
+      ],
+      fr: [
+        {
+          label: "Ingrédients",
+          text: "Agneau halal, Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+        },
+        {
+          label: "Contient",
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
+        }
+      ]
     },
     instructions: {
-      en: [],
-      fr: []
+      en: [
+        {
+          label: "Heating Instructions",
+          text: ""
+        },
+        {
+          text: "Individual appliances vary; these are guidelines only. Do not thaw."
+        },
+        {
+          label: "BBQ Grill",
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Storage Instructions",
+          text: "Store frozen below -18°C."
+        }
+      ],
+      fr: [
+        {
+          label: "Instructions de réchauffage",
+          text: ""
+        },
+        {
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+        },
+        {
+          label: "Barbecue",
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
+        }
+      ]
     },
     nutritionFacts: NFT.meatCharcoalKebab,
     packs: [
       {
         key: "8-pcs-344g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal lamb, Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Agneau halal, Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -1068,21 +2107,29 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal Chicken, Onion, Corn Flour, Gram Flour, Wheat Flour, Garlic, Ginger, Salt, Green Chilli, Coriander, Herbs and Spices (Red Chilli, Black Pepper, Cinnamon, Cardamom Seeds, Cloves, Cumin & Dry Ginger)."
+          text: "Halal chicken, Onion, Canola oil, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
           label: "Ingrédients",
-          text: "Poulet halal, oignon, farine de maïs, farine de pois chiche, farine de blé, ail, gingembre, sel, piment vert, coriandre, herbes et épices (piment rouge, poivre noir, cannelle, graine de cardamome, clous de girofle, cumin et gingembre sec)."
+          text: "Poulet halal, Oignon, Huile de canola, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir : Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -1097,11 +2144,23 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "BBQ Grill",
-          text: "For best results and that smokey charcoal flavour, grill the kebabs on BBQ till the internal temperature reaches 74°C (165°F)."
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -1110,23 +2169,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils individuels peuvent varier ; ce ne sont que des lignes directrices."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
           label: "Barbecue",
-          text: "Pour de meilleurs résultats et une saveur fumée au charbon de bois, faites griller les kebabs au BBQ jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -1134,6 +2205,104 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-344g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Canola oil, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Huile de canola, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -1187,7 +2356,7 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal Beef, Onion, Corn Flour, Gram Flour, Wheat Flour, Garlic, Ginger, Salt, Green Chilli, Coriander, Herbs and Spices (Red Chilli, Black Pepper, Cinnamon, Cardamom Seeds, Cloves, Cumin & Dry Ginger)."
+          text: "Halal beef, Onion, Canola oil, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
@@ -1197,7 +2366,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients",
-          text: "Bœuf halal, oignon, farine de maïs, farine de pois chiche, farine de blé, ail, gingembre, sel, piment vert, coriandre, herbes et épices (piment rouge, poivre noir, cannelle, graine de cardamome, clous de girofle, cumin et gingembre sec)."
+          text: "Bœuf halal, Oignon, Huile de canola, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
@@ -1216,11 +2385,23 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "BBQ Grill",
-          text: "For best results and that smokey charcoal flavour, grill the kebabs on BBQ till the internal temperature reaches 74°C (165°F)."
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -1229,23 +2410,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils individuels peuvent varier ; ce ne sont que des lignes directrices."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
           label: "Barbecue",
-          text: "Pour de meilleurs résultats et une saveur fumée au charbon de bois, faites griller les kebabs au BBQ jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -1253,6 +2446,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-344g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Canola oil, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder, & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Huile de canola, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -1495,21 +2778,29 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal chicken, Water, Onion, Spices (black pepper, cinnamon, green chili, red chili powder, crushed chili, cumin powder, cumin seeds, ginger powder, garlic powder, cardamom seeds, carom seeds, cloves, turmeric, coriander powder, fenugreek), Enriched wheat flour, Whole coriander, Salt."
+          text: "Halal chicken, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
           label: "Ingrédients",
-          text: "Poulet halal, Eau, Oignon, Épices (poivre noir, cannelle, piment vert, poudre de piment rouge, piment broyé, poudre de cumin, graines de cumin, poudre de gingembre, poudre d’ail, graines de cardamome, graines d’ajowan, clous de girofle, curcuma, poudre de coriandre, fenugrec), Farine de blé enrichie, Coriandre entière, Sel."
+          text: "Poulet halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, coriandre moulue, cumin moulu, graines de cumin, fenugrec, gingembre moulu, ail en poudre, curcuma, piment vert, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -1520,14 +2811,27 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Keep frozen. Must be cooked thoroughly. Do not thaw. Product must be cooked to an internal temperature of 165°F (74°C) as measured by a meat thermometer."
+          text: "Individual appliances vary; these are guidelines only. Do not thaw."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "BBQ Grill",
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          text: "These instructions are guidelines only. Individual appliances vary."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -1536,22 +2840,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Garder congelé. Doit être bien cuit. Ne pas décongeler. Le produit doit être cuit jusqu’à une température interne de 165°F (74°C), mesurée à l’aide d’un thermomètre à viande."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Barbecue",
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          text: "Ces instructions sont fournies à titre indicatif seulement. Les appareils varient."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -1559,6 +2876,104 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-400g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, coriandre moulue, cumin moulu, graines de cumin, fenugrec, gingembre moulu, ail en poudre, curcuma, piment vert, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -1581,6 +2996,104 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, coriandre moulue, cumin moulu, graines de cumin, fenugrec, gingembre moulu, ail en poudre, curcuma, piment vert, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -1608,6 +3121,104 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-20-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, coriandre moulue, cumin moulu, graines de cumin, fenugrec, gingembre moulu, ail en poudre, curcuma, piment vert, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
@@ -1670,7 +3281,7 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal beef, Water, Onion, Spices (black pepper, cinnamon, green chili, red chili powder, crushed chili, cumin powder, cumin seeds, ginger powder, garlic powder, cardamom seeds, carom seeds, cloves, turmeric, coriander powder, fenugreek), Enriched wheat flour, Whole coriander, Salt."
+          text: "Halal beef, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder & carom seeds), Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
@@ -1680,7 +3291,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients",
-          text: "Bœuf halal, Eau, Oignon, Épices (poivre noir, cannelle, piment vert, poudre de piment rouge, piment broyé, poudre de cumin, graines de cumin, poudre de gingembre, poudre d’ail, graines de cardamome, graines d’ajowan, clous de girofle, curcuma, poudre de coriandre, fenugrec), Farine de blé enrichie, Coriandre entière, Sel."
+          text: "Bœuf halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
@@ -1695,14 +3306,27 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Keep frozen. Must be cooked thoroughly. Do not thaw. Product must be cooked to an internal temperature of 165°F (74°C) as measured by a meat thermometer."
+          text: "Individual appliances vary; these are guidelines only. Do not thaw."
         },
         {
-          label: "Microwave",
-          text: "Alternatively reheat in microwave (1000 watts) for 2-3 minutes."
+          label: "BBQ Grill",
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          text: "These instructions are guidelines only. Individual appliances vary."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -1711,22 +3335,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Garder congelé. Doit être bien cuit. Ne pas décongeler. Le produit doit être cuit jusqu’à une température interne de 165°F (74°C), mesurée à l’aide d’un thermomètre à viande."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
-          label: "Micro-ondes",
-          text: "Vous pouvez aussi réchauffer au micro-ondes (1 000 W) pendant 2 à 3 minutes."
+          label: "Barbecue",
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          text: "Ces instructions sont fournies à titre indicatif seulement. Les appareils varient."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -1734,6 +3371,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "8-pcs-400g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "8 pieces",
           fr: "8 morceaux"
@@ -1756,6 +3483,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-40-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Onion, Canola oil, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder & carom seeds), Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Oignon, Huile de canola, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, gingembre en poudre, ail en poudre, curcuma, piment vert, piment broyé, piment rouge en poudre et graines de carambole), Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -1945,21 +3762,29 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal chicken, Yellow spilt peas, Water, Onion, Fresh parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder & carom seeds), Whole coriander, Salt, Enriched wheat flour."
+          text: "Halal chicken, Water, Onion, Green chili, Dried parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
           label: "Ingrédients",
-          text: "Poulet halal, Pois cassés jaunes, Eau, Oignon, Persil frais, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge & graines d’ajowan), Coriandre entière, Sel, Farine de blé enrichie."
+          text: "Poulet halal, Eau, Oignon, Piment vert, Persil séché, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir : Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -1970,15 +3795,27 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Individual appliances vary; these are guidelines only. Keep frozen. Do not thaw."
+          text: "Individual appliances vary; these are guidelines only. Do not thaw."
         },
         {
-          label: "BBQ/Grill",
-          text: "Preheat to medium-high (450°F / 230°C). Oil the grates. Grill frozen kebabs, turning occasionally, until the internal temperature reaches 165°F (74°C)—about 6-8 minutes."
+          label: "BBQ Grill",
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave (1000 W)",
-          text: "Place 1-2 frozen kebabs on a microwave-safe plate and cover loosely. Heat on HIGH for 2-3 minutes, or until the internal temperature reaches 165°F (74°C). Let stand 1 minute before serving."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -1987,26 +3824,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils varient; ces indications sont fournies à titre indicatif seulement."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
-          text: "Garder congelé. Ne pas décongeler."
+          label: "Barbecue",
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "BBQ/Gril",
-          text: "Préchauffer à intensité moyenne-élevée (450 °F / 230 °C). Huiler les grilles. Faire griller les kebabs congelés en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 165 °F (74 °C) — environ 6 à 8 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes (1 000 W)",
-          text: "Déposer 1 à 2 kebabs congelés sur une assiette allant au micro-ondes et couvrir légèrement. Chauffer à puissance ÉLEVÉE pendant 2 à 3 minutes, ou jusqu’à ce que la température interne atteigne 165 °F (74 °C). Laisser reposer 1 minute avant de servir."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2014,6 +3860,104 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "10-pcs-400g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal chicken, Water, Onion, Green chili, Dried parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, crushed chili, red chili powder, carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Poulet halal, Eau, Oignon, Piment vert, Persil séché, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
@@ -2065,7 +4009,7 @@ const ALL_PRODUCTS: Product[] = [
       en: [
         {
           label: "Ingredients",
-          text: "Halal beef, Yellow spilt peas, Water, Onion, Fresh parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder & carom seeds), Whole coriander, Salt, Enriched wheat flour."
+          text: "Halal beef, Water, Onion, Green chili, Dried parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, crushed chili, red chili powder & carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
         },
         {
           label: "Contains",
@@ -2075,7 +4019,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients",
-          text: "Bœuf halal, Pois cassés jaunes, Eau, Oignon, Persil frais, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge & graines d’ajowan), Coriandre entière, Sel, Farine de blé enrichie."
+          text: "Bœuf halal, Eau, Oignon, Piment vert, Persil séché, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
         },
         {
           label: "Contient",
@@ -2090,15 +4034,27 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Individual appliances vary; these are guidelines only. Keep frozen. Do not thaw."
+          text: "Individual appliances vary; these are guidelines only. Do not thaw."
         },
         {
-          label: "BBQ/Grill",
-          text: "Preheat to medium-high (450°F / 230°C). Oil the grates. Grill frozen kebabs, turning occasionally, until the internal temperature reaches 165°F (74°C)—about 6-8 minutes."
+          label: "BBQ Grill",
+          text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
         },
         {
-          label: "Microwave (1000 W)",
-          text: "Place 1-2 frozen kebabs on a microwave-safe plate and cover loosely. Heat on HIGH for 2-3 minutes, or until the internal temperature reaches 165°F (74°C). Let stand 1 minute before serving."
+          label: "Frying Pan / Flat Top",
+          text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Oven",
+          text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Microwave (1000W)",
+          text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
         },
         {
           label: "Storage Instructions",
@@ -2107,26 +4063,35 @@ const ALL_PRODUCTS: Product[] = [
       ],
       fr: [
         {
-          label: "Instructions de chauffage",
+          label: "Instructions de réchauffage",
           text: ""
         },
         {
-          text: "Les appareils varient; ces indications sont fournies à titre indicatif seulement."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
         },
         {
-          text: "Garder congelé. Ne pas décongeler."
+          label: "Barbecue",
+          text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "BBQ/Gril",
-          text: "Préchauffer à intensité moyenne-élevée (450 °F / 230 °C). Huiler les grilles. Faire griller les kebabs congelés en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 165 °F (74 °C) — environ 6 à 8 minutes."
+          label: "Poêle / plaque chauffante",
+          text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Micro-ondes (1 000 W)",
-          text: "Déposer 1 à 2 kebabs congelés sur une assiette allant au micro-ondes et couvrir légèrement. Chauffer à puissance ÉLEVÉE pendant 2 à 3 minutes, ou jusqu’à ce que la température interne atteigne 165 °F (74 °C). Laisser reposer 1 minute avant de servir."
+          label: "Four",
+          text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Micro-ondes (1000 W)",
+          text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2174,6 +4139,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "10-pcs-400g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Halal beef, Water, Onion, Green chili, Dried parsley, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, crushed chili, red chili powder & carom seeds), Whole coriander, Salt, Corn flour, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Bœuf halal, Eau, Oignon, Piment vert, Persil séché, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment broyé, poudre de piment rouge, graines de carambole), Coriandre entière, Sel, Farine de maïs, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Heating Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only. Do not thaw."
+            },
+            {
+              label: "BBQ Grill",
+              text: "Preheat grill to medium heat. Place frozen kebabs directly on the grill. Turn every 2-3 minutes. Heat for 8-12 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Frying Pan / Flat Top",
+              text: "Lightly oil the pan and heat it over medium heat. Add frozen kebabs and cover with the lid. Heat 6-8 minutes, turning occasionally, until internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Oven",
+              text: "Preheat oven to 375°F (190°C). Place frozen kebabs on a lined tray without stacking. Heat for 12-15 minutes, flipping halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Microwave (1000W)",
+              text: "Place frozen kebabs in a microwave-safe container with a lid. Heat for 2-3 minutes until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Preheat air fryer to 375°F (190°C). Place frozen kebabs in a single layer. Heat for 6-8 minutes, shaking halfway through, until the internal temperature reaches 74°C (165°F)."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de réchauffage",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide. Ne pas décongeler."
+            },
+            {
+              label: "Barbecue",
+              text: "Préchauffer le gril à feu moyen. Déposer les kebabs congelés directement sur le gril. Retourner toutes les 2 à 3 minutes. Réchauffer de 8 à 12 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Poêle / plaque chauffante",
+              text: "Huiler légèrement la poêle et la chauffer à feu moyen. Ajouter les kebabs congelés et couvrir. Réchauffer de 6 à 8 minutes en les retournant de temps à autre, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Four",
+              text: "Préchauffer le four à 375 °F (190 °C). Déposer les kebabs congelés sur une plaque tapissée, sans les superposer. Réchauffer de 12 à 15 minutes en les retournant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Micro-ondes (1000 W)",
+              text: "Déposer les kebabs congelés dans un contenant allant au micro-ondes, avec couvercle. Réchauffer de 2 à 3 minutes, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Préchauffer la friteuse à air à 375 °F (190 °C). Déposer les kebabs congelés en une seule couche. Réchauffer de 6 à 8 minutes en secouant à mi-cuisson, jusqu’à ce que la température interne atteigne 74 °C (165 °F)."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
@@ -2225,30 +4280,38 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+          label: "Filling Ingredients",
+          text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
-          label: "Ingrédients de la pâte",
+          label: "Ingrédients",
           text: "Farine de blé, Eau, Huile de tournesol, Sel."
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+          text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -2259,7 +4322,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -2272,11 +4347,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2284,6 +4371,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "10-pcs-300g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
@@ -2306,6 +4483,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "20-pcs-600g",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
@@ -2327,6 +4594,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2348,6 +4705,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-50-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "50 pieces",
           fr: "50 morceaux"
@@ -2375,6 +4822,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "costco-business-centre-100-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "100 pieces",
           fr: "100 morceaux"
@@ -2403,6 +4940,96 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-50-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chilli, crushed chilli, red chilli powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "50 pieces",
           fr: "50 morceaux"
@@ -2457,12 +5084,12 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Pastry Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal Beef, Onion, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, red chili powder), Salt, Wheat flour."
+          label: "Filling Ingredients",
+          text: "Halal beef, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
         },
         {
           label: "Contains",
@@ -2476,7 +5103,7 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Bœuf halal, Oignon, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, poudre de piment rouge), Sel, Farine de blé."
+          text: "Bœuf halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
         },
         {
           label: "Contient",
@@ -2491,7 +5118,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -2504,11 +5143,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2557,6 +5208,88 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "10-pcs-300g",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal beef, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Bœuf halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "10 pieces",
           fr: "10 morceaux"
@@ -2579,6 +5312,88 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "20-pcs-600g",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal beef, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Bœuf halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "20 pieces",
           fr: "20 morceaux"
@@ -2600,6 +5415,88 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal beef, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Bœuf halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2621,6 +5518,88 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-50-pcs",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal beef, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Bœuf halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "50 pieces",
           fr: "50 morceaux"
@@ -2676,16 +5655,20 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Pastry Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal chicken, Onion, Salt, Green Chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tandoori masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+          label: "Filling Ingredients",
+          text: "Halal chicken, Onion, Salt, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tandoori masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
@@ -2699,7 +5682,11 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -2710,7 +5697,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -2723,11 +5722,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2776,6 +5787,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Salt, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tandoori masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Sel, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Assaisonnement tandoori masala [paprika, sel, cumin, poudre de coriandre, poudre d’ail, poudre d’oignon, poudre de gingembre, poivre noir, poudre de piment, sucre, clou de girofle, cannelle, cardamome, acide citrique, fenouil, poudre de moutarde, fenugrec, muscade, couleur (moutarde)], Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2825,16 +5926,20 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Pastry Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal chicken, Onion, Salt, Green Chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tandoori masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+          label: "Filling Ingredients",
+          text: "Halal chicken, Onion, Salt, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tikka masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
@@ -2844,11 +5949,15 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Poulet halal, Oignon, Sel, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Assaisonnement tandoori masala [paprika, sel, cumin, poudre de coriandre, poudre d’ail, poudre d’oignon, poudre de gingembre, poivre noir, poudre de piment, sucre, clou de girofle, cannelle, cardamome, acide citrique, fenouil, poudre de moutarde, fenugrec, muscade, couleur (moutarde)], Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+          text: "Poulet halal, Oignon, Sel, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Assaisonnement tikka masala [paprika, sel, cumin, poudre de coriandre, poudre d’ail, poudre d’oignon, poudre de gingembre, poivre noir, poudre de piment, sucre, clou de girofle, cannelle, cardamome, acide citrique, fenouil, poudre de moutarde, fenugrec, muscade, couleur (moutarde)], Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -2859,7 +5968,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -2872,11 +5993,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -2925,6 +6058,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Salt, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Tikka masala seasoning [paprika, salt, cumin, coriander powder, garlic powder, onion powder, ginger powder, black pepper, chili powder, sugar, clove, cinnamon, cardamom, citric acid, fennel, mustard powder, fenugreek, nutmeg, colour (mustard)], Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Sel, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Assaisonnement tikka masala [paprika, sel, cumin, poudre de coriandre, poudre d’ail, poudre d’oignon, poudre de gingembre, poivre noir, poudre de piment, sucre, clou de girofle, cannelle, cardamome, acide citrique, fenouil, poudre de moutarde, fenugrec, muscade, couleur (moutarde)], Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -2976,30 +6199,38 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal Mutton, Onion, Potato, Pea, Salt, Coriander, Cumin, Herbs and Spices (Red Chilli, Fenugreek, Cinnamon, Turmeric, Black Pepper, Bay Leaf, Cardamom, Nutmeg, Cloves, Star Aniseed)."
+          label: "Filling Ingredients",
+          text: "Halal lamb, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
-          label: "Ingrédients de la pâte",
+          label: "Ingrédients",
           text: "Farine de blé, Eau, Huile de tournesol, Sel."
         },
         {
           label: "Ingrédients de la garniture",
-          text: "mouton halal, oignon, pomme de terre, pois, sel, coriandre, cumin, herbes et épices (piment rouge, fenugrec, cannelle, curcuma, poivre noir, feuille de laurier, cardamome, muscade, clous de girofle, anis étoilé)."
+          text: "Mouton halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -3010,7 +6241,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3023,11 +6266,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3076,6 +6331,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal lamb, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Mouton halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3124,11 +6469,11 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
-          text: "Wheat flour, Water, Sunflower oil, Salt."
+          label: "Pastry Ingredients",
+          text: "Wheat flour, Water, Sunflower oil, & Salt."
         },
         {
-          label: "Filling ingredients",
+          label: "Filling Ingredients",
           text: "Potato, Peas, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, red chili powder), Salt, Wheat flour."
         },
         {
@@ -3139,7 +6484,7 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients de la pâte",
-          text: "Farine de blé, Eau, Huile de tournesol, Sel."
+          text: "Farine de blé, Eau, Huile de tournesol et Sel."
         },
         {
           label: "Ingrédients de la garniture",
@@ -3158,7 +6503,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3171,11 +6528,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3223,6 +6592,88 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, & Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Potato, Peas, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, red chili powder), Salt, Wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol et Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Pomme de terre, Pois, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, poudre de piment rouge), Sel, Farine de blé."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Samosas on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen samosas for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the samosas. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each samosa, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les samosas sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les samosas 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3272,16 +6723,20 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Pastry Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal chicken, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Garam masala (spices), Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+          label: "Filling Ingredients",
+          text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
@@ -3291,11 +6746,15 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Poulet halal, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Garam masala (épices), Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+          text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -3306,7 +6765,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3319,11 +6790,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3331,6 +6814,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal chicken, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Poulet halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3380,12 +6953,12 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Pastry Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal beef, Onion, Salt, Green chili, Red chili powder, Whole cumin, Spices, Crushed chili, Whole coriander, Garlic powder."
+          label: "Filling Ingredients",
+          text: "Halal beef, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Garam masala (spices), Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
         },
         {
           label: "Contains",
@@ -3399,11 +6972,15 @@ const ALL_PRODUCTS: Product[] = [
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Bœuf halal, Oignon, Sel, Piment vert, Poudre de piment rouge, Cumin entier, Épices, Piment broyé, Coriandre entière, Poudre d’ail."
+          text: "Bœuf halal, Piment vert, Piment rouge en poudre, Cumin entier, Piment concassé, Coriandre entière, Garam masala (épices), Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
         },
         {
           label: "Contient",
           text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -3414,7 +6991,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3427,11 +7016,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3439,6 +7040,92 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal beef, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Garam masala (spices), Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Bœuf halal, Piment vert, Piment rouge en poudre, Cumin entier, Piment concassé, Coriandre entière, Garam masala (épices), Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3490,30 +7177,38 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
+          label: "Ingredients",
           text: "Wheat flour, Water, Sunflower oil, Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Halal Mutton, Halal chicken, Green chili, Red chili powder, Whole cumin, Crushed chili, Whole coriander, Garam masala (spices), Fenugreek, Garlic powder, Coriander powder, Cumin powder, Ginger powder."
+          label: "Filling Ingredients",
+          text: "Halal lamb, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
         },
         {
           label: "Contains",
-          text: "Wheat. May contain: Egg."
+          text: "Wheat."
+        },
+        {
+          label: "May contain",
+          text: "Egg."
         }
       ],
       fr: [
         {
-          label: "Ingrédients de la pâte",
+          label: "Ingrédients",
           text: "Farine de blé, Eau, Huile de tournesol, Sel."
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Agneau halal, Poulet halal, Piment vert, Poudre de piment rouge, Cumin entier, Piment broyé, Coriandre entière, Garam masala (épices), Fenugrec, Poudre d’ail, Poudre de coriandre, Poudre de cumin, Poudre de gingembre."
+          text: "Mouton halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
         },
         {
           label: "Contient",
-          text: "Blé. Peut contenir: Œuf."
+          text: "Blé."
+        },
+        {
+          label: "Peut contenir",
+          text: "Œuf."
         }
       ]
     },
@@ -3524,7 +7219,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3537,11 +7244,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3590,6 +7309,96 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Halal lamb, Onion, Water, Whole coriander, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, crushed chili, red chili powder), Salt, Enriched wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            },
+            {
+              label: "May contain",
+              text: "Egg."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients",
+              text: "Farine de blé, Eau, Huile de tournesol, Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Mouton halal, Oignon, Eau, Coriandre entière, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, piment broyé, poudre de piment rouge), Sel, Farine de blé enrichie."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            },
+            {
+              label: "Peut contenir",
+              text: "Œuf."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
@@ -3638,12 +7447,12 @@ const ALL_PRODUCTS: Product[] = [
     ingredients: {
       en: [
         {
-          label: "Pastry ingredients",
-          text: "Wheat flour, Water, Sunflower oil, Salt."
+          label: "Pastry Ingredients",
+          text: "Wheat flour, Water, Sunflower oil, & Salt."
         },
         {
-          label: "Filling ingredients",
-          text: "Potato, Carrot, Pea, Cut bean, Broad bean, Sweet corn, Salt, Coriander, Cumin, Vegetable oil, Herbs and spices (red chilli, fenugreek, cinnamon, black pepper, bay leaf, cardamom, nutmeg, cloves, star aniseed)."
+          label: "Filling Ingredients",
+          text: "Potato, Peas, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, red chili powder), Salt, Wheat flour."
         },
         {
           label: "Contains",
@@ -3653,11 +7462,11 @@ const ALL_PRODUCTS: Product[] = [
       fr: [
         {
           label: "Ingrédients de la pâte",
-          text: "Farine de blé, Eau, Huile de tournesol, Sel."
+          text: "Farine de blé, Eau, Huile de tournesol et Sel."
         },
         {
           label: "Ingrédients de la garniture",
-          text: "Pomme de terre, Carotte, Pois, Haricots coupés, Fèves, Maïs sucré, Sel, Coriandre, Cumin, Huile végétale, Herbes et épices (piment rouge, fenugrec, cannelle, poivre noir, feuille de laurier, cardamome, muscade, clous de girofle, anis étoilé)."
+          text: "Pomme de terre, Pois, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, poudre de piment rouge), Sel, Farine de blé."
         },
         {
           label: "Contient",
@@ -3672,7 +7481,19 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Fry from frozen. Deep fry in hot oil at 180°C (356°F) for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+          text: "Individual appliances vary; these are guidelines only."
+        },
+        {
+          label: "Baked",
+          text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+        },
+        {
+          label: "Fried",
+          text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+        },
+        {
+          label: "Air Fryer",
+          text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
         },
         {
           label: "Storage Instructions",
@@ -3685,11 +7506,23 @@ const ALL_PRODUCTS: Product[] = [
           text: ""
         },
         {
-          text: "Faites frire directement depuis l’état congelé. Faites frire dans de l’huile chaude à 180°C (356°F) pendant 6 à 8 minutes jusqu’à ce qu’ils soient dorés. Cuisez à une température interne minimale de 165°F (74°C)."
+          text: "Les appareils varient; ces instructions ne sont qu’un guide."
         },
         {
-          label: "Instructions de stockage",
-          text: "Conservez congelé en dessous de -18°C."
+          label: "Au four",
+          text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+        },
+        {
+          label: "Friture",
+          text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+        },
+        {
+          label: "Friteuse à air",
+          text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+        },
+        {
+          label: "Conservation",
+          text: "Conserver congelé à moins de -18 °C."
         }
       ]
     },
@@ -3737,6 +7570,88 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "40-pcs-1-2kg",
+        ingredients: {
+          en: [
+            {
+              label: "Pastry Ingredients",
+              text: "Wheat flour, Water, Sunflower oil, & Salt."
+            },
+            {
+              label: "Filling Ingredients",
+              text: "Potato, Peas, Water, Spices (black pepper, cinnamon, cardamom seeds, cloves, coriander powder, cumin powder, cumin seeds, fenugreek, ginger powder, garlic powder, turmeric, green chili, red chili powder), Salt, Wheat flour."
+            },
+            {
+              label: "Contains",
+              text: "Wheat."
+            }
+          ],
+          fr: [
+            {
+              label: "Ingrédients de la pâte",
+              text: "Farine de blé, Eau, Huile de tournesol et Sel."
+            },
+            {
+              label: "Ingrédients de la garniture",
+              text: "Pomme de terre, Pois, Eau, Épices (poivre noir, cannelle, graines de cardamome, clous de girofle, poudre de coriandre, poudre de cumin, graines de cumin, fenugrec, poudre de gingembre, poudre d’ail, curcuma, piment vert, poudre de piment rouge), Sel, Farine de blé."
+            },
+            {
+              label: "Contient",
+              text: "Blé."
+            }
+          ]
+        },
+        instructions: {
+          en: [
+            {
+              label: "Cooking Instructions",
+              text: ""
+            },
+            {
+              text: "Individual appliances vary; these are guidelines only."
+            },
+            {
+              label: "Baked",
+              text: "Preheat oven to 350°F (175°C). Arrange Spring Rolls on a baking sheet, brush with oil on both sides. Bake on the middle rack for 20-25 minutes, turning occasionally. If needed, reduce heat to 325°F (160°C) to avoid burning. Let them stand for 5 minutes before serving. Ensure an internal temperature of 165°F (74°C) is reached."
+            },
+            {
+              label: "Fried",
+              text: "Fry from frozen. Deep fry in hot oil at 180°C for 6-8 minutes until golden brown. Cook to a minimum internal temperature of 165°F (74°C)."
+            },
+            {
+              label: "Air Fryer",
+              text: "Thaw the frozen spring rolls for 15 minutes at room temperature. Preheat the air fryer to 350°F (175°C). Lightly oil both sides of the spring rolls. Arrange them in the basket with space between each. Air fry at 350°F (175°C) for 10 minutes. Flip each spring roll, then air fry for an extra 10-12 minutes. Ensure the internal temperature reaches 165°F (74°C) before serving."
+            },
+            {
+              label: "Storage Instructions",
+              text: "Store frozen below -18°C."
+            }
+          ],
+          fr: [
+            {
+              label: "Instructions de cuisson",
+              text: ""
+            },
+            {
+              text: "Les appareils varient; ces instructions ne sont qu’un guide."
+            },
+            {
+              label: "Au four",
+              text: "Préchauffer le four à 350 °F (175 °C). Disposer les rouleaux impériaux sur une plaque de cuisson et les badigeonner d’huile des deux côtés. Cuire sur la grille du milieu de 20 à 25 minutes en les retournant de temps à autre. Au besoin, réduire la chaleur à 325 °F (160 °C) pour éviter qu’ils ne brûlent. Laisser reposer 5 minutes avant de servir. S’assurer que la température interne atteint 165 °F (74 °C)."
+            },
+            {
+              label: "Friture",
+              text: "Frire sans décongeler. Faire frire dans l’huile chaude à 180 °C de 6 à 8 minutes, jusqu’à ce qu’ils soient dorés. Cuire jusqu’à une température interne minimale de 165 °F (74 °C)."
+            },
+            {
+              label: "Friteuse à air",
+              text: "Laisser décongeler les rouleaux impériaux 15 minutes à température ambiante. Préchauffer la friteuse à air à 350 °F (175 °C). Huiler légèrement les deux côtés. Les disposer dans le panier en les espaçant. Cuire à 350 °F (175 °C) pendant 10 minutes. Les retourner, puis cuire encore de 10 à 12 minutes. S’assurer que la température interne atteint 165 °F (74 °C) avant de servir."
+            },
+            {
+              label: "Conservation",
+              text: "Conserver congelé à moins de -18 °C."
+            }
+          ]
+        },
         title: {
           en: "40 pieces",
           fr: "40 morceaux"
