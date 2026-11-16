@@ -332,7 +332,7 @@ export default function FoodServicePage({ navigate }: { navigate: (path: string)
               return (
                 <button
                   key={`${p.id}-${pk.key}`}
-                  onClick={() => navigate(`/products/${p.slug}`)}
+                  onClick={() => navigate(`/products/${p.slug}/${pk.key}`)}
                   className="group relative flex flex-col items-center text-center bg-white rounded-3xl border border-gray-100 shadow-sm p-4 hover:shadow-lg transition-shadow"
                 >
                   <span className="absolute top-3 left-3 z-10 bg-brand-blue-deep text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">

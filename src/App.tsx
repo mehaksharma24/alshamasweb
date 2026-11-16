@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage';
 import OurStoryPage from './pages/OurStoryPage';
 import ProductsPage from './pages/ProductsPage';
 import ProductCategoryPage from './pages/ProductCategoryPage';
+import PackDetailPage from './pages/PackDetailPage';
 import FoodServicePage from './pages/FoodServicePage';
 import PrivateLabelPage from './pages/PrivateLabelPage';
 import ProductDetailPage from './pages/ProductDetailPage';
@@ -50,6 +51,10 @@ export default function App() {
     if (path === '/about-us' || path === '/our-story') return <OurStoryPage navigate={navigate} />;
     if (path === '/products') return <ProductsPage navigate={navigate} />;
     if (path.startsWith('/products/category/')) return <ProductCategoryPage slug={path.replace('/products/category/', '')} navigate={navigate} />;
+    if (path.startsWith('/products/') && path.split('/').length === 4) {
+      const [, , slug, packKey] = path.split('/');
+      return <PackDetailPage slug={slug} packKey={packKey} navigate={navigate} />;
+    }
     if (path.startsWith('/products/')) return <ProductDetailPage slug={path.replace('/products/', '')} navigate={navigate} />;
     if (path === '/food-service') return <FoodServicePage navigate={navigate} />;
     if (path === '/private-label') return <PrivateLabelPage navigate={navigate} />;
