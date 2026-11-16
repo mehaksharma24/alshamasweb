@@ -110,11 +110,6 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
           </div>
 
           <div className="lg:pt-6">
-            {pack.foodService && (
-              <span className="inline-block bg-brand-blue-deep text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3">
-                {t('Food Service', 'Restauration')}
-              </span>
-            )}
             <p className="text-brand-orange-deep text-xs font-bold uppercase tracking-widest mb-2">{categoryLabel(category, lang)}</p>
             <h1 className="font-heading text-4xl sm:text-5xl font-bold text-[#2b1410] tracking-tight mb-2">{name}</h1>
             <p className="text-brand-red font-bold text-2xl mb-1">{packLabel(pack, lang)}</p>

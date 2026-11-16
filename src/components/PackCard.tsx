@@ -73,11 +73,6 @@ export default function PackCard({
   const alt = `${name} — ${packLabel(pack, lang)}`;
   const body = (
     <>
-      {pack.foodService && (
-        <span className="absolute top-3 left-3 z-10 bg-brand-blue-deep text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">
-          {t('Food Service', 'Restauration')}
-        </span>
-      )}
       <div className={`aspect-[4/3] w-full rounded-2xl overflow-hidden bg-gray-50 flex items-center justify-center ${compact ? 'mb-3' : 'mb-4'}`}>
         {onOpen ? (
           <img src={pack.image} alt={alt} loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />

@@ -335,9 +335,6 @@ export default function FoodServicePage({ navigate }: { navigate: (path: string)
                   onClick={() => navigate(`/products/${p.slug}/${pk.key}`)}
                   className="group relative flex flex-col items-center text-center bg-white rounded-3xl border border-gray-100 shadow-sm p-4 hover:shadow-lg transition-shadow"
                 >
-                  <span className="absolute top-3 left-3 z-10 bg-brand-blue-deep text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full">
-                    {t('Food Service', 'Restauration')}
-                  </span>
                   <div className="w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
                     <img src={pk.image} alt={p.name[lang]} loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
