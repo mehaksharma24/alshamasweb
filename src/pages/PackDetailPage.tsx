@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react';
 import { ArrowLeft, MapPin } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import PackCard, { PackStores, packLabel } from '../components/PackCard';
+import { PackStores, packLabel } from '../components/PackCard';
 import ProductInfo from '../components/ProductInfo';
 import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, categoryLabel, findProduct } from '../data';
@@ -18,8 +17,6 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
   const { lang, t } = useLang();
   const product = findProduct(slug);
   const pack = product?.packs.find(p => p.key === packKey);
-  const [active, setActive] = useState(0);
-  useEffect(() => setActive(0), [slug, packKey]);
 
   if (!product || !pack) {
     return (
@@ -36,18 +33,6 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
 
   const name = product.name[lang];
   const category = PRODUCT_CATEGORIES.find(c => c.name === product.category);
-  const images = [
-    { src: pack.image, label: t('Pack', 'Emballage') },
-    ...(pack.panels
-      ? [
-          { src: pack.panels.ingredients, label: t('Ingredients', 'Ingrédients') },
-          { src: pack.panels.nutrition, label: t('Nutrition Facts', 'Valeur nutritive') },
-          { src: pack.panels.instructions, label: t('Instructions', 'Instructions') },
-        ]
-      : []),
-  ];
-  const current = images[Math.min(active, images.length - 1)];
-  const otherPacks = product.packs.filter(p => p.key !== pack.key);
   const store = pack.stores?.[0];
   const soldAt = !store
     ? t('Al-Shamas retail pack — available at grocery stores', 'Format de détail Al-Shamas — offert en épicerie')
@@ -87,24 +72,32 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
           <div>
             <div className="relative aspect-[4/3] rounded-3xl bg-gray-50 border border-gray-100 overflow-hidden flex items-center justify-center p-4">
-              <ZoomableImage key={current.src} src={current.src} alt={`${name} — ${current.label}`} className="max-w-full max-h-full object-contain" />
+              <ZoomableImage key={pack.image} src={pack.image} alt={`${name} — ${packLabel(pack, lang)}`} className="max-w-full max-h-full object-contain" />
             </div>
-            {images.length > 1 && (
-              <div className="grid grid-cols-4 gap-3 mt-3">
-                {images.map((img, i) => (
-                  <button
-                    key={img.src}
-                    onClick={() => setActive(i)}
-                    aria-label={img.label}
-                    aria-pressed={i === active}
-                    className={`flex flex-col items-center gap-1 rounded-xl p-1.5 border-2 transition-colors ${i === active ? 'border-brand-orange-deep bg-brand-orange-soft/20' : 'border-transparent hover:border-gray-200'}`}
-                  >
-                    <span className="w-full aspect-square rounded-lg bg-white overflow-hidden border border-gray-100">
-                      <img src={img.src} alt="" loading="lazy" className={`w-full h-full ${i === 0 ? 'object-contain' : 'object-cover object-top'}`} />
-                    </span>
-                    <span className="text-[11px] text-gray-600 leading-tight">{img.label}</span>
-                  </button>
-                ))}
+            {/* Other pack sizes of this product (current one highlighted) */}
+            {product.packs.length > 1 && (
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-3 mt-3">
+                {product.packs.map(p => {
+                  const on = p.key === pack.key;
+                  return (
+                    <button
+                      key={p.key}
+                      onClick={() => !on && navigate(`/products/${product.slug}/${p.key}`)}
+                      aria-current={on ? 'page' : undefined}
+                      className={`flex flex-col items-center gap-1 rounded-xl p-1.5 border-2 transition-colors ${on ? 'border-brand-orange-deep bg-brand-orange-soft/20' : 'border-transparent hover:border-gray-200'}`}
+                    >
+                      <span className="w-full aspect-square rounded-lg bg-white overflow-hidden border border-gray-100 flex items-center justify-center">
+                        <img src={p.image} alt="" loading="lazy" className="w-full h-full object-contain" />
+                      </span>
+                      <span className="text-[11px] text-gray-700 font-semibold leading-tight">{packLabel(p, lang)}</span>
+                      {p.stores?.[0] && (
+                        <span className="text-[10px] text-gray-500 leading-tight">
+                          {p.stores[0].name === 'Costco Business Centre' ? t('Costco Business Centre', 'Centre d’affaires Costco') : p.stores[0].name}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -153,22 +146,6 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
 
       {/* Same Nutrition / Ingredients / Preparation section as the product page */}
       <ProductInfo product={product} pack={pack} />
-
-      {/* Other pack sizes of this product */}
-      {otherPacks.length > 0 && (
-        <section className="py-12 bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-heading text-2xl font-bold text-gray-900 mb-6 text-center">
-              {t('Other Pack Sizes', 'Autres formats')}
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-              {otherPacks.map(p => (
-                <PackCard key={p.key} product={product} pack={p} compact onOpen={() => navigate(`/products/${product.slug}/${p.key}`)} />
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
 
       <NewsletterBanner />
     </div>
