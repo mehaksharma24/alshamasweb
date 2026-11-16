@@ -41,7 +41,7 @@ export default function HomeHeroSlider({ navigate }: { navigate: (path: string) 
         ))}
 
         {/* Text card */}
-        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center pt-6 pb-16">
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center pt-16 pb-10">
           <div className="w-full max-w-[460px] rounded-[28px] bg-white/80 backdrop-blur-[2px] shadow-lg px-7 py-7 sm:px-8 sm:py-8">
             <h1 className="font-heading font-bold text-[#1a1a1a] leading-[1.02] text-[38px] sm:text-[46px] tracking-tight">
               {lang === 'fr' ? (
