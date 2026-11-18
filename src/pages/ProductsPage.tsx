@@ -32,7 +32,7 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
             {[
               ...PRODUCT_CATEGORIES.map(c => ({ key: c.slug, path: `/products/category/${c.slug}`, title: categoryLabel(c, lang), tagline: c.tagline[lang], image: c.image })),
               { key: 'food-service', path: '/food-service', title: t('Food Service', 'Restauration'), tagline: t('Larger formats for restaurants & distributors', 'Grands formats pour restaurants et distributeurs'), image: '/images/packs/chicken-charcoal-kebab/costco-business-centre-40-pcs.webp' },
-              { key: 'private-label', path: '/private-label', title: t('Private Label', 'Marque privée'), tagline: t('Our halal products, packed under your brand', 'Nos produits halal, emballés sous votre marque'), image: '' },
+              { key: 'private-label', path: '/private-label', title: t('Private Label', 'Marque privée'), tagline: t('Our halal products, packed under your brand', 'Nos produits halal, emballés sous votre marque'), image: '/images/private-label/food-service-box.webp' },
             ].map(item => (
               <button
                 key={item.key}

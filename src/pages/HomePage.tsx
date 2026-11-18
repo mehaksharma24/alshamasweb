@@ -11,39 +11,6 @@ interface HomePageProps {
   navigate: (path: string) => void;
 }
 
-// Retailer logos are loaded directly from /images/products.
-// These files should be in the project's root images/products folder.
-const RETAILER_LOGO_MAP: Record<string, string> = {
-  'Freshco': '/images/products/Freshco.png',
-  'Nation Fresh Foods': '/images/products/Nation Fresh Foods.png',
-  'Nations Fresh Foods': '/images/products/Nation Fresh Foods.png',
-  'T&T Supermarket': '/images/products/TT supermarket.png',
-  'Adonis': '/images/products/adonis.png',
-  'Food Basics': '/images/products/Food Basics.png',
-  'Metro': '/images/products/metro.png',
-  'Bulk Barn': '/images/products/Bulk Barn.png',
-  'Costco': '/images/products/Costco.png',
-  'Walmart': '/images/products/walmart.png',
-  'Sobeys': '/images/products/sobeys.png',
-  'Loblaws': '/images/products/loblaws.png',
-  'Iqbal Foods': '/images/products/Iqbal Foods.png',
-};
-
-const RETAILER_NAMES = [
-  'Freshco',
-  'Iqbal Foods',
-  'Nations Fresh Foods',
-  'T&T Supermarket',
-  'Adonis',
-  'Food Basics',
-  'Metro',
-  'Bulk Barn',
-  'Costco',
-  'Walmart',
-  'Sobeys',
-  'Loblaws',
-];
-
 // Chicken Charcoal Kebab, Chicken Samosa, Beef Chapli Kebab, Beef Charcoal Kebab
 const FEATURED_IDS = ['5', '26', '8', '4'];
 
@@ -73,44 +40,6 @@ export default function HomePage({ navigate }: HomePageProps) {
               </div>
             </div>
           ))}
-        </div>
-      </section>
-
-      {/* Retailer Marquee */}
-      <section className="py-10 bg-gray-50 relative overflow-hidden">
-        <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-gray-50 to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute inset-y-0 right-0 w-24 bg-gradient-to-l from-gray-50 to-transparent z-10 pointer-events-none"></div>
-
-        <div className="text-center mb-6">
-          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase">
-            {t('Available At', 'Offert chez')}
-          </p>
-        </div>
-
-        <div className="overflow-hidden">
-          <div
-            className="flex animate-scroll-left gap-8"
-            style={{ width: 'max-content' }}
-          >
-            {[...RETAILER_NAMES, ...RETAILER_NAMES].map((name, i) => (
-              <div
-                key={i}
-                className="flex items-center justify-center gap-2 px-6 py-3 bg-white rounded-2xl shadow-sm min-w-[140px] border border-gray-100"
-              >
-                {RETAILER_LOGO_MAP[name] ? (
-                  <img
-                    src={RETAILER_LOGO_MAP[name]}
-                    alt={name}
-                    className="h-11 w-auto object-contain"
-                  />
-                ) : (
-                  <span className="text-gray-500 text-sm font-medium whitespace-nowrap">
-                    {name}
-                  </span>
-                )}
-              </div>
-            ))}
-          </div>
         </div>
       </section>
 

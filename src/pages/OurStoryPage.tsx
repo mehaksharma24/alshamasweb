@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Building2, Factory, Globe2, MapPin, Phone, ShieldCheck, Sparkles } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { STORY_COVER_IMAGE } from '../assets';
 import { CertificationLogos } from '../components/CertSections';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
@@ -228,8 +227,8 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
             <div className="relative">
               <div className="rounded-3xl overflow-hidden shadow-xl bg-white">
                 <img
-                  src={STORY_COVER_IMAGE}
-                  alt={t('Al-Shamas kebabs and samosas', 'Kebabs et samosas Al-Shamas')}
+                  src="/images/about/quality-halal-family.jpg"
+                  alt={t('Quality Halal food for the whole family — Al-Shamas kebabs and samosas', 'Des aliments halal de qualité pour toute la famille — kebabs et samosas Al-Shamas')}
                   className="w-full h-auto object-cover"
                 />
               </div>

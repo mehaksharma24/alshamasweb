@@ -254,7 +254,7 @@ export function CertificationLogos({ navigate }: { navigate: (path: string) => v
             onClick={() => navigate('/halal')}
             className="inline-flex items-center gap-2 px-8 py-3.5 bg-brand-red text-white font-semibold rounded-full hover:bg-brand-red-light transition-all text-sm"
           >
-            {t('View Halal & Certifications', 'Voir Halal et certifications')}
+            {t('View Halal & Other Certificates', 'Voir les certificats halal et autres')}
           </button>
         </div>
       </div>
