@@ -289,6 +289,31 @@ export default function FoodServicePage({ navigate }: { navigate: (path: string)
         </div>
       </section>
 
+      {/* CTA (second block, per client) */}
+      <section className="py-16 bg-brand-orange-deep">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('Let’s Bring More to Your Menu.', 'Enrichissons votre menu.')}</h2>
+          <p className="text-gray-900 leading-relaxed mb-3">
+            {t(
+              'Looking for quality Halal frozen foods to complement your menu or expand your foodservice offerings?',
+              'Vous cherchez des aliments halal surgelés de qualité pour compléter votre menu ou élargir votre offre?',
+            )}
+          </p>
+          <p className="text-gray-900 leading-relaxed mb-8">
+            {t(
+              'At Al-Shamas Food Products, we’re ready to explore how our products can support your kitchen, your customers, and your business.',
+              'Chez Al-Shamas Food Products, nous sommes prêts à voir comment nos produits peuvent soutenir votre cuisine, vos clients et votre entreprise.',
+            )}
+          </p>
+          <button
+            onClick={() => navigate('/contact')}
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-all text-sm"
+          >
+            {t('Discuss Your Food Service Needs', 'Parlons de vos besoins en restauration')} <ArrowRight size={15} />
+          </button>
+        </div>
+      </section>
+
       {/* Our Food Service Range */}
       <section className="py-16 bg-brand-orange-soft/40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -453,31 +478,6 @@ export default function FoodServicePage({ navigate }: { navigate: (path: string)
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Closing CTA */}
-      <section className="py-16 bg-brand-orange-deep">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('Let’s Bring More to Your Menu.', 'Enrichissons votre menu.')}</h2>
-          <p className="text-gray-900 leading-relaxed mb-3">
-            {t(
-              'Looking for quality Halal frozen foods to complement your menu or expand your foodservice offerings?',
-              'Vous cherchez des aliments halal surgelés de qualité pour compléter votre menu ou élargir votre offre?',
-            )}
-          </p>
-          <p className="text-gray-900 leading-relaxed mb-8">
-            {t(
-              'At Al-Shamas Food Products, we’re ready to explore how our products can support your kitchen, your customers, and your business.',
-              'Chez Al-Shamas Food Products, nous sommes prêts à voir comment nos produits peuvent soutenir votre cuisine, vos clients et votre entreprise.',
-            )}
-          </p>
-          <button
-            onClick={() => navigate('/contact')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-all text-sm"
-          >
-            {t('Discuss Your Food Service Needs', 'Parlons de vos besoins en restauration')} <ArrowRight size={15} />
-          </button>
         </div>
       </section>
 

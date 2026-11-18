@@ -4,7 +4,6 @@ import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, categoryLabel } from '../data';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
-import ProductsBannerSlider from '../components/ProductsBannerSlider';
 
 interface ProductsPageProps {
   navigate: (path: string) => void;
@@ -14,7 +13,16 @@ export default function ProductsPage({ navigate }: ProductsPageProps) {
   const { lang, t } = useLang();
   return (
     <div className="min-h-screen">
-      <ProductsBannerSlider />
+      {/* Banner photo: the full product line-up */}
+      <section className="pt-20 bg-white">
+        <img
+          src="/images/products-banner/landing.jpg"
+          srcSet="/images/products-banner/landing-sm.jpg 1200w, /images/products-banner/landing.jpg 2400w"
+          sizes="100vw"
+          alt={t('The Al-Shamas range of kebabs, samosas and spring rolls', 'La gamme Al-Shamas de kebabs, samosas et rouleaux impériaux')}
+          className="block w-full h-auto"
+        />
+      </section>
       <PageBanner script={t('Halal • Handmade • Authentic', 'Halal • Fait à la main • Authentique')} title={t('Our Products', 'Nos produits')} sub={t('Halal frozen foods — handmade with carefully selected ingredients and authentic recipes.', 'Aliments halal surgelés — faits à la main avec des ingrédients soigneusement sélectionnés et des recettes authentiques.')} />
 
       {/* Categories */}

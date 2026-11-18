@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Award, Building2, Factory, Globe2, MapPin, Phone, ShieldCheck, Sparkles } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { STORY_COVER_IMAGE, SPLASH_BG_IMAGE } from '../assets';
+import { STORY_COVER_IMAGE } from '../assets';
 import { CertificationLogos } from '../components/CertSections';
 import { COMPANY } from '../company';
 import { useLang } from '../i18n';
@@ -204,11 +204,11 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
 
   return (
     <div className="min-h-screen">
-      {/* Banner photo (same image as the splash screen) */}
+      {/* Banner photo: the Al-Shamas building */}
       <section className="pt-20 bg-white">
         <img
-          src={SPLASH_BG_IMAGE}
-          alt={t('Al-Shamas product range', 'La gamme de produits Al-Shamas')}
+          src="/images/contact/office.jpg"
+          alt={t('The Al-Shamas Food Products building, 2244 Drew Road, Mississauga', 'Le bâtiment d’Al-Shamas Food Products, 2244 Drew Road, Mississauga')}
           className="block w-full h-auto"
         />
       </section>

@@ -3660,7 +3660,7 @@ const ALL_PRODUCTS: Product[] = [
         }
       },
       {
-        key: "costco-40-pcs",
+        key: "costco-business-centre-40-pcs",
         nutritionFacts: {
           servingEn: "Serving Size 1 kebab (50 g)",
           servingFr: "Portion 1 kebab (50 g)",
@@ -3810,20 +3810,21 @@ const ALL_PRODUCTS: Product[] = [
           fr: "Boîte · 1 par caisse"
         },
         weight: "2 kg",
-        image: "/images/packs/chicken-chapli-kebab/costco-40-pcs.webp",
+        image: "/images/packs/chicken-chapli-kebab/costco-business-centre-40-pcs.webp",
         photo: true,
         source: "master",
         stores: [
           {
-            name: "Costco",
+            name: "Costco Business Centre",
             sku: "5768778"
           }
         ],
+        foodService: true,
         upc: "628250350364",
         panels: {
-          ingredients: "/images/packs/chicken-chapli-kebab/costco-40-pcs-ingredients.webp",
-          nutrition: "/images/packs/chicken-chapli-kebab/costco-40-pcs-nutrition.webp",
-          instructions: "/images/packs/chicken-chapli-kebab/costco-40-pcs-instructions.webp"
+          ingredients: "/images/packs/chicken-chapli-kebab/costco-business-centre-40-pcs-ingredients.webp",
+          nutrition: "/images/packs/chicken-chapli-kebab/costco-business-centre-40-pcs-nutrition.webp",
+          instructions: "/images/packs/chicken-chapli-kebab/costco-business-centre-40-pcs-instructions.webp"
         }
       },
       {

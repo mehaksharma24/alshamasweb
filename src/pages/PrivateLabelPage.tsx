@@ -167,6 +167,31 @@ export default function PrivateLabelPage({ navigate }: { navigate: (path: string
         </div>
       </section>
 
+      {/* CTA (second block, per client) */}
+      <section className="py-16 bg-brand-orange-deep">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('Let’s Build Your Brand Together.', 'Bâtissons votre marque ensemble.')}</h2>
+          <p className="text-gray-900 leading-relaxed mb-3">
+            {t(
+              'Looking for a manufacturing partner that understands quality, Halal integrity, and the importance of delivering consistent products?',
+              'Vous cherchez un partenaire de fabrication qui comprend la qualité, l’intégrité halal et l’importance de produits constants?',
+            )}
+          </p>
+          <p className="text-gray-900 leading-relaxed mb-8">
+            {t(
+              'At Al-Shamas Food Products, we’re ready to explore private label opportunities that align with your business needs.',
+              'Chez Al-Shamas Food Products, nous sommes prêts à explorer des occasions de marque privée adaptées aux besoins de votre entreprise.',
+            )}
+          </p>
+          <button
+            onClick={() => navigate('/contact')}
+            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-all text-sm"
+          >
+            {t('Discuss Your Private Label Needs', 'Parlons de vos besoins en marque privée')} <ArrowRight size={15} />
+          </button>
+        </div>
+      </section>
+
       {/* Capabilities */}
       <section className="py-16 bg-brand-orange-soft/40">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -287,31 +312,6 @@ export default function PrivateLabelPage({ navigate }: { navigate: (path: string
               </div>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Closing CTA */}
-      <section className="py-16 bg-brand-orange-deep">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-4">{t('Let’s Build Your Brand Together.', 'Bâtissons votre marque ensemble.')}</h2>
-          <p className="text-gray-900 leading-relaxed mb-3">
-            {t(
-              'Looking for a manufacturing partner that understands quality, Halal integrity, and the importance of delivering consistent products?',
-              'Vous cherchez un partenaire de fabrication qui comprend la qualité, l’intégrité halal et l’importance de produits constants?',
-            )}
-          </p>
-          <p className="text-gray-900 leading-relaxed mb-8">
-            {t(
-              'At Al-Shamas Food Products, we’re ready to explore private label opportunities that align with your business needs.',
-              'Chez Al-Shamas Food Products, nous sommes prêts à explorer des occasions de marque privée adaptées aux besoins de votre entreprise.',
-            )}
-          </p>
-          <button
-            onClick={() => navigate('/contact')}
-            className="inline-flex items-center gap-2 px-8 py-3.5 bg-white text-gray-900 font-bold rounded-full hover:bg-gray-100 transition-all text-sm"
-          >
-            {t('Discuss Your Private Label Needs', 'Parlons de vos besoins en marque privée')} <ArrowRight size={15} />
-          </button>
         </div>
       </section>
 
