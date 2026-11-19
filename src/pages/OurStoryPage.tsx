@@ -227,7 +227,7 @@ export default function OurStoryPage({ navigate }: OurStoryPageProps) {
             <div className="relative">
               <div className="rounded-3xl overflow-hidden shadow-xl bg-white">
                 <img
-                  src="/images/about/quality-halal-family.jpg"
+                  src="/images/about/quality-halal-family-v2.jpg"
                   alt={t('Quality Halal food for the whole family — Al-Shamas kebabs and samosas', 'Des aliments halal de qualité pour toute la famille — kebabs et samosas Al-Shamas')}
                   className="w-full h-auto object-cover"
                 />

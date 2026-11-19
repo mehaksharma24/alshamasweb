@@ -22,6 +22,46 @@ export default function HomePage({ navigate }: HomePageProps) {
     <div className="min-h-screen">
       <HomeHeroSlider navigate={navigate} />
 
+      {/* About block */}
+      <section className="py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mb-5">
+              {t('We are a Canadian success story…', 'Nous sommes une réussite canadienne…')}
+            </h2>
+            <div className="space-y-4 text-[#333333] leading-relaxed">
+              <p>
+                {t(
+                  'Since 2013, Al-Shamas has been bringing delicious, high-quality halal frozen foods to Canadian families. Inspired by traditional home-style recipes and made with carefully selected ingredients, our products deliver authentic flavour and convenience to everyday meals.',
+                  'Depuis 2013, Al-Shamas offre aux familles canadiennes de délicieux aliments halal surgelés de grande qualité. Inspirés de recettes traditionnelles maison et préparés avec des ingrédients soigneusement sélectionnés, nos produits apportent saveur authentique et commodité aux repas de tous les jours.',
+                )}
+              </p>
+              <p>
+                {t(
+                  'Halal certified by the Halal Monitoring Authority (HMA), we’re committed to bringing great taste and quality to families across Canada.',
+                  'Certifiés halal par la Halal Monitoring Authority (HMA), nous nous engageons à offrir goût et qualité aux familles de partout au Canada.',
+                )}
+              </p>
+              <p className="font-bold italic">{t('And our story is just getting started!', 'Et notre histoire ne fait que commencer!')}</p>
+            </div>
+            <button
+              onClick={() => navigate('/about-us')}
+              className="mt-7 inline-flex items-center gap-2 px-8 py-3.5 bg-brand-orange-deep text-white font-semibold rounded-full hover:brightness-95 transition-all text-sm"
+            >
+              {t('More About Us', 'En savoir plus sur nous')} <ArrowRight size={15} />
+            </button>
+          </div>
+          <div className="rounded-3xl overflow-hidden shadow-xl bg-white">
+            <img
+              src="/images/about/family-table.jpg"
+              alt={t('A family enjoying Al-Shamas kebabs and samosas', 'Une famille qui savoure des kebabs et des samosas Al-Shamas')}
+              loading="lazy"
+              className="w-full h-auto"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Trust badges */}
       <section className="bg-white border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 grid grid-cols-1 sm:grid-cols-3 gap-4 sm:justify-items-center">
