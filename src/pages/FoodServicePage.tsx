@@ -21,7 +21,7 @@ import {
 import NewsletterBanner from '../components/NewsletterBanner';
 import PageBanner from '../components/PageBanner';
 import { CertificationLogos } from '../components/CertSections';
-import { COSTCO_LOGO, packLabel } from '../components/PackCard';
+import { COSTCO_LOGO, packLabel, packName } from '../components/PackCard';
 import { PRODUCTS } from '../data';
 import { useLang } from '../i18n';
 
@@ -361,9 +361,9 @@ export default function FoodServicePage({ navigate }: { navigate: (path: string)
                   className="group relative flex flex-col items-center text-center bg-white rounded-3xl border border-gray-100 shadow-sm p-4 hover:shadow-lg transition-shadow"
                 >
                   <div className="w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
-                    <img src={pk.image} alt={p.name[lang]} loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+                    <img src={pk.image} alt={packName(p, pk, lang)} loading="lazy" className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                   </div>
-                  <span className="font-heading font-bold text-gray-900 leading-tight">{p.name[lang]}</span>
+                  <span className="font-heading font-bold text-gray-900 leading-tight">{packName(p, pk, lang)}</span>
                   <span className="text-brand-red font-semibold text-sm mt-1">{packLabel(pk, lang)}</span>
                   {store && (
                     <span className="mt-2 flex items-center gap-2 text-xs font-bold text-gray-700">

@@ -33,6 +33,11 @@ export function packLabel(pack: Pack, lang: 'en' | 'fr') {
   return title.includes(w) ? title : `${title} · ${w}`;
 }
 
+/** Name printed on the pack (falls back to the product name). */
+export function packName(product: Product, pack: Pack, lang: 'en' | 'fr') {
+  return pack.displayName?.[lang] ?? product.name[lang];
+}
+
 export function PackStores({ pack, left = false }: { pack: Pack; left?: boolean }) {
   const { t } = useLang();
   if (!pack.stores?.length) return null;
@@ -69,7 +74,7 @@ export default function PackCard({
   onOpen?: () => void;
 }) {
   const { lang, t } = useLang();
-  const name = product.name[lang];
+  const name = packName(product, pack, lang);
   const alt = `${name} — ${packLabel(pack, lang)}`;
   const body = (
     <>

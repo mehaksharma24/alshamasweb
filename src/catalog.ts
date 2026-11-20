@@ -40,6 +40,8 @@ export interface Pack {
   source: 'master' | 'packaging';
   /** true when this pack's photo is the product's main photo */
   main?: boolean;
+  /** name printed on this pack when it differs from the product name */
+  displayName?: { en: string; fr: string };
   /** Food Service pack (restaurants / caterers / wholesale) */
   foodService?: boolean;
   /** retail barcode (UPC) */
@@ -871,6 +873,10 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-40-pcs",
+        displayName: {
+          en: "Chicken Kebab Charcoal Grilled",
+          fr: "Kebab de poulet grillé au charbon de bois"
+        },
         nutritionFacts: {
           servingEn: "Serving Size 1 kebab (50 g)",
           servingFr: "Portion 1 kebab (50 g)",
@@ -1513,6 +1519,10 @@ const ALL_PRODUCTS: Product[] = [
       },
       {
         key: "a1-40-pcs",
+        displayName: {
+          en: "Beef Kebab Charcoal Grilled",
+          fr: "Kebab de bœuf grillé au charbon de bois"
+        },
         nutritionFacts: {
           servingEn: "Serving Size 1 kebab (50 g)",
           servingFr: "Portion 1 kebab (50 g)",
@@ -1831,8 +1841,8 @@ const ALL_PRODUCTS: Product[] = [
       "lamb-charcoal-grilled-kebab-2kg"
     ],
     name: {
-      en: "Lamb Charcoal Kebab",
-      fr: "Kebab d’agneau au charbon"
+      en: "Lamb Kebab Charcoal Grilled",
+      fr: "Kebab d’agneau grillé au charbon de bois"
     },
     subtitle: {
       en: "Mutton & Chicken",
@@ -1999,6 +2009,10 @@ const ALL_PRODUCTS: Product[] = [
     packs: [
       {
         key: "a1-40-pcs",
+        displayName: {
+          en: "Lamb Kebab Charcoal Grilled",
+          fr: "Kebab d’agneau grillé au charbon de bois"
+        },
         nutritionFacts: {
           servingEn: "Per 2 kebabs (87 g)",
           servingFr: "pour 2 brochettes (87 g)",

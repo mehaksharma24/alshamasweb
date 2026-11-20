@@ -1,6 +1,7 @@
 import NewsletterBanner from '../components/NewsletterBanner';
 import { PRODUCT_CATEGORIES, PRODUCTS, categoryLabel } from '../data';
 import type { KebabType } from '../catalog';
+import { packLabel, packName } from '../components/PackCard';
 import { useLang } from '../i18n';
 import PageBanner from '../components/PageBanner';
 import ProductsBannerSlider, { KEBAB_SLIDES, SAMOSA_SLIDES, SPRING_ROLL_SLIDES } from '../components/ProductsBannerSlider';
@@ -72,35 +73,45 @@ export default function ProductCategoryPage({ slug, navigate }: ProductCategoryP
                 </h2>
               )}
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-6 gap-y-12">
-                {group.items.map(product => {
+                {group.items.flatMap(product => {
                   const name = product.name[lang];
-                  return (
-                    <div key={product.id} className="group flex flex-col items-center text-center">
+                  // Product card, followed by its Food Service packs (they also appear on the Food Service page)
+                  const cards = [
+                    { key: product.id, title: name, sub: '', image: product.image, path: `/products/${product.slug}` },
+                    ...product.packs
+                      .filter((pk, i) => pk.foodService && i > 0)
+                      .map(pk => ({
+                        key: `${product.id}-${pk.key}`,
+                        title: packName(product, pk, lang),
+                        sub: `${packLabel(pk, lang)}${pk.stores?.[0] ? ` · ${pk.stores[0].name === 'Costco Business Centre' ? t('Costco Business Centre', 'Centre d’affaires Costco') : pk.stores[0].name}` : ''}`,
+                        image: pk.image,
+                        path: `/products/${product.slug}/${pk.key}`,
+                      })),
+                  ];
+                  return cards.map(c => (
+                    <div key={c.key} className="group flex flex-col items-center text-center">
                       <div className="relative w-full aspect-[4/3] mb-3 rounded-2xl overflow-hidden bg-gray-50">
                         <button
                           type="button"
-                          onClick={() => navigate(`/products/${product.slug}`)}
-                          aria-label={name}
+                          onClick={() => navigate(c.path)}
+                          aria-label={c.title}
                           className="absolute inset-0 w-full h-full cursor-pointer"
                         >
                           <img
-                            src={product.image}
-                            alt={name}
+                            src={c.image}
+                            alt={c.title}
                             loading="lazy"
                             className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500"
                           />
                         </button>
                       </div>
 
-                      <button
-                        onClick={() => navigate(`/products/${product.slug}`)}
-                        className="font-medium text-brand-red hover:underline"
-                      >
-                        {name}
+                      <button onClick={() => navigate(c.path)} className="font-medium text-brand-red hover:underline">
+                        {c.title}
                       </button>
-
+                      {c.sub && <span className="text-xs text-gray-500 mt-1">{c.sub}</span>}
                     </div>
-                  );
+                  ));
                 })}
               </div>
             </div>

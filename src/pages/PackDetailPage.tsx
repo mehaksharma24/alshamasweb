@@ -1,6 +1,6 @@
 import { ArrowLeft, MapPin } from 'lucide-react';
 import NewsletterBanner from '../components/NewsletterBanner';
-import { PackStores, packLabel } from '../components/PackCard';
+import { PackStores, packLabel, packName } from '../components/PackCard';
 import ProductInfo from '../components/ProductInfo';
 import ZoomableImage from '../components/ZoomableImage';
 import { PRODUCT_CATEGORIES, categoryLabel, findProduct } from '../data';
@@ -31,7 +31,7 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
     );
   }
 
-  const name = product.name[lang];
+  const name = packName(product, pack, lang);
   const category = PRODUCT_CATEGORIES.find(c => c.name === product.category);
   const store = pack.stores?.[0];
   const soldAt = !store
@@ -60,7 +60,7 @@ export default function PackDetailPage({ slug, packKey, navigate }: PackDetailPa
             </>
           )}
           <button onClick={() => navigate(`/products/${product.slug}`)} className="text-gray-600 hover:text-brand-red transition-colors">
-            {name}
+            {product.name[lang]}
           </button>
           <span>/</span>
           <span className="text-gray-800">{packLabel(pack, lang)}</span>
