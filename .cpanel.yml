@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/burra213/alshamasfoodproducts.ca/
+    - /bin/cp -R index.html assets images certificates $DEPLOYPATH
